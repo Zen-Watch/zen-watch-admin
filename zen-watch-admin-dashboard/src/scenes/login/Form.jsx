@@ -62,6 +62,8 @@ const Form = () => {
     }
     formData.append("picturePath", values.picture.name);
 
+    console.log('FORM DATA REGISTER', formData);
+
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
@@ -78,6 +80,9 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
+
+    console.log('FORM DATA LOGIN', JSON.stringify(values));
+
     const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -97,6 +102,9 @@ const Form = () => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
+
+    console.log('handleFormSubmit', isLogin, isRegister)
+
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -126,6 +134,7 @@ const Form = () => {
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
           >
+            {isRegister}
             <TextField
               label="Email"
               onBlur={handleBlur}
