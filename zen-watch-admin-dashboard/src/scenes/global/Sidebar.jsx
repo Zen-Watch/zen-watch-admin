@@ -70,7 +70,7 @@ export default function Sidebar() {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  Zen.Watch Admin
+                  Zen.Watch
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
