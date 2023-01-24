@@ -61,11 +61,10 @@ export default function Form() {
 
   const login = async (values, onSubmitProps) => {
     try {
-      const user = await signInWithEmailAndPassword(auth, values.email, values.password);
-      const loggedIn = true;
+      const userCredentials = await signInWithEmailAndPassword(auth, values.email, values.password);
       onSubmitProps.resetForm();
-      if (loggedIn) {
-        dispatch(connect(user));
+      if (userCredentials) {
+        dispatch(connect(userCredentials.user.email));
         navigate("/home");
       }
     } catch(error) {

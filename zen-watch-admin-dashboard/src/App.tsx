@@ -12,18 +12,17 @@ import PrivateRoutes from "./components/PrivateRoutes";
 
 function App() {
   const [theme, colorMode] = useMode();
-  
-  const user = useAppSelector((state) => state.app.user);
-  console.log('App User', user);
+  const status = useAppSelector((state) => state.app.status);
+  const connected = (status === 'connected');
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {user && <Sidebar />}
+          {connected && <Sidebar />}
           <main className="content">
-            {user && <Topbar />}
+            {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route path="/home" element={<Homepage />} />
