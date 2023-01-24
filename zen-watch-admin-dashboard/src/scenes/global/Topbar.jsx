@@ -1,14 +1,20 @@
 import { Box, IconButton, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from 'firebase/auth'
+import { auth } from "../../firebase-config";
 
 export default function Topbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const logout = async () => {
+    await signOut(auth);
+  }
   
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
-      {/* SEARCH BAR */}
+      
       <Box
         display="flex"
         backgroundColor={colors.primary[400]}
@@ -17,7 +23,7 @@ export default function Topbar() {
 
       {/* ICONS */}
       <Box display="flex">
-        <IconButton>
+        <IconButton onClick={async () =>{logout()} }>
           <LogoutIcon />
         </IconButton>
       </Box>

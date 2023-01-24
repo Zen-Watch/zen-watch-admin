@@ -48,3 +48,5 @@ To learn React, check out the [React documentation](https://reactjs.org/)
 #### Specific issues
 * [Mui typescript error](https://stackoverflow.com/questions/74236131/toggling-colour-mode-when-using-react-context-and-materialui)
 * [React Typescript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/)
+* [Async button calls](https://stackoverflow.com/questions/54779318/can-async-functions-be-called-in-onclick-in-button-react)
+* [Firebase error codes](https://stackoverflow.com/questions/39152004/where-can-i-find-a-list-of-all-error-codes-and-messages-for-firebase-authenticat)
