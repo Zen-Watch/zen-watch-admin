@@ -11,6 +11,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { auth, getFirebaseErrorMessage } from "../../firebase-config";
 
 const registerSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
@@ -32,7 +34,7 @@ const initialValuesLogin = {
   password: "",
 };
 
-const Form = () => {
+export default function Form() {
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
   const colors = tokens(palette.mode);
@@ -42,55 +44,39 @@ const Form = () => {
   const isRegister = pageType === "register";
 
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-
-    console.log('FORM DATA REGISTER', formData);
-
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
+    try {
+      const savedUser = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      onSubmitProps.resetForm();
+      if (savedUser) {
+        setPageType("login");
       }
-    );
-    const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
-
-    if (savedUser) {
-      setPageType("login");
+    } catch(error) {
+      //TODO: Replace this with a good toast
+      alert(getFirebaseErrorMessage(error.code))
     }
   };
 
   const login = async (values, onSubmitProps) => {
-
-    console.log('FORM DATA LOGIN', JSON.stringify(values));
-
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      // dispatch(
-      //   setLogin({
-      //     user: loggedIn.user,
-      //     token: loggedIn.token,
-      //   })
-      // );
-      navigate("/home");
+    try {
+      const user = await signInWithEmailAndPassword(auth, values.email, values.password);
+      const loggedIn = true;
+      onSubmitProps.resetForm();
+      if (loggedIn) {
+        // dispatch(
+        //   setLogin({
+        //     user: loggedIn.user,
+        //     token: loggedIn.token,
+        //   })
+        // );
+        navigate("/home");
+      }
+    } catch(error) {
+      //TODO: Replace this with a good toast
+      alert(getFirebaseErrorMessage(error.code))
     }
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-
-    console.log('handleFormSubmit', isLogin, isRegister)
-
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -184,5 +170,3 @@ const Form = () => {
     </Formik>
   );
 };
-
-export default Form;
