@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APP_STATE, CONNECTED, DISCONNECTED } from '../util/constants';
 
 export interface AppState {
-    user: any;
+    email: string;
     status: 'disconnected' | 'connected';
 }
 
 const initialState: AppState = {
-    user: null,
+    email: '',
     status: DISCONNECTED,
 };
 
@@ -15,12 +15,12 @@ export const appSlice = createSlice({
     name: APP_STATE,
     initialState,
     reducers: {
-        connect: (state, action: PayloadAction<any>) => {
-            state.user = action.payload;
+        connect: (state, action: PayloadAction<string>) => {
+            state.email = action.payload;
             state.status = CONNECTED;
         },
         disconnect: (state) => {
-            state.user = initialState.user;
+            state.email = initialState.email;
             state.status = initialState.status;
         }
     }
