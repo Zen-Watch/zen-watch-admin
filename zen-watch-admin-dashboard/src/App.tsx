@@ -9,6 +9,7 @@ import Login from "./scenes/login";
 import Homepage from "./scenes/home";
 import { useAppSelector } from "./app/hooks";
 import PrivateRoutes from "./components/PrivateRoutes";
+import UnprivatePrivateRoute from "./components/UnprivateRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -28,7 +29,9 @@ function App() {
                 <Route path="/home" element={<Homepage />} />
                 <Route path="/gas_cost" element={<GasCost />} />
               </Route>
-              <Route path="/" element={<Login />} />
+              <Route element={<UnprivatePrivateRoute />}>
+                <Route path="/" element={<Login />} />
+              </Route>
             </Routes>
           </main>
         </div>
