@@ -7,6 +7,7 @@ import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import EvStationIcon from '@mui/icons-material/EvStation';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -99,6 +100,20 @@ export default function Sidebar() {
               title="Gas Cost"
               to="/gas_cost"
               icon={<EvStationIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              In-App
+            </Typography>
+            <Item
+              title="Events"
+              to="/gas_cost"
+              icon={<AppShortcutIcon />}
               selected={selected}
               setSelected={setSelected}
             />
