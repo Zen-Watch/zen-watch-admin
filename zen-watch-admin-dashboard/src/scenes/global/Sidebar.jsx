@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import EvStationIcon from '@mui/icons-material/EvStation';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -80,7 +81,13 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            
+          <Item
+              title="Home"
+              to="/home"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Typography
               variant="h6"
               color={colors.grey[300]}

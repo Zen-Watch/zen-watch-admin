@@ -6,6 +6,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import GasCost from "./scenes/gas_cost";
 import { Route, Routes } from 'react-router-dom';
 import Login from './scenes/login';
+import Homepage from './scenes/home';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -20,6 +21,7 @@ function App() {
             <Topbar />
             <Routes>
               <Route path="/" element={<Login />} />
+              <Route path="/home" element={<Homepage />} />
               <Route path="/gas_cost" element={<GasCost />} />
             </Routes>
           </main>

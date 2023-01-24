@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, getFirebaseErrorMessage } from "../../firebase-config";
+import { useAppDispatch } from '../../app/hooks';
+import { connect } from '../../features/appSlice';
 
 const registerSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
@@ -42,6 +44,7 @@ export default function Form() {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+  const dispatch = useAppDispatch();
 
   const register = async (values, onSubmitProps) => {
     try {
@@ -62,12 +65,7 @@ export default function Form() {
       const loggedIn = true;
       onSubmitProps.resetForm();
       if (loggedIn) {
-        // dispatch(
-        //   setLogin({
-        //     user: loggedIn.user,
-        //     token: loggedIn.token,
-        //   })
-        // );
+        dispatch(connect(user));
         navigate("/home");
       }
     } catch(error) {

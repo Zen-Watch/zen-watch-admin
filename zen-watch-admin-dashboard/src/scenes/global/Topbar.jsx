@@ -3,13 +3,20 @@ import { tokens } from "../../theme";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut } from 'firebase/auth'
 import { auth } from "../../firebase-config";
+import { useAppDispatch } from '../../app/hooks';
+import { disconnect } from '../../features/appSlice';
+import { useNavigate } from "react-router-dom";
 
 export default function Topbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const logout = async () => {
     await signOut(auth);
+    dispatch(disconnect());
+    navigate("/");
   }
   
   return (

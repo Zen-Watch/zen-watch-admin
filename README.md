@@ -11,3 +11,4 @@ A dapp admin tool for Zen Watch
 * [Firebase authentication](https://www.youtube.com/watch?v=unr4s3jd9qA)
 * [React Authentication Crash Course With Firebase And Routing](https://www.youtube.com/watch?v=PKwu15ldZ7k)
 * [Followed: React Firebase Authentication Tutorial | Firebase 9 Tutorial](https://www.youtube.com/watch?v=9bXhf_TELP4)
+* [Redux toolkit](https://www.youtube.com/watch?v=9zySeP5vH9c)
