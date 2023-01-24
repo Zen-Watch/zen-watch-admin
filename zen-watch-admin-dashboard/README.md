@@ -51,9 +51,11 @@ Runs the tests for the app.
 * [React Authentication Crash Course With Firebase And Routing](https://www.youtube.com/watch?v=PKwu15ldZ7k)
 * [Followed: React Firebase Authentication Tutorial | Firebase 9 Tutorial](https://www.youtube.com/watch?v=9bXhf_TELP4)
 * [Redux toolkit](https://www.youtube.com/watch?v=9zySeP5vH9c)
+* [PrivateRoutes - React Router V6](https://www.youtube.com/watch?v=2k8NleFjG7I) - [article](https://medium.com/@dennisivy/creating-protected-routes-with-react-router-v6-2c4bbaf7bc1c)
 
 #### Specific issues
 * [Mui typescript error](https://stackoverflow.com/questions/74236131/toggling-colour-mode-when-using-react-context-and-materialui)
 * [React Typescript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/)
 * [Async button calls](https://stackoverflow.com/questions/54779318/can-async-functions-be-called-in-onclick-in-button-react)
 * [Firebase error codes](https://stackoverflow.com/questions/39152004/where-can-i-find-a-list-of-all-error-codes-and-messages-for-firebase-authenticat)
+* [Ignore non-serial payload redux-toolkit](https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)
