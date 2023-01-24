@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APP_STATE, CONNECTED, DISCONNECTED } from '../util/constants';
-import { RootState } from '../app/store';
 
 export interface AppState {
     user: any;
@@ -26,9 +25,6 @@ export const appSlice = createSlice({
         }
     }
 });
-
-export const selectAppUser = (state: RootState) => state.app.user;
-export const selectAppStatus = (state: RootState) => state.app.status;
 
 export const { connect, disconnect } = appSlice.actions;
 

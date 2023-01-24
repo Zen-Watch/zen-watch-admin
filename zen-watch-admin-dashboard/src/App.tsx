@@ -7,18 +7,20 @@ import GasCost from "./scenes/gas_cost";
 import { Route, Routes } from 'react-router-dom';
 import Login from './scenes/login';
 import Homepage from './scenes/home';
+import { useAppSelector } from './app/hooks';
 
 function App() {
   const [theme, colorMode] = useMode();
+  const user = useAppSelector((state) => state.app.user)
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app"> 
-          <Sidebar />
+          {user && <Sidebar />}
           <main className="content"> 
-            <Topbar />
+            {user && <Topbar />}
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/home" element={<Homepage />} />
