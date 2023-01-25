@@ -97,8 +97,8 @@ export default function Sidebar() {
               On-chain
             </Typography>
             <Item
-              title="Gas Cost"
-              to="/gas_cost"
+              title="Transactions"
+              to="/transactions"
               icon={<EvStationIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -112,7 +112,7 @@ export default function Sidebar() {
             </Typography>
             <Item
               title="Events"
-              to="/gas_cost"
+              to="/transactions"
               icon={<AppShortcutIcon />}
               selected={selected}
               setSelected={setSelected}

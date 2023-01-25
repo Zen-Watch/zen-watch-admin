@@ -3,7 +3,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import GasCost from "./scenes/gas_cost";
+import Transactions from "./scenes/transactions";
 import { Route, Routes } from "react-router-dom";
 import Login from "./scenes/login";
 import Homepage from "./scenes/home";
@@ -27,7 +27,7 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route path="/home" element={<Homepage />} />
-                <Route path="/gas_cost" element={<GasCost />} />
+                <Route path="/transactions" element={<Transactions />} />
               </Route>
               <Route element={<UnprivatePrivateRoute />}>
                 <Route path="/" element={<Login />} />

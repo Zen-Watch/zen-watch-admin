@@ -1,16 +1,16 @@
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
-import GasTopbar from "./GasTopbar";
+import TransactionsTopbar from "./TransactionsTopbar";
 
-export default function Gascost() {
+export default function Transactions() {
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="GAS COST" subtitle="Visualize your gas costs" />
+        <Header title="TRANSACTIONS" subtitle="Visualize your on-chain transactions, gas costs, errors" />
       </Box>
-      <GasTopbar />
+      <TransactionsTopbar />
       <Box height="50vh">
         <LineChart />
       </Box>

@@ -16,7 +16,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 //import { useAppDispatch } from "../../app/hooks";
 //import { useNavigate } from "react-router-dom";
 
-export default function GasTopbar() {
+export default function TransactionsTopbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   //const dispatch = useAppDispatch();
