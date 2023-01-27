@@ -98,7 +98,7 @@ export default function Sidebar() {
             </Typography>
             {/* reset below to /transactions from /home */}
             <Item
-              title="Transactions"
+              title="Gas Cost"
               to="/home"
               icon={<EvStationIcon />}
               selected={selected}

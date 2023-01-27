@@ -3,7 +3,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Transactions from "./scenes/transactions";
+import GasCost from "./scenes/gas_cost";
 import { Route, Routes } from "react-router-dom";
 import Login from "./scenes/login";
 import { useAppSelector } from "./app/hooks";
@@ -26,7 +26,7 @@ function App() {
             {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/home" element={<Transactions />} />
+                <Route path="/home" element={<GasCost />} />
                 {/* <Route path="/transactions" element={<Transactions />} /> */}
               </Route>
               <Route element={<UnprivatePrivateRoute />}>

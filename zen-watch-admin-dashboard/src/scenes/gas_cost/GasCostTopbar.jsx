@@ -16,7 +16,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 //import { useAppDispatch } from "../../app/hooks";
 //import { useNavigate } from "react-router-dom";
 
-export default function TransactionsTopbar() {
+export default function GasCostTopbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   //const dispatch = useAppDispatch();
@@ -33,28 +33,27 @@ export default function TransactionsTopbar() {
     },
   };
 
-  const availableFieldNames = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
+  const supportedChains = [
+    "polygon_mainnet",
+    "ethereum_mainnet",
   ];
 
-  const [fieldNames, setFieldnames] = useState([]);
+  const [selectedChains, setSelectedChains] = useState(supportedChains);
+  const [lookBackPeriod, setLookBackPeriod] = useState(1);
 
-  const handleIntervalChange = () => {};
-
-  const handleFieldsChange = (event) => {
+  const handleLookbackChange = (event) => {
     const {
       target: { value },
     } = event;
-    setFieldnames(
+    console.log('handleIntervalChange', value);
+    setLookBackPeriod(value);
+  };
+
+  const handleChainsChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedChains(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -81,15 +80,15 @@ export default function TransactionsTopbar() {
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
               multiple
-              value={fieldNames}
-              onChange={handleFieldsChange}
+              value={selectedChains}
+              onChange={handleChainsChange}
               input={<OutlinedInput label="Tag" />}
               renderValue={(selected) => selected.join(", ")}
               MenuProps={MenuProps}
             >
-              {availableFieldNames.map((name) => (
+              {supportedChains.map((name) => (
                 <MenuItem key={name} value={name}>
-                  <Checkbox checked={fieldNames.indexOf(name) > -1} />
+                  <Checkbox checked={selectedChains.indexOf(name) > -1} />
                   <ListItemText primary={name} />
                 </MenuItem>
               ))}
@@ -100,13 +99,13 @@ export default function TransactionsTopbar() {
         {/* Select Interval */}
         <Box paddingRight="30px">
           <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-simple-select-label">Interval</InputLabel>
+            <InputLabel id="demo-simple-select-label">Lookback</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={1}
+              value={lookBackPeriod}
               label="Age"
-              onChange={handleIntervalChange}
+              onChange={handleLookbackChange}
               MenuProps={MenuProps}
             >
               <MenuItem value={1}>Last 1 day</MenuItem>
