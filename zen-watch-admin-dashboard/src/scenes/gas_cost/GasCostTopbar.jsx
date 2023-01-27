@@ -11,16 +11,25 @@ import {
   ListItemText,
 } from "@mui/material";
 import { tokens } from "../../theme";
-import { useState } from "react";
-import RefreshIcon from '@mui/icons-material/Refresh';
+
+import RefreshIcon from "@mui/icons-material/Refresh";
 //import { useAppDispatch } from "../../app/hooks";
 //import { useNavigate } from "react-router-dom";
 
-export default function GasCostTopbar() {
+export default function GasCostTopbar(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   //const dispatch = useAppDispatch();
   //const navigate = useNavigate();
+
+  const {
+    selectedChains,
+    lookBackPeriod,
+    setSelectedChains,
+    setLookBackPeriod,
+    supportedChains,
+    handleRefreshData
+  } = props;
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -33,19 +42,11 @@ export default function GasCostTopbar() {
     },
   };
 
-  const supportedChains = [
-    "polygon_mainnet",
-    "ethereum_mainnet",
-  ];
-
-  const [selectedChains, setSelectedChains] = useState(supportedChains);
-  const [lookBackPeriod, setLookBackPeriod] = useState(1);
-
   const handleLookbackChange = (event) => {
     const {
       target: { value },
     } = event;
-    console.log('handleIntervalChange', value);
+    console.log("handleIntervalChange", value);
     setLookBackPeriod(value);
   };
 
@@ -57,9 +58,7 @@ export default function GasCostTopbar() {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-  };
-
-  const refreshData = async () => {};
+  };  
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -124,10 +123,12 @@ export default function GasCostTopbar() {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-              m: 1, 
-              height: 53
+              m: 1,
+              height: 53,
             }}
-            onClick={async () =>{refreshData()} }
+            onClick={async () => {
+              handleRefreshData();
+            }}
           >
             <RefreshIcon sx={{ mr: "10px" }} />
             Refresh
