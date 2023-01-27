@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
 import GasCostTopbar from "./GasCostTopbar";
 import { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
@@ -9,6 +8,8 @@ import {
   make_api_request,
 } from "../../util/util.methods";
 import { STATUS_OK } from "../../util/constants";
+import GasCostVisualization from "./GasCostVisualization";
+import { prepareGasCostDataForVisualization } from './GasCostAggregation';
 
 export default function GasCost() {
   const supportedChains = get_supported_chains();
@@ -34,15 +35,14 @@ export default function GasCost() {
         },
         body: JSON.stringify(payload),
       });
-      console.log(result)
+      console.log(result);
       if (result.status !== STATUS_OK) {
-        alert('API Error, please contact support.');
+        alert("API Error, please contact support.");
         return;
       }
-      
-
+      const chart_data = prepareGasCostDataForVisualization(result.message)
     } catch (error) {
-      alert('API Error, please contact support.')
+      alert("API Error, please contact support.");
     }
   };
 
@@ -65,9 +65,7 @@ export default function GasCost() {
           handleRefreshData();
         }}
       />
-      <Box height="50vh">
-        <LineChart />
-      </Box>
+      <GasCostVisualization />
     </Box>
   );
 }
