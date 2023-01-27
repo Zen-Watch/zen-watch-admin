@@ -6,10 +6,10 @@ import Sidebar from "./scenes/global/Sidebar";
 import Transactions from "./scenes/transactions";
 import { Route, Routes } from "react-router-dom";
 import Login from "./scenes/login";
-import Homepage from "./scenes/home";
 import { useAppSelector } from "./app/hooks";
 import PrivateRoutes from "./components/PrivateRoutes";
 import UnprivatePrivateRoute from "./components/UnprivateRoute";
+import NoMatch from "./scenes/global/NoMatch";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,12 +26,13 @@ function App() {
             {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/home" element={<Homepage />} />
-                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/home" element={<Transactions />} />
+                {/* <Route path="/transactions" element={<Transactions />} /> */}
               </Route>
               <Route element={<UnprivatePrivateRoute />}>
                 <Route path="/" element={<Login />} />
               </Route>
+              <Route path="*" element={<NoMatch />} />
             </Routes>
           </main>
         </div>

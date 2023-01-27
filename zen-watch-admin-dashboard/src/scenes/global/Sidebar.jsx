@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+//import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import EvStationIcon from '@mui/icons-material/EvStation';
-import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+//import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -82,13 +82,13 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-          <Item
+          {/* <Item
               title="Home"
               to="/home"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -96,14 +96,15 @@ export default function Sidebar() {
             >
               On-chain
             </Typography>
+            {/* reset below to /transactions from /home */}
             <Item
               title="Transactions"
-              to="/transactions"
+              to="/home"
               icon={<EvStationIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -116,7 +117,7 @@ export default function Sidebar() {
               icon={<AppShortcutIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>
