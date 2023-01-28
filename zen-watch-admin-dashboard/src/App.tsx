@@ -30,9 +30,9 @@ function App() {
             {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/home" element={<Homepage />} />
+                <Route path="/home" element={<GasCost />} />
                 <Route path="/gas_cost" element={<GasCost />} />
-                <Route path="/transaction_errors" element={<TransactionErrors />} />
+                {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
                 <Route path="/gas_cost_tableview" element={<GasCostDataGrid />} />
                 <Route path="/gas_cost_txnview" element={<GasCostTransactionDetails />} />
               </Route>

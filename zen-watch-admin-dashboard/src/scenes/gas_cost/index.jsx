@@ -90,7 +90,6 @@ export default function GasCost() {
           <div>Last Selected Txn Hash: {lastSelectedTxnHash}</div>
           <div> Table </div>
           <div> {JSON.stringify(chartData.gas_cost_fiat_profit_loss_data.gas_cost_inverted_index[lastSelectedTxnHash], null, 2)} </div>
-          <GasCostTransactionDetails />
         </>
       )}
       

@@ -83,13 +83,13 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-          <Item
+            {/* <Item
               title="Home"
               to="/home"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -104,13 +104,13 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Transaction Errors"
               to="/transaction_errors"
               icon={<ErrorOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             {/* <Typography
               variant="h6"
               color={colors.grey[300]}
