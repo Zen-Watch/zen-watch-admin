@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-//import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import EvStationIcon from '@mui/icons-material/EvStation';
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import EvStationOutlinedIcon from '@mui/icons-material/EvStationOutlined';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 //import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -82,13 +83,13 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-          {/* <Item
+          <Item
               title="Home"
               to="/home"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -96,11 +97,17 @@ export default function Sidebar() {
             >
               On-chain
             </Typography>
-            {/* reset below to /transactions from /home */}
             <Item
               title="Gas Cost"
-              to="/home"
-              icon={<EvStationIcon />}
+              to="/gas_cost"
+              icon={<EvStationOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Transaction Errors"
+              to="/transaction_errors"
+              icon={<ErrorOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

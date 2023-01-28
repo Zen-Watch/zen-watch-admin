@@ -10,3 +10,5 @@ export const STATUS_OK=200;
 export const STATUS_NOT_FOUND=404;
 export const STATUS_UNPROCESSABLE_ENTITY=422;
 export const INTERNAL_SERVER_ERROR=500;
+
+// Line Chart Metrics

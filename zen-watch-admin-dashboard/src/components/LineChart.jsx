@@ -1,15 +1,16 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { mockLineData as data } from "../data/mockData";
+//import { mockLineData as data } from "../data/mockData";
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const LineChart = (props) => {
+  const { isCustomLineColors = false, isDashboard = false, data } = props
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const line_data = data.gas_cost_fiat_profit_loss_data.graph_data
   return (
     <ResponsiveLine
-      data={data}
+      data={line_data}
       theme={{
         axis: {
           domain: {

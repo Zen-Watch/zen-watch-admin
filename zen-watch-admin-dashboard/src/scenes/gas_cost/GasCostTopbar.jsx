@@ -46,7 +46,6 @@ export default function GasCostTopbar(props) {
     const {
       target: { value },
     } = event;
-    console.log("handleIntervalChange", value);
     setLookBackPeriod(value);
   };
 
@@ -74,7 +73,7 @@ export default function GasCostTopbar(props) {
         {/* Select fields */}
         <Box paddingRight="30px">
           <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">Fields</InputLabel>
+            <InputLabel id="demo-multiple-checkbox-label">Chains</InputLabel>
             <Select
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"

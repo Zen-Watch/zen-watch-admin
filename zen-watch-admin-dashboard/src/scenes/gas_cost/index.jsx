@@ -8,8 +8,8 @@ import {
   make_api_request,
 } from "../../util/util.methods";
 import { STATUS_OK } from "../../util/constants";
-import GasCostVisualization from "./GasCostVisualization";
-import { prepareGasCostDataForVisualization } from './GasCostAggregation';
+import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
+import { prepareGasCostDataForVisualization } from './aggregation/gas_cost.aggregation';
 
 export default function GasCost() {
   const supportedChains = get_supported_chains();
@@ -18,6 +18,7 @@ export default function GasCost() {
 
   const [selectedChains, setSelectedChains] = useState(supportedChains);
   const [lookBackPeriod, setLookBackPeriod] = useState(1);
+  const [chartData, setChartData] = useState(undefined);
 
   const handleRefreshData = async () => {
     try {
@@ -35,12 +36,12 @@ export default function GasCost() {
         },
         body: JSON.stringify(payload),
       });
-      console.log(result);
       if (result.status !== STATUS_OK) {
         alert("API Error, please contact support.");
         return;
       }
       const chart_data = prepareGasCostDataForVisualization(result.message)
+      setChartData(chart_data);
     } catch (error) {
       alert("API Error, please contact support.");
     }
@@ -65,7 +66,7 @@ export default function GasCost() {
           handleRefreshData();
         }}
       />
-      <GasCostVisualization />
+      { chartData && <GasCostAppProfitLossFiatVisualization data={chartData} /> }
     </Box>
   );
 }

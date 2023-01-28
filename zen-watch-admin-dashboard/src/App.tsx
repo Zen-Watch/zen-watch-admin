@@ -10,6 +10,8 @@ import { useAppSelector } from "./app/hooks";
 import PrivateRoutes from "./components/PrivateRoutes";
 import UnprivatePrivateRoute from "./components/UnprivateRoute";
 import NoMatch from "./scenes/global/NoMatch";
+import Homepage from "./scenes/home";
+import TransactionErrors from "./scenes/transaction_errors";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,8 +28,9 @@ function App() {
             {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/home" element={<GasCost />} />
-                {/* <Route path="/transactions" element={<Transactions />} /> */}
+                <Route path="/home" element={<Homepage />} />
+                <Route path="/gas_cost" element={<GasCost />} />
+                <Route path="/transaction_errors" element={<TransactionErrors />} />
               </Route>
               <Route element={<UnprivatePrivateRoute />}>
                 <Route path="/" element={<Login />} />
