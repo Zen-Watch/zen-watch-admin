@@ -66,32 +66,12 @@ const AppGasCostProfitLossFiatLineChart = (props) => {
         stacked: true,
         reverse: false,
       }}
-      enableSlices="x"
-      sliceTooltip={({ slice }) => {
-        updateLastTxnHash(slice.points[0].data.txn_hash)
-        return (
-          <div
-            style={{
-              background: colors.grey[500],
-              padding: "9px 12px",
-            }}
-          >
-            {slice.points.map((point) => (
-              <div
-                key={point.id}
-                style={{
-                  color: point.serieColor,
-                  padding: "3px 0",
-                }}
-              >
-                <strong>{point.serieId}</strong> [{point.data.yFormatted}]
-              </div>
-            ))}
-          </div>
-        );
+      onClick={(point)=> {
+        console.log(point.data.txn_hash)
+        updateLastTxnHash(point.data.txn_hash)
       }}
       yFormat={(value) =>
-        `USD ${Number(value).toLocaleString("en-US", {
+        `${data.exchange_currency} ${Number(value).toLocaleString("en-US", {
           minimumFractionDigits: 2,
         })}`
       }
