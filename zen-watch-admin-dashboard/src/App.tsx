@@ -33,8 +33,7 @@ function App() {
                 <Route path="/home" element={<GasCost />} />
                 <Route path="/gas_cost" element={<GasCost />} />
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
-                <Route path="/gas_cost_tableview" element={<GasCostDataGrid />} />
-                <Route path="/gas_cost_txnview" element={<GasCostTransactionDetails />} />
+                {/* <Route path="/gas_cost_tableview" element={<GasCostDataGrid />} /> */}
               </Route>
               <Route element={<UnprivatePrivateRoute />}>
                 <Route path="/" element={<Login />} />

@@ -73,6 +73,7 @@ Runs the tests for the app.
 * [Warning - updating another state while rendering another component](https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning)
 * [Typescript Dict Type](https://stackoverflow.com/questions/42211175/typescript-hashmap-dictionary-interface)
 * [JSON pretty print Javascript](https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript)
+* [Iterate json Typescript](https://stackoverflow.com/questions/42400298/iterate-json-data-in-javascript-typescript)
 
 ##### Cors Error
 * [What is CORS and How to solve CORS error in Node.js (Express.js)](https://www.youtube.com/watch?v=OX-9oOcPDfE)

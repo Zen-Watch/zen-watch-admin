@@ -11,7 +11,6 @@ import {
 import { STATUS_OK } from "../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
 import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";
-import GasCostDataGrid from './GasCostDataGrid'
 import GasCostTransactionDetails from "./GasCostTransactionDetails";
 
 export default function GasCost() {
@@ -86,13 +85,11 @@ export default function GasCost() {
         />
       )}
       {lastSelectedTxnHash && (
-        <>
-          <div>Last Selected Txn Hash: {lastSelectedTxnHash}</div>
-          <div> Table </div>
-          <div> {JSON.stringify(chartData.gas_cost_fiat_profit_loss_data.gas_cost_inverted_index[lastSelectedTxnHash], null, 2)} </div>
-        </>
+        <GasCostTransactionDetails
+          lastSelectedTxnHash={lastSelectedTxnHash}
+          data={chartData.gas_cost_fiat_profit_loss_data.gas_cost_inverted_index[lastSelectedTxnHash]}
+        />
       )}
-      
     </Box>
   );
 }

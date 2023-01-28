@@ -1,20 +1,26 @@
-import { Box, Typography, useTheme, IconButton } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from "react-router-dom";
 
-export default function GasCostTransactionDetails() {
+function prepareDataForGasCostTransactionDetailsView(_json) {
+  const output_list = []
+  for (let key in _json) {
+    output_list.push({
+      key: key, 
+      value: _json[key]
+    })
+  }
+  return output_list;
+}
+
+export default function GasCostTransactionDetails(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate = useNavigate();
+
+  const { lastSelectedTxnHash, data } = props;
+  const _prepared_list = prepareDataForGasCostTransactionDetailsView(data);
+
   return (
-    <Box m="20px">
-      <Box display="flex">
-        <IconButton onClick={async () => navigate(-1) }>
-          <ArrowBackIcon />
-        </IconButton>
-      </Box>
+    <Box paddingTop={'20px'}>
       <Box
         gridColumn="span 4"
         gridRow="span 2"
@@ -30,12 +36,12 @@ export default function GasCostTransactionDetails() {
           p="15px"
         >
           <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-            Recent Transactions
+            Transaction Details for {lastSelectedTxnHash}
           </Typography>
         </Box>
-        {mockTransactions.map((transaction, i) => (
+        {_prepared_list.map((entry, i) => (
           <Box
-            key={`${transaction.txId}-${i}`}
+            key={`${entry.key}-${i}`}
             display="flex"
             justifyContent="space-between"
             alignItems="center"
@@ -48,19 +54,20 @@ export default function GasCostTransactionDetails() {
                 variant="h5"
                 fontWeight="600"
               >
-                {transaction.txId}
+                {entry.key}
               </Typography>
-              <Typography color={colors.grey[100]}>
-                {transaction.user}
-              </Typography>
+
             </Box>
-            <Box color={colors.grey[100]}>{transaction.date}</Box>
-            <Box
-              backgroundColor={colors.greenAccent[500]}
-              p="5px 10px"
-              borderRadius="4px"
-            >
-              ${transaction.cost}
+            {/* <Box color={colors.grey[100]}>{transaction.date}</Box> */}
+            <Box>
+              <Typography
+                
+                variant="h5"
+                fontWeight="500"
+              >
+                {entry.value}
+              </Typography>
+
             </Box>
           </Box>
         ))}

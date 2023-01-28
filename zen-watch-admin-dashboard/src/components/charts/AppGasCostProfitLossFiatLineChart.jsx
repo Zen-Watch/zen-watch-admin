@@ -98,7 +98,7 @@ const AppGasCostProfitLossFiatLineChart = (props) => {
       }}
       enableGridX={false}
       enableGridY={false}
-      pointSize={8}
+      pointSize={14}
       pointColor={{ theme: "background" }}
       pointBorderWidth={2}
       pointBorderColor={{ from: "serieColor" }}
