@@ -11,10 +11,15 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, getFirebaseErrorMessage } from "../../firebase-config";
-import { useAppDispatch } from '../../app/hooks';
-import { connect } from '../../features/appSlice';
+import { useAppDispatch } from "../../app/hooks";
+import { connect } from "../../features/appSlice";
+import { STATUS_NOT_FOUND } from "../../util/constants";
+import { make_api_request } from "../../util/util.methods";
 
 const registerSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
@@ -46,30 +51,62 @@ export default function Form() {
   const isRegister = pageType === "register";
   const dispatch = useAppDispatch();
 
+  const isDeveloperWhitelisted = async (email) => {
+    const allow_signup_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/admin/allow_signup`;
+    const payload = {
+      api_key: process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
+      email: email,
+    };
+    const result = make_api_request(allow_signup_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
+    return result;
+  };
+
   const register = async (values, onSubmitProps) => {
     try {
-      const savedUser = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      const result = await isDeveloperWhitelisted(values.email);
+      if (result.status === STATUS_NOT_FOUND) {
+        alert(
+          "Developer is not whitelisted. Please contact support for an invite."
+        );
+        return;
+      }
+
+      const savedUser = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
       onSubmitProps.resetForm();
       if (savedUser) {
         setPageType("login");
       }
-    } catch(error) {
+    } catch (error) {
       //TODO: Replace this with a good toast
-      alert(getFirebaseErrorMessage(error.code))
+      alert(getFirebaseErrorMessage(error.code));
     }
   };
 
   const login = async (values, onSubmitProps) => {
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, values.email, values.password);
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
       onSubmitProps.resetForm();
       if (userCredentials) {
         dispatch(connect(userCredentials.user.email));
         navigate("/home");
       }
-    } catch(error) {
+    } catch (error) {
       //TODO: Replace this with a good toast
-      alert(getFirebaseErrorMessage(error.code))
+      alert(getFirebaseErrorMessage(error.code));
     }
   };
 
@@ -166,4 +203,4 @@ export default function Form() {
       )}
     </Formik>
   );
-};
+}

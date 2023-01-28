@@ -1,15 +1,28 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
-import { tokens } from "../theme";
-import { mockLineData as data } from "../data/mockData";
+import { tokens } from "../../theme";
+//import { mockLineData as data } from "../data/mockData";
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const AppGasCostProfitLossFiatLineChart = (props) => {
+  const {
+    isDashboard = false,
+    data,
+    setLastSelectedTxnHash,
+  } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const line_data = data.graph_data;
+  const x_name = data.x_name;
+  const y_name = data.y_name;
 
+  // Call a function instead of directly updating another's state while rendering an other component
+  const updateLastTxnHash = async (current_txn_hash) => { 
+    setLastSelectedTxnHash(current_txn_hash);
+  }
+   
   return (
     <ResponsiveLine
-      data={data}
+      data={line_data}
       theme={{
         axis: {
           domain: {
@@ -44,7 +57,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         },
       }}
       colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 200, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
@@ -53,8 +66,15 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         stacked: true,
         reverse: false,
       }}
-      yFormat=" >-.2f"
-      curve="catmullRom"
+      onClick={(point)=> {
+        updateLastTxnHash(point.data.txn_hash)
+      }}
+      yFormat={(value) =>
+        `${data.exchange_currency} ${Number(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+        })}`
+      }
+      curve="linear"
       axisTop={null}
       axisRight={null}
       axisBottom={{
@@ -62,7 +82,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
+        legend: isDashboard ? undefined : x_name, // added
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -72,13 +92,13 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
+        legend: isDashboard ? undefined : y_name, // added
         legendOffset: -40,
         legendPosition: "middle",
       }}
       enableGridX={false}
       enableGridY={false}
-      pointSize={8}
+      pointSize={14}
       pointColor={{ theme: "background" }}
       pointBorderWidth={2}
       pointBorderColor={{ from: "serieColor" }}
@@ -114,4 +134,4 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   );
 };
 
-export default LineChart;
+export default AppGasCostProfitLossFiatLineChart;
