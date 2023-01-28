@@ -11,7 +11,7 @@ export default function GasCostTransactionDetails () {
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
-          padding='10px'
+          m="20px"
         >
           <Box
             display="flex"
