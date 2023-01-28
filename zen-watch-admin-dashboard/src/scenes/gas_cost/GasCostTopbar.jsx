@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { tokens } from "../../theme";
 
+import FlipIcon from '@mui/icons-material/Flip';
 import RefreshIcon from "@mui/icons-material/Refresh";
 //import { useAppDispatch } from "../../app/hooks";
 //import { useNavigate } from "react-router-dom";
@@ -30,7 +31,8 @@ export default function GasCostTopbar(props) {
     supportedChains,
     handleRefreshData,
     exchangeCurrency,
-    setExchangeCurrency
+    setExchangeCurrency,
+    flipTo
   } = props;
 
   const ITEM_HEIGHT = 48;
@@ -42,6 +44,12 @@ export default function GasCostTopbar(props) {
         width: 250,
       },
     },
+  };
+
+  const handleFlipView = (event) => {
+    const {
+      target: { value },
+    } = event;
   };
 
   const handleLookbackChange = (event) => {
@@ -159,6 +167,25 @@ export default function GasCostTopbar(props) {
           >
             <RefreshIcon sx={{ mr: "10px" }} />
             Refresh
+          </Button>
+        </Box>
+
+        {/* Flip View Icon */}
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: colors.greenAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              m: 1,
+              height: 53,
+            }}
+            onChange={handleFlipView}
+          >
+            <FlipIcon sx={{ mr: "10px" }} />
+              {flipTo}
           </Button>
         </Box>
       </Box>

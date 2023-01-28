@@ -76,6 +76,7 @@ export default function GasCost() {
         handleRefreshData={async () => {
           handleRefreshData();
         }}
+        flipTo="Table View"
       />
       {chartData && (
         <GasCostAppProfitLossFiatVisualization
