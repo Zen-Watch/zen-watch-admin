@@ -70,6 +70,7 @@ Runs the tests for the app.
 * [Tell typescript process.env is not undefined](https://stackoverflow.com/questions/49817290/how-to-tell-typescript-that-process-is-not-undefined)
 * [No Matched Route - React Router 6 Default](https://www.youtube.com/watch?v=5AFzz-aAdfE)
 * [Merge arrays ES6](https://stackoverflow.com/questions/1584370/how-to-merge-two-arrays-in-javascript-and-de-duplicate-items)
+* [Warning - updating another state while rendering another component](https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning)
 
 ##### Cors Error
 * [What is CORS and How to solve CORS error in Node.js (Express.js)](https://www.youtube.com/watch?v=OX-9oOcPDfE)

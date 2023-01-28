@@ -83,6 +83,7 @@ export default function GasCost() {
           setLastSelectedTxnHash={setLastSelectedTxnHash}
         />
       )}
+      { lastSelectedTxnHash && <div>Last Selected Txn Hash: {lastSelectedTxnHash} </div> } 
     </Box>
   );
 }

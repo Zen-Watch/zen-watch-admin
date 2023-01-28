@@ -1,14 +1,12 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
-import { tokens } from "../theme";
+import { tokens } from "../../theme";
 //import { mockLineData as data } from "../data/mockData";
 
-const LineChart = (props) => {
+const AppGasCostProfitLossFiatLineChart = (props) => {
   const {
-    isCustomLineColors = false,
     isDashboard = false,
     data,
-    lastSelectedTxnHash,
     setLastSelectedTxnHash,
   } = props;
   const theme = useTheme();
@@ -16,6 +14,12 @@ const LineChart = (props) => {
   const line_data = data.graph_data;
   const x_name = data.x_name;
   const y_name = data.y_name;
+
+  // Call a function instead of directly updating another's state while rendering an other component
+  const updateLastTxnHash = (current_txn_hash) => { 
+    setLastSelectedTxnHash(current_txn_hash);
+  }
+   
   return (
     <ResponsiveLine
       data={line_data}
@@ -64,7 +68,7 @@ const LineChart = (props) => {
       }}
       enableSlices="x"
       sliceTooltip={({ slice }) => {
-        console.log(slice.points[0].data.txn_hash);
+        updateLastTxnHash(slice.points[0].data.txn_hash)
         return (
           <div
             style={{
@@ -91,7 +95,7 @@ const LineChart = (props) => {
           minimumFractionDigits: 2,
         })}`
       }
-      curve="catmullRom"
+      curve="linear"
       axisTop={null}
       axisRight={null}
       axisBottom={{
@@ -151,4 +155,4 @@ const LineChart = (props) => {
   );
 };
 
-export default LineChart;
+export default AppGasCostProfitLossFiatLineChart;

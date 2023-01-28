@@ -1,9 +1,9 @@
 import { Box, useTheme, Typography } from "@mui/material";
-import LineChart from "../../components/LineChart";
+import AppGasCostProfitLossFiatLineChart from "../../components/charts/AppGasCostProfitLossFiatLineChart";
 import { tokens } from "../../theme";
 
 export default function GasCostAppProfitLossFiatVisualization(props) {
-  const { data } = props;
+  const { data, lastSelectedTxnHash, setLastSelectedTxnHash } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -22,7 +22,11 @@ export default function GasCostAppProfitLossFiatVisualization(props) {
         </Typography>
       </Box>
       <Box height="50vh" backgroundColor={colors.primary[400]}>
-        <LineChart data={data}/>
+        <AppGasCostProfitLossFiatLineChart
+          data={data}
+          lastSelectedTxnHash={lastSelectedTxnHash}
+          setLastSelectedTxnHash={setLastSelectedTxnHash}
+        />
       </Box>
     </>
   );
