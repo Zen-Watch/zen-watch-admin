@@ -1,4 +1,5 @@
 import { tokens } from "../../../theme";
+import { IHash } from "../../../util/constants";
 
 export function prepareGasCostFiatProfitLossDataForAggregation(data: any) {
   // const app_pl_fiat_data_points = [
@@ -33,7 +34,10 @@ export function prepareGasCostFiatProfitLossDataForAggregation(data: any) {
   const exchange_currency = data.exchange_currency
   const y_name = exchange_currency;
 
+  const gas_cost_inverted_index: IHash = {}
+
   const app_gas_cost_graph_data = {
+    gas_cost_inverted_index,
     app_total_profit_loss_fiat_sum,
     exchange_currency,
     x_name,
@@ -69,6 +73,9 @@ export function prepareGasCostFiatProfitLossDataForAggregation(data: any) {
 
   // calculate successful metrics as well
   for (let metric of combined_txn_metrics) {
+    // POPULATE THE INVERTED INDEX FOR TABLE LOOK UP
+    gas_cost_inverted_index[metric.txn_hash] = metric
+
     // LINE 1: APP_TOTAL_PROFIT_LOSS_FIAT_LINE
     const app_total_profit_loss_fiat_data_point = {
       x: metric.created_ts,

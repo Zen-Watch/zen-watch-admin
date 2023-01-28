@@ -67,7 +67,6 @@ const AppGasCostProfitLossFiatLineChart = (props) => {
         reverse: false,
       }}
       onClick={(point)=> {
-        console.log(point.data.txn_hash)
         updateLastTxnHash(point.data.txn_hash)
       }}
       yFormat={(value) =>

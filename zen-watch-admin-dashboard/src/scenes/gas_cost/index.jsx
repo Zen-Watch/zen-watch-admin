@@ -11,6 +11,8 @@ import {
 import { STATUS_OK } from "../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
 import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";
+import GasCostDataGrid from './GasCostDataGrid'
+import GasCostTransactionDetails from "./GasCostTransactionDetails";
 
 export default function GasCost() {
   const supportedChains = get_supported_chains();
@@ -20,7 +22,9 @@ export default function GasCost() {
 
   const [selectedChains, setSelectedChains] = useState(supportedChains);
   const [lookBackPeriod, setLookBackPeriod] = useState(1);
-  const [exchangeCurrency, setExchangeCurrency] = useState(defaultExchangeCurrency);
+  const [exchangeCurrency, setExchangeCurrency] = useState(
+    defaultExchangeCurrency
+  );
   const [chartData, setChartData] = useState(undefined);
 
   const [lastSelectedTxnHash, setLastSelectedTxnHash] = useState("");
@@ -81,7 +85,15 @@ export default function GasCost() {
           setLastSelectedTxnHash={setLastSelectedTxnHash}
         />
       )}
-      { lastSelectedTxnHash && <div>Last Selected Txn Hash: {lastSelectedTxnHash} </div> } 
+      {lastSelectedTxnHash && (
+        <>
+          <div>Last Selected Txn Hash: {lastSelectedTxnHash}</div>
+          <div> Table </div>
+          <div> {JSON.stringify(chartData.gas_cost_fiat_profit_loss_data.gas_cost_inverted_index[lastSelectedTxnHash], null, 2)} </div>
+          <GasCostTransactionDetails />
+        </>
+      )}
+      
     </Box>
   );
 }
