@@ -10,18 +10,22 @@ import {
 } from "../../util/util.methods";
 import { STATUS_OK } from "../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
-import { prepareGasCostDataForVisualization } from './aggregation/gas_cost.aggregation';
+import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";
 
 export default function GasCost() {
   const supportedChains = get_supported_chains();
-  const defaultExchangeCurrency = get_default_exchange_currency()
+  const defaultExchangeCurrency = get_default_exchange_currency();
 
   const email = useAppSelector((state) => state.app.email);
 
   const [selectedChains, setSelectedChains] = useState(supportedChains);
   const [lookBackPeriod, setLookBackPeriod] = useState(1);
-  const [exchangeCurrency, setExchangeCurrency] = useState(defaultExchangeCurrency);
+  const [exchangeCurrency, setExchangeCurrency] = useState(
+    defaultExchangeCurrency
+  );
   const [chartData, setChartData] = useState(undefined);
+
+  const [lastSelectedTxnHash, setLastSelectedTxnHash] = useState("");
 
   const handleRefreshData = async () => {
     try {
@@ -43,8 +47,8 @@ export default function GasCost() {
         alert("API Error, please contact support.");
         return;
       }
-      const chart_data = prepareGasCostDataForVisualization(result.message)
-      console.log(chart_data)
+      const chart_data = prepareGasCostDataForVisualization(result.message);
+      console.log(chart_data);
       setChartData(chart_data);
     } catch (error) {
       alert("API Error, please contact support.");
@@ -72,7 +76,13 @@ export default function GasCost() {
           handleRefreshData();
         }}
       />
-      { chartData && <GasCostAppProfitLossFiatVisualization data={chartData.gas_cost_fiat_profit_loss_data} />}
+      {chartData && (
+        <GasCostAppProfitLossFiatVisualization
+          data={chartData.gas_cost_fiat_profit_loss_data}
+          lastSelectedTxnHash={lastSelectedTxnHash}
+          setLastSelectedTxnHash={setLastSelectedTxnHash}
+        />
+      )}
     </Box>
   );
 }

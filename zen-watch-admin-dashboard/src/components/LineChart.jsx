@@ -4,13 +4,18 @@ import { tokens } from "../theme";
 //import { mockLineData as data } from "../data/mockData";
 
 const LineChart = (props) => {
-  const { isCustomLineColors = false, isDashboard = false, data } = props
+  const {
+    isCustomLineColors = false,
+    isDashboard = false,
+    data,
+    lastSelectedTxnHash,
+    setLastSelectedTxnHash,
+  } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const line_data = data.graph_data
-  const chart_name = data.chart_name
-  const x_name = data.x_name
-  const y_name = data.y_name
+  const line_data = data.graph_data;
+  const x_name = data.x_name;
+  const y_name = data.y_name;
   return (
     <ResponsiveLine
       data={line_data}
@@ -57,7 +62,35 @@ const LineChart = (props) => {
         stacked: true,
         reverse: false,
       }}
-      yFormat=" >-.2f"
+      enableSlices="x"
+      sliceTooltip={({ slice }) => {
+        console.log(slice.points[0].data.txn_hash);
+        return (
+          <div
+            style={{
+              background: colors.grey[500],
+              padding: "9px 12px",
+            }}
+          >
+            {slice.points.map((point) => (
+              <div
+                key={point.id}
+                style={{
+                  color: point.serieColor,
+                  padding: "3px 0",
+                }}
+              >
+                <strong>{point.serieId}</strong> [{point.data.yFormatted}]
+              </div>
+            ))}
+          </div>
+        );
+      }}
+      yFormat={(value) =>
+        `USD ${Number(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+        })}`
+      }
       curve="catmullRom"
       axisTop={null}
       axisRight={null}
