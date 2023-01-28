@@ -28,7 +28,9 @@ export default function GasCostTopbar(props) {
     setSelectedChains,
     setLookBackPeriod,
     supportedChains,
-    handleRefreshData
+    handleRefreshData,
+    exchangeCurrency,
+    setExchangeCurrency
   } = props;
 
   const ITEM_HEIGHT = 48;
@@ -47,6 +49,13 @@ export default function GasCostTopbar(props) {
       target: { value },
     } = event;
     setLookBackPeriod(value);
+  };
+
+  const handleExchangeCurrencyChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setExchangeCurrency(value);
   };
 
   const handleChainsChange = (event) => {
@@ -70,7 +79,8 @@ export default function GasCostTopbar(props) {
       </Box>
 
       <Box display="flex">
-        {/* Select fields */}
+        
+        {/* Select chains */}
         <Box paddingRight="30px">
           <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel id="demo-multiple-checkbox-label">Chains</InputLabel>
@@ -94,6 +104,24 @@ export default function GasCostTopbar(props) {
           </FormControl>
         </Box>
 
+        {/* Select Currency */}
+        <Box paddingRight="30px">
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="demo-simple-select-label">Exchange Currrency</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={exchangeCurrency}
+              label="Exchange_Currrency"
+              onChange={handleExchangeCurrencyChange}
+              MenuProps={MenuProps}
+            >
+              <MenuItem value={'USD'}>USD</MenuItem>
+              <MenuItem value={'INR'}>INR</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
         {/* Select Interval */}
         <Box paddingRight="30px">
           <FormControl sx={{ m: 1, width: 300 }}>
@@ -102,7 +130,7 @@ export default function GasCostTopbar(props) {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={lookBackPeriod}
-              label="Age"
+              label="Lookback"
               onChange={handleLookbackChange}
               MenuProps={MenuProps}
             >

@@ -29,9 +29,15 @@ export function prepareGasCostFiatProfitLossDataForAggregation(data: any) {
   const final_txn_fee_fiat_data_points: AppProfitLossDataPoints[] = [];
 
   let app_total_profit_loss_fiat_sum:number = 0;
+  const chart_name = "Profit/Loss Fiat";
+  const x_name = "Event Creation Time";
+  const y_name = "Fiat";
 
   const app_gas_cost_graph_data = {
     app_total_profit_loss_fiat_sum,
+    chart_name,
+    x_name,
+    y_name,
     graph_data: [
     {
       id: APP_TOTAL_PROFIT_LOSS_FIAT_LINE,

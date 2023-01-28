@@ -6,6 +6,7 @@ import { useAppSelector } from "../../app/hooks";
 import {
   get_supported_chains,
   make_api_request,
+  get_default_exchange_currency,
 } from "../../util/util.methods";
 import { STATUS_OK } from "../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
@@ -13,11 +14,13 @@ import { prepareGasCostDataForVisualization } from './aggregation/gas_cost.aggre
 
 export default function GasCost() {
   const supportedChains = get_supported_chains();
+  const defaultExchangeCurrency = get_default_exchange_currency()
 
   const email = useAppSelector((state) => state.app.email);
 
   const [selectedChains, setSelectedChains] = useState(supportedChains);
   const [lookBackPeriod, setLookBackPeriod] = useState(1);
+  const [exchangeCurrency, setExchangeCurrency] = useState(defaultExchangeCurrency);
   const [chartData, setChartData] = useState(undefined);
 
   const handleRefreshData = async () => {
@@ -41,6 +44,7 @@ export default function GasCost() {
         return;
       }
       const chart_data = prepareGasCostDataForVisualization(result.message)
+      console.log(chart_data)
       setChartData(chart_data);
     } catch (error) {
       alert("API Error, please contact support.");
@@ -62,11 +66,13 @@ export default function GasCost() {
         setSelectedChains={setSelectedChains}
         setLookBackPeriod={setLookBackPeriod}
         supportedChains={supportedChains}
+        exchangeCurrency={exchangeCurrency}
+        setExchangeCurrency={setExchangeCurrency}
         handleRefreshData={async () => {
           handleRefreshData();
         }}
       />
-      { chartData && <GasCostAppProfitLossFiatVisualization data={chartData} /> }
+      { chartData && <GasCostAppProfitLossFiatVisualization data={chartData.gas_cost_fiat_profit_loss_data} />}
     </Box>
   );
 }

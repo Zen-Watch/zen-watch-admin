@@ -7,7 +7,10 @@ const LineChart = (props) => {
   const { isCustomLineColors = false, isDashboard = false, data } = props
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const line_data = data.gas_cost_fiat_profit_loss_data.graph_data
+  const line_data = data.graph_data
+  const chart_name = data.chart_name
+  const x_name = data.x_name
+  const y_name = data.y_name
   return (
     <ResponsiveLine
       data={line_data}
@@ -45,7 +48,7 @@ const LineChart = (props) => {
         },
       }}
       colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 200, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
@@ -63,7 +66,7 @@ const LineChart = (props) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
+        legend: isDashboard ? undefined : x_name, // added
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -73,7 +76,7 @@ const LineChart = (props) => {
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
+        legend: isDashboard ? undefined : y_name, // added
         legendOffset: -40,
         legendPosition: "middle",
       }}

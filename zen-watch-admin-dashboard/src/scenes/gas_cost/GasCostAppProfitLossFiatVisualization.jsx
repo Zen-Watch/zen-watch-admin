@@ -6,7 +6,7 @@ export default function GasCostAppProfitLossFiatVisualization(props) {
   const { data } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  console.log('DATA called 1', data)
+
   return (
     <>
       <Box padding={"5px"}>
@@ -18,7 +18,7 @@ export default function GasCostAppProfitLossFiatVisualization(props) {
           fontWeight="bold"
           color={colors.greenAccent[500]}
         >
-          $59,342.32
+          $ {data.app_total_profit_loss_fiat_sum.toFixed(2)}
         </Typography>
       </Box>
       <Box height="50vh" backgroundColor={colors.primary[400]}>
