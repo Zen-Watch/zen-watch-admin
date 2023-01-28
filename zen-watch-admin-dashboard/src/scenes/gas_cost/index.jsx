@@ -20,21 +20,20 @@ export default function GasCost() {
 
   const [selectedChains, setSelectedChains] = useState(supportedChains);
   const [lookBackPeriod, setLookBackPeriod] = useState(1);
-  const [exchangeCurrency, setExchangeCurrency] = useState(
-    defaultExchangeCurrency
-  );
+  const [exchangeCurrency, setExchangeCurrency] = useState(defaultExchangeCurrency);
   const [chartData, setChartData] = useState(undefined);
 
   const [lastSelectedTxnHash, setLastSelectedTxnHash] = useState("");
 
   const handleRefreshData = async () => {
     try {
-      const fetch_evm_transaction_insights = `${process.env.REACT_APP_ADMIN_BASE_URL}/admin/fetch/evm_transactions/insights`;
+      const fetch_evm_transaction_insights = `${process.env.REACT_APP_ADMIN_BASE_URL}/admin/fetch/evm_transactions/gas_cost/insights`;
       const payload = {
         api_key: process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
         email: email,
         chains: selectedChains,
         lookback_period: lookBackPeriod,
+        exchange_currency: exchangeCurrency,
       };
       const result = await make_api_request(fetch_evm_transaction_insights, {
         method: "POST",
@@ -48,7 +47,6 @@ export default function GasCost() {
         return;
       }
       const chart_data = prepareGasCostDataForVisualization(result.message);
-      console.log(chart_data);
       setChartData(chart_data);
     } catch (error) {
       alert("API Error, please contact support.");
@@ -83,7 +81,7 @@ export default function GasCost() {
           setLastSelectedTxnHash={setLastSelectedTxnHash}
         />
       )}
-      { lastSelectedTxnHash && <div>Last Selected Txn Hash: {lastSelectedTxnHash} </div> } 
+      {/* { lastSelectedTxnHash && <div>Last Selected Txn Hash: {lastSelectedTxnHash} </div> }  */}
     </Box>
   );
 }

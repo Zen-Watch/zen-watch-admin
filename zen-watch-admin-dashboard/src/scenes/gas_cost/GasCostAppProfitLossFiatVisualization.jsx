@@ -11,14 +11,14 @@ export default function GasCostAppProfitLossFiatVisualization(props) {
     <>
       <Box padding={"5px"}>
         <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
-          Total Profit/Loss in Fiat
+          Total Profit/Loss in {data.exchange_currency}
         </Typography>
         <Typography
           variant="h3"
           fontWeight="bold"
           color={colors.greenAccent[500]}
         >
-          $ {data.app_total_profit_loss_fiat_sum.toFixed(2)}
+          {data.exchange_currency} {data.app_total_profit_loss_fiat_sum.toFixed(2)}
         </Typography>
       </Box>
       <Box height="50vh" backgroundColor={colors.primary[400]}>

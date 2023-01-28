@@ -30,10 +30,12 @@ export function prepareGasCostFiatProfitLossDataForAggregation(data: any) {
 
   let app_total_profit_loss_fiat_sum:number = 0;
   const x_name = "Event Creation Time";
-  const y_name = "Fiat";
+  const exchange_currency = data.exchange_currency
+  const y_name = exchange_currency;
 
   const app_gas_cost_graph_data = {
     app_total_profit_loss_fiat_sum,
+    exchange_currency,
     x_name,
     y_name,
     graph_data: [

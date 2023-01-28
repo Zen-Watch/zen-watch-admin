@@ -16,7 +16,7 @@ const AppGasCostProfitLossFiatLineChart = (props) => {
   const y_name = data.y_name;
 
   // Call a function instead of directly updating another's state while rendering an other component
-  const updateLastTxnHash = (current_txn_hash) => { 
+  const updateLastTxnHash = async (current_txn_hash) => { 
     setLastSelectedTxnHash(current_txn_hash);
   }
    
