@@ -18,7 +18,7 @@ import {
 import { auth, getFirebaseErrorMessage } from "../../firebase-config";
 import { useAppDispatch } from "../../app/hooks";
 import { connect } from "../../features/appSlice";
-import { STATUS_NOT_FOUND } from "../../util/constants";
+import { STATUS_NOT_FOUND, UNAUTHORIZED_ACCESS } from "../../util/constants";
 import { make_api_request } from "../../util/util.methods";
 
 const registerSchema = yup.object().shape({
@@ -54,13 +54,13 @@ export default function Form() {
   const isDeveloperWhitelisted = async (email) => {
     const allow_signup_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/admin/allow_signup`;
     const payload = {
-      api_key: process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
       email: email,
     };
     const result = make_api_request(allow_signup_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
+        "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
       },
       body: JSON.stringify(payload),
     });
@@ -70,7 +70,13 @@ export default function Form() {
   const register = async (values, onSubmitProps) => {
     try {
       const result = await isDeveloperWhitelisted(values.email);
-      if (result.status === STATUS_NOT_FOUND) {
+      if (result.status === UNAUTHORIZED_ACCESS) {
+        alert(
+          "Unauthorized access, please contact support!"
+        );
+        return;
+      }
+      else if (result.status === STATUS_NOT_FOUND) {
         alert(
           "Developer is not whitelisted. Please contact support for an invite."
         );

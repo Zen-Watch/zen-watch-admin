@@ -8,7 +8,7 @@ import {
   fetchEVMTransactionsGasCostInsights,
   get_default_exchange_currency,
 } from "../../util/util.methods";
-import { GAS_COST_TABLE_VIEW, STATUS_OK } from "../../util/constants";
+import { GAS_COST_TABLE_VIEW, STATUS_OK, UNAUTHORIZED_ACCESS } from "../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
 import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";
 import GasCostTransactionDetails from "./GasCostTransactionDetails";
@@ -31,7 +31,13 @@ export default function GasCost() {
   const handleRefreshData = async () => {
     try {
       const result = await fetchEVMTransactionsGasCostInsights(email, selectedChains, lookBackPeriod, exchangeCurrency);
-      if (result.status !== STATUS_OK) {
+      if (result.status === UNAUTHORIZED_ACCESS) {
+        alert(
+          "Unauthorized access, please check your api key or contact support!"
+        );
+        return;
+      }
+      else if (result.status !== STATUS_OK) {
         alert("API Error, please contact support.");
         return;
       }
