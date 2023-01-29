@@ -8,12 +8,11 @@ import {
   fetchEVMTransactionsGasCostInsights,
   get_default_exchange_currency,
 } from "../../util/util.methods";
-import { GAS_COST_TABLE_VIEW, STATUS_OK } from "../../util/constants";
-import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
-import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";
-import GasCostTransactionDetails from "./GasCostTransactionDetails";
+import { GAS_COST_GRAPH_VIEW, STATUS_OK } from "../../util/constants";
+import { prepareGasCostDataForDataGridView } from "./aggregation/gas_cost.aggregation";
+import GasCostDataGrid from "./GasCostDataGrid";
 
-export default function GasCost() {
+export default function GasCostTableView() {
   const supportedChains = get_supported_chains();
   const defaultExchangeCurrency = get_default_exchange_currency();
 
@@ -24,9 +23,7 @@ export default function GasCost() {
   const [exchangeCurrency, setExchangeCurrency] = useState(
     defaultExchangeCurrency
   );
-  const [chartData, setChartData] = useState(undefined);
-
-  const [lastSelectedTxnHash, setLastSelectedTxnHash] = useState("");
+  const [tableData, setTableData] = useState(undefined);
 
   const handleRefreshData = async () => {
     try {
@@ -35,9 +32,10 @@ export default function GasCost() {
         alert("API Error, please contact support.");
         return;
       }
-      const chart_data = prepareGasCostDataForVisualization(result.message);
-      setChartData(chart_data);
+      const table_data = prepareGasCostDataForDataGridView(result.message);
+      setTableData(table_data);
     } catch (error) {
+      console.log(error)
       alert("API Error, please contact support.");
     }
   };
@@ -47,8 +45,8 @@ export default function GasCost() {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="GAS COST"
-          subtitle="Visualize your on-chain gas cost & profitability"
+          title="GAS COST - TABLE VIEW"
+          subtitle="Visualize your on-chain gas cost & profitability as a table"
         />
       </Box>
       <GasCostTopbar
@@ -62,20 +60,10 @@ export default function GasCost() {
         handleRefreshData={async () => {
           handleRefreshData();
         }}
-        flipTo={GAS_COST_TABLE_VIEW}
+        flipTo={GAS_COST_GRAPH_VIEW}
       />
-      {chartData && (
-        <GasCostAppProfitLossFiatVisualization
-          data={chartData.gas_cost_fiat_profit_loss_data}
-          lastSelectedTxnHash={lastSelectedTxnHash}
-          setLastSelectedTxnHash={setLastSelectedTxnHash}
-        />
-      )}
-      {lastSelectedTxnHash && (
-        <GasCostTransactionDetails
-          lastSelectedTxnHash={lastSelectedTxnHash}
-          data={chartData.gas_cost_fiat_profit_loss_data.gas_cost_inverted_index[lastSelectedTxnHash]}
-        />
+      {tableData && (
+        <GasCostDataGrid data={tableData.gas_cost_fiat_profit_loss_data}/>
       )}
     </Box>
   );

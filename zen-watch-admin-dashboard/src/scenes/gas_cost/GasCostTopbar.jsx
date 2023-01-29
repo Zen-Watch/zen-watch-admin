@@ -11,16 +11,19 @@ import {
   ListItemText,
 } from "@mui/material";
 import { tokens } from "../../theme";
-
+import { useNavigate } from "react-router-dom";
+import FlipIcon from '@mui/icons-material/Flip';
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { GAS_COST_GRAPH_VIEW } from "../../util/constants";
 //import { useAppDispatch } from "../../app/hooks";
 //import { useNavigate } from "react-router-dom";
 
 export default function GasCostTopbar(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
   //const dispatch = useAppDispatch();
-  //const navigate = useNavigate();
+  
 
   const {
     selectedChains,
@@ -30,7 +33,8 @@ export default function GasCostTopbar(props) {
     supportedChains,
     handleRefreshData,
     exchangeCurrency,
-    setExchangeCurrency
+    setExchangeCurrency,
+    flipTo
   } = props;
 
   const ITEM_HEIGHT = 48;
@@ -42,6 +46,11 @@ export default function GasCostTopbar(props) {
         width: 250,
       },
     },
+  };
+
+  const handleFlipView = (event) => {
+    if (flipTo === GAS_COST_GRAPH_VIEW) navigate("/gas_cost");
+    else navigate("/gas_cost_tableview");
   };
 
   const handleLookbackChange = (event) => {
@@ -159,6 +168,25 @@ export default function GasCostTopbar(props) {
           >
             <RefreshIcon sx={{ mr: "10px" }} />
             Refresh
+          </Button>
+        </Box>
+
+        {/* Flip View Icon */}
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: colors.greenAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              m: 1,
+              height: 53,
+            }}
+            onClick={handleFlipView}
+          >
+            <FlipIcon sx={{ mr: "10px" }} />
+              {flipTo}
           </Button>
         </Box>
       </Box>
