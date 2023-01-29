@@ -9,7 +9,7 @@ export default function GasCostDataGrid (props) {
   const colors = tokens(theme.palette.mode);
 
   const { data } = props;
-  const { column_data, table_data } = data;
+  const { column_data, table_data, initial_state } = data;
 
   return (
     <Box m="20px">
@@ -46,6 +46,7 @@ export default function GasCostDataGrid (props) {
         }}
       >
         <DataGrid
+          initialState={initial_state}
           rows={table_data}
           columns={column_data}
           components={{ Toolbar: GridToolbar }}
