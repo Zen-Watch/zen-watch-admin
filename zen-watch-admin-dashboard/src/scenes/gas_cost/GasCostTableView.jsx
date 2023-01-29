@@ -8,12 +8,12 @@ import {
   fetchEVMTransactionsGasCostInsights,
   get_default_exchange_currency,
 } from "../../util/util.methods";
-import { GAS_COST_TABLE_VIEW, STATUS_OK } from "../../util/constants";
+import { GAS_COST_GRAPH_VIEW, STATUS_OK } from "../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
 import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";
 import GasCostTransactionDetails from "./GasCostTransactionDetails";
 
-export default function GasCost() {
+export default function GasCostTableView() {
   const supportedChains = get_supported_chains();
   const defaultExchangeCurrency = get_default_exchange_currency();
 
@@ -47,8 +47,8 @@ export default function GasCost() {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="GAS COST"
-          subtitle="Visualize your on-chain gas cost & profitability"
+          title="GAS COST - TABLE VIEW"
+          subtitle="Visualize your on-chain gas cost & profitability as a table"
         />
       </Box>
       <GasCostTopbar
@@ -62,7 +62,7 @@ export default function GasCost() {
         handleRefreshData={async () => {
           handleRefreshData();
         }}
-        flipTo={GAS_COST_TABLE_VIEW}
+        flipTo={GAS_COST_GRAPH_VIEW}
       />
       {chartData && (
         <GasCostAppProfitLossFiatVisualization

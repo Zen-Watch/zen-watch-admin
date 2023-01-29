@@ -15,3 +15,9 @@ export const INTERNAL_SERVER_ERROR = 500;
 export interface IHash {
   [key: string]: any;
 }
+
+
+// Views
+
+export const GAS_COST_GRAPH_VIEW = "Graph View";
+export const GAS_COST_TABLE_VIEW = "Table View"

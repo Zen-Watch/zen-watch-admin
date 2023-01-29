@@ -11,17 +11,19 @@ import {
   ListItemText,
 } from "@mui/material";
 import { tokens } from "../../theme";
-
+import { useNavigate } from "react-router-dom";
 import FlipIcon from '@mui/icons-material/Flip';
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { GAS_COST_GRAPH_VIEW } from "../../util/constants";
 //import { useAppDispatch } from "../../app/hooks";
 //import { useNavigate } from "react-router-dom";
 
 export default function GasCostTopbar(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
   //const dispatch = useAppDispatch();
-  //const navigate = useNavigate();
+  
 
   const {
     selectedChains,
@@ -47,9 +49,8 @@ export default function GasCostTopbar(props) {
   };
 
   const handleFlipView = (event) => {
-    const {
-      target: { value },
-    } = event;
+    if (flipTo === GAS_COST_GRAPH_VIEW) navigate("/gas_cost");
+    else navigate("/gas_cost_tableview");
   };
 
   const handleLookbackChange = (event) => {
@@ -182,7 +183,7 @@ export default function GasCostTopbar(props) {
               m: 1,
               height: 53,
             }}
-            onChange={handleFlipView}
+            onClick={handleFlipView}
           >
             <FlipIcon sx={{ mr: "10px" }} />
               {flipTo}
