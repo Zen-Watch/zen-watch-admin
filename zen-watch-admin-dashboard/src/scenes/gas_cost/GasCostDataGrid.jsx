@@ -50,6 +50,7 @@ export default function GasCostDataGrid (props) {
           rows={table_data}
           columns={column_data}
           components={{ Toolbar: GridToolbar }}
+          componentsProps={{ toolbar: { printOptions: { disableToolbarButton: true } } }}
         />
       </Box>
     </Box>
