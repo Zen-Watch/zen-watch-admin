@@ -49,13 +49,3 @@
 * [Express (NodeJS) - How to enable CORS](https://www.youtube.com/watch?v=zDqwbiCyur8)
 * [NodeJS - How to use CORS with Express](https://www.youtube.com/watch?v=XHNn0ToXovA)
 * https://www.twilio.com/blog/add-cors-support-express-typescript-api
-
-##### Load Balancer in Digital Ocean
-* [Introducing LB in Digital Ocean](https://www.youtube.com/watch?v=RbpWNw6H1HQ)
-* [Create a DigitalOcean Load Balancer](https://www.youtube.com/watch?v=FzvGWCmwXjQ)
-* [Learn to Load Balance Your High Traffic Sites](https://www.youtube.com/watch?v=gFs2B2LPzzI)
-* [Securing Your Site with a DigitalOcean Load Balancer and SSL Termination](https://www.youtube.com/watch?v=JZzlE9IUhHM)
-
-##### Google Subdomains
-* [How to Create a Subdomain in Google Domains (simple example)](https://www.youtube.com/watch?v=YfAcvLuFMZI)
-
