@@ -41,6 +41,16 @@ Builds the app for production.
 ``` npm run test ```
 Runs the tests for the app.
 
+#### Using PM2 for production
+* https://pm2.keymetrics.io/docs/usage/quick-start/
+* https://stackoverflow.com/questions/50689644/node-dotenv-wont-work-with-pm2
+* [Using PM2 in 2020 for NodeJS](https://www.youtube.com/watch?v=ebdKIU6SDHI)
+* [Using PM2 with start command](https://stackoverflow.com/questions/31579509/can-pm2-run-an-npm-start-script)
+* [How to Build React for Production Using PM2](https://javascript.plainenglish.io/how-do-you-build-reactjs-for-production-pm2-816001d1d736)
+
+#### Install Ngnix on the production server
+```apt install nginx ```
+
 
 ### Setup guides
 * [Top charting libraries react-js 2023](https://technostacks.com/blog/react-chart-libraries/)
@@ -75,6 +85,7 @@ Runs the tests for the app.
 * [JSON pretty print Javascript](https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript)
 * [Iterate json Typescript](https://stackoverflow.com/questions/42400298/iterate-json-data-in-javascript-typescript)
 * [DataGrid API initial state](https://codesandbox.io/s/490hhz?file=/demo.tsx)
+* [Port 5000 already in use](https://medium.com/pythonistas/port-5000-already-in-use-macos-monterey-issue-d86b02edd36c)
 
 ##### Cors Error
 * [What is CORS and How to solve CORS error in Node.js (Express.js)](https://www.youtube.com/watch?v=OX-9oOcPDfE)
