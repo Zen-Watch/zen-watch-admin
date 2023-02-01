@@ -56,3 +56,6 @@
 * [Learn to Load Balance Your High Traffic Sites](https://www.youtube.com/watch?v=gFs2B2LPzzI)
 * [Securing Your Site with a DigitalOcean Load Balancer and SSL Termination](https://www.youtube.com/watch?v=JZzlE9IUhHM)
 
+##### Google Subdomains
+* [How to Create a Subdomain in Google Domains (simple example)](https://www.youtube.com/watch?v=YfAcvLuFMZI)
+
