@@ -68,23 +68,6 @@ npm install pm2@latest -g
 npm install -g serve
 ```
 
-# Instal NGINX
-```
-apt install nginx
-cd /etc/nginx/sites-available/
-vim default
-
-Comment out like this: 
-# root /var/www/html;
-
-Update the location block like this (comment out try_files, add proxy_pass with the right port)
-# try_files $uri $uri/ =404;
-proxy_pass http://localhost:1337;
-
-Close the default file, restart nginx service
-sudo service nginx restart
-```
-
 # Start the processes with PM2 in production
 ```
 For api-server, run from the root folder: 
