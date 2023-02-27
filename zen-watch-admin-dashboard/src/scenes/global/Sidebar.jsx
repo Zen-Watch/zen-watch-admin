@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import EvStationOutlinedIcon from '@mui/icons-material/EvStationOutlined';
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 //import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {

@@ -1,4 +1,4 @@
-import { IHash } from "../../../util/constants";
+import { IHash } from "../../../../util/constants";
 
 export function prepareGasCostFiatProfitLossDataForTableView(data: any) {
   const app_gas_cost_graph_data: IHash = {};

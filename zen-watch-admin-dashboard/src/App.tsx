@@ -2,14 +2,14 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import GasCost from "./scenes/gas_cost";
+import GasCost from "./scenes/v1/gas_cost";
 import { Route, Routes } from "react-router-dom";
 import Login from "./scenes/login";
 import { useAppSelector } from "./app/hooks";
 import PrivateRoutes from "./components/PrivateRoutes";
 import UnprivatePrivateRoute from "./components/UnprivateRoute";
 import NoMatch from "./scenes/global/NoMatch";
-import GasCostTableView from "./scenes/gas_cost/GasCostTableView";
+import GasCostTableView from "./scenes/v1/gas_cost/GasCostTableView";
 
 function App() {
   const [theme, colorMode] = useMode();

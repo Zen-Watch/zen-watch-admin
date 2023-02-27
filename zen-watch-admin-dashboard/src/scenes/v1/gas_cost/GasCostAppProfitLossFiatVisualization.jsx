@@ -1,6 +1,6 @@
 import { Box, useTheme, Typography } from "@mui/material";
-import AppGasCostProfitLossFiatLineChart from "../../components/charts/AppGasCostProfitLossFiatLineChart";
-import { tokens } from "../../theme";
+import AppGasCostProfitLossFiatLineChart from "../../../components/charts/AppGasCostProfitLossFiatLineChart";
+import { tokens } from "../../../theme";
 
 export default function GasCostAppProfitLossFiatVisualization(props) {
   const { data, lastSelectedTxnHash, setLastSelectedTxnHash } = props;
