@@ -1,7 +1,4 @@
-export async function make_api_request(url: string, payload: any) {
-  const response = await fetch(url, payload);
-  return await response.json();
-}
+import { make_api_request } from "../common_util.methods";
 
 export async function fetchEVMTransactionsGasCostInsights(email: string, selectedChains: string[], lookBackPeriod: number, exchangeCurrency: string) {
   const fetch_evm_transaction_gas_cost_insights = `${process.env.REACT_APP_ADMIN_BASE_URL}/admin/fetch/evm_transactions/gas_cost/insights`;

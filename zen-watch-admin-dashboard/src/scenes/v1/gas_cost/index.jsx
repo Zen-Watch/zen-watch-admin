@@ -7,7 +7,7 @@ import {
   get_supported_chains,
   fetchEVMTransactionsGasCostInsights,
   get_default_exchange_currency,
-} from "../../../util/util.methods";
+} from "../../../util/v1/admin_util.methods";
 import { GAS_COST_TABLE_VIEW, STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 import GasCostAppProfitLossFiatVisualization from "./GasCostAppProfitLossFiatVisualization";
 import { prepareGasCostDataForVisualization } from "./aggregation/gas_cost.aggregation";

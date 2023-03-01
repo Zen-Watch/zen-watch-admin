@@ -6,7 +6,7 @@ export default function ViewIFTTTInstanceDetails() {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="View IFTTT Instance Details" subtitle="Get a detailed view of the IFTTT instance, toggle it on/off as required" />
+        <Header title="IFTTT Instance Details" subtitle="Get a detailed view of the IFTTT instance, toggle it on/off as required" />
       </Box>
     </Box>
   );
