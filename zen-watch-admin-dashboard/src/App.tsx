@@ -10,6 +10,9 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import UnprivatePrivateRoute from "./components/UnprivateRoute";
 import NoMatch from "./scenes/global/NoMatch";
 import GasCostTableView from "./scenes/v1/gas_cost/GasCostTableView";
+import IFTTTInstances from "./scenes/ifttt/instances";
+import CreateIFTTTInstance from "./scenes/ifttt/create_instance";
+import ViewIFTTTInstanceDetails from "./scenes/ifttt/view_instance_details";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,9 +29,12 @@ function App() {
             {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/home" element={<GasCost />} />
-                <Route path="/gas_cost" element={<GasCost />} />
+                <Route path="/ifttt_instances" element={<IFTTTInstances />} />
+                <Route path="/create_ifttt" element={<CreateIFTTTInstance />} />
+                <Route path="/view_ifttt_instance" element={<ViewIFTTTInstanceDetails />} />
+                
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
+                <Route path="/gas_cost" element={<GasCost />} />
                 <Route path="/gas_cost_tableview" element={<GasCostTableView />} />
               </Route>
               <Route element={<UnprivatePrivateRoute />}>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import EvStationOutlinedIcon from '@mui/icons-material/EvStationOutlined';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 //import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -81,14 +81,14 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            {/* <Item
-              title="Home"
-              to="/home"
-              icon={<HomeOutlinedIcon />}
+            <Item
+              title="IFTTT Instances"
+              to="/ifttt_instances"
+              icon={<ToggleOnIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
-            <Typography
+            />
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -101,7 +101,7 @@ export default function Sidebar() {
               icon={<EvStationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             {/* <Item
               title="Transaction Errors"
               to="/transaction_errors"

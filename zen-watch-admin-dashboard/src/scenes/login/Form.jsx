@@ -108,7 +108,7 @@ export default function Form() {
       onSubmitProps.resetForm();
       if (userCredentials) {
         dispatch(connect(userCredentials.user.email));
-        navigate("/home");
+        navigate("/ifttt_instances");
       }
     } catch (error) {
       //TODO: Replace this with a good toast
