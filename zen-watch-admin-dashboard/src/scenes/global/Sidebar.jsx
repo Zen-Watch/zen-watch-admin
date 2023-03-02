@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import CreateIcon from '@mui/icons-material/Create';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import WorkIcon from '@mui/icons-material/Work';
+import PublishIcon from '@mui/icons-material/Publish';
 //import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -80,11 +86,67 @@ export default function Sidebar() {
             )}
           </MenuItem>
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box paddingLeft={isCollapsed ? "undefined" : "10%"}>
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Use Existing Code
+            </Typography>
             <Item
-              title="IFTTT Instances"
+              title="Create An Instance"
+              to="/ifttt_instances"
+              icon={<CreateIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Active Instances"
               to="/ifttt_instances"
               icon={<ToggleOnIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Trigger Run History"
+              to="/ifttt_instances"
+              icon={<ManageHistoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Action Run History"
+              to="/ifttt_instances"
+              icon={<WorkHistoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Develop Code
+            </Typography>
+            <Item
+              title="Create New Trigger"
+              to="/ifttt_instances"
+              icon={<EngineeringIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Create New Action"
+              to="/ifttt_instances"
+              icon={<WorkIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Your Submissions"
+              to="/ifttt_instances"
+              icon={<PublishIcon />}
               selected={selected}
               setSelected={setSelected}
             />
