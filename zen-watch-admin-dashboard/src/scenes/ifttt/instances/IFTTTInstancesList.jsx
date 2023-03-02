@@ -17,10 +17,10 @@ export default function IFTTTInstancesList({ items }) {
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   
-  const handleIFTTTInstancesActionButtonClick = (id) => {
-    console.log(`Button clicked for item with id ${id}`);
+  const handleIFTTTInstancesActionButtonClick = (_item) => {
+    console.log(`Button clicked for item with id ${_item.id}`, _item);
     // handle button click here
-    navigate("/view_ifttt_instance");
+    navigate("/view_ifttt_instance", { state: _item });
   };
 
   const headerStyle = { fontSize: 16 };
@@ -42,12 +42,12 @@ export default function IFTTTInstancesList({ items }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map(({ id, ifttt_instance_name, ifttt_instance_description, trigger_target_resource_name, ifttt_instance_is_on }) => (
-            <TableRow key={id}>
-              <TableCell style={contentStyle}>{ifttt_instance_name}</TableCell>
-              <TableCell style={contentStyle}> {ifttt_instance_description} </TableCell>
-              <TableCell style={contentStyle}> {trigger_target_resource_name} </TableCell>
-              <TableCell style={contentStyle}> {ifttt_instance_is_on ? "On" : "Off"} </TableCell>
+          {items.map((_item) => (
+            <TableRow key={_item.id}>
+              <TableCell style={contentStyle}>{_item.ifttt_instance_name}</TableCell>
+              <TableCell style={contentStyle}> {_item.ifttt_instance_description} </TableCell>
+              <TableCell style={contentStyle}> {_item.trigger_target_resource_name} </TableCell>
+              <TableCell style={contentStyle}> {_item.ifttt_instance_is_on ? "On" : "Off"} </TableCell>
               <TableCell>
                 <Button
                   sx={{
@@ -60,9 +60,9 @@ export default function IFTTTInstancesList({ items }) {
                   }}
                   variant="contained"
                   color="primary"
-                  onClick={() => handleIFTTTInstancesActionButtonClick(id)}
+                  onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
                 >
-                  {ifttt_instance_is_on ? "View Details / Turn Off" : "View Details / Turn On"}
+                  {_item.ifttt_instance_is_on ? "View Details / Turn Off" : "View Details / Turn On"}
                 </Button>
               </TableCell>
             </TableRow>
