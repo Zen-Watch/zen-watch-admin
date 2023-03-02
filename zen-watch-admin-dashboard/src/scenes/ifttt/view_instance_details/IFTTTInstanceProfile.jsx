@@ -8,17 +8,20 @@ import {
   Button,
   useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 
 export default function IFTTTInstanceProfile({ data }) {
   const theme = useTheme();
+  const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
   const email = useAppSelector((state) => state.app.email);
 
   // Fetch Instance Details from the props
   const {
+    id,
     ifttt_instance_is_on,
     ifttt_instance_name,
     ifttt_instance_description,
@@ -34,8 +37,54 @@ export default function IFTTTInstanceProfile({ data }) {
 
   console.log("IFTTTInstanceProfile.data", data);
 
-  const handleTurnOffOnSwitchButtonClick = (ifttt_instance_is_on) => {
-    console.log(`Button clicked for item with id ${ifttt_instance_is_on}`);
+  // Toggle Instance Status
+  async function update_iftt_instance_status(email, instance_id, new_instance_status) {
+    const update_iftt_instance_status_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/update/ifttt_instance/status`;
+    const payload = {
+      email,
+      instance_id,
+      new_instance_status
+    };
+    const result = await make_api_request(update_iftt_instance_status_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
+      },
+      body: JSON.stringify(payload),
+    });
+    return result;
+  }
+
+  // we send the complement of the current state to the backend, to turn off if it's on and vice versa
+  const handleTurnOffOnSwitchButtonClick = (
+    _instance_id,
+    new_instance_status
+  ) => {
+    console.log(
+      `Changing status of instance ${_instance_id} to the new status ${new_instance_status}`
+    );
+    const resp = update_iftt_instance_status(email, _instance_id, new_instance_status);
+    resp
+      .then((result) => {
+        if (result.status === UNAUTHORIZED_ACCESS) {
+          alert(
+            "Unauthorized access, please check your api key or contact support!"
+          );
+          return;
+        } else if (result.status !== STATUS_OK) {
+          alert("API Error, please contact support.");
+          return;
+        }
+        console.log("result success update_iftt_instance_status - ", result);
+        navigate("/ifttt_instances");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(
+          "Status update error. Please contact support@zen.watch for help."
+        );
+      });
     // handle button click here
   };
 
@@ -130,18 +179,14 @@ export default function IFTTTInstanceProfile({ data }) {
     setShowDetails((prevState) => !prevState);
   };
 
-  console.log(`triggerData`, triggerData);
-  console.log(`actionsData`, actionsData);
-
   return (
     <Paper sx={{ padding: 2 }}>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Typography variant="h3">{ifttt_instance_name}</Typography>
-          <Typography variant="h4">{ifttt_instance_description}</Typography>
+          <Typography variant="h4"><strong>Name:</strong> {ifttt_instance_name}</Typography>
+          <Typography variant="h5"><strong>Description:</strong>  {ifttt_instance_description}</Typography>
           <Typography variant="h5">
-            {" "}
-            Status: {ifttt_instance_is_on ? "On" : "Off"}{" "}
+          <strong>Status:</strong>  {ifttt_instance_is_on ? "On" : "Off"}{" "}
           </Typography>
         </Grid>
       </Grid>
@@ -259,17 +304,19 @@ export default function IFTTTInstanceProfile({ data }) {
         {showDetails ? "Hide Details" : "Show Details"}
       </Button>
       <Button
-        sx={{ 
-            marginTop: 2, 
-            marginLeft: 2 ,
-            backgroundColor: colors.greenAccent[700],
-            color: colors.grey[100],
-            fontSize: "12px",
-            fontWeight: "bold",
+        sx={{
+          marginTop: 2,
+          marginLeft: 2,
+          backgroundColor: colors.greenAccent[700],
+          color: colors.grey[100],
+          fontSize: "12px",
+          fontWeight: "bold",
         }}
         variant="contained"
         color="primary"
-        onClick={() => handleTurnOffOnSwitchButtonClick(ifttt_instance_is_on)}
+        onClick={() =>
+          handleTurnOffOnSwitchButtonClick(id, !ifttt_instance_is_on)
+        }
       >
         {ifttt_instance_is_on ? "Turn Off" : "Turn On"}
       </Button>
