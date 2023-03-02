@@ -13,6 +13,11 @@ import GasCostTableView from "./scenes/v1/gas_cost/GasCostTableView";
 import IFTTTInstances from "./scenes/ifttt/instances";
 import CreateIFTTTInstance from "./scenes/ifttt/create_instance";
 import ViewIFTTTInstanceDetails from "./scenes/ifttt/view_instance_details";
+import IFTTTTriggerRunHistory from "./scenes/ifttt/trigger_run_history";
+import IFTTTActionRunHistory from "./scenes/ifttt/action_run_history";
+import IFTTTCreateNewTrigger from "./scenes/ifttt/create_new_trigger";
+import IFTTTCreateNewAction from "./scenes/ifttt/create_new_action";
+import IFTTTCodeSubmissions from "./scenes/ifttt/code_submissions";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -32,7 +37,11 @@ function App() {
                 <Route path="/ifttt_instances" element={<IFTTTInstances />} />
                 <Route path="/create_ifttt" element={<CreateIFTTTInstance />} />
                 <Route path="/view_ifttt_instance" element={<ViewIFTTTInstanceDetails />} />
-                
+                <Route path="/trigger_run_history" element={<IFTTTTriggerRunHistory />} />
+                <Route path="/action_run_history" element={<IFTTTActionRunHistory />} />
+                <Route path="/create_new_trigger" element={<IFTTTCreateNewTrigger />} />
+                <Route path="/create_new_action" element={<IFTTTCreateNewAction />} />
+                <Route path="/code_submissions" element={<IFTTTCodeSubmissions />} />                
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
                 <Route path="/gas_cost" element={<GasCost />} />
                 <Route path="/gas_cost_tableview" element={<GasCostTableView />} />

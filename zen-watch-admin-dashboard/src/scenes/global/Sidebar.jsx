@@ -96,13 +96,13 @@ export default function Sidebar() {
             </Typography>
             <Item
               title="Create An Instance"
-              to="/ifttt_instances"
+              to="/create_ifttt"
               icon={<CreateIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Active Instances"
+              title="Your Instances"
               to="/ifttt_instances"
               icon={<ToggleOnIcon />}
               selected={selected}
@@ -110,14 +110,14 @@ export default function Sidebar() {
             />
             <Item
               title="Trigger Run History"
-              to="/ifttt_instances"
+              to="/trigger_run_history"
               icon={<ManageHistoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Action Run History"
-              to="/ifttt_instances"
+              to="/action_run_history"
               icon={<WorkHistoryIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -131,21 +131,21 @@ export default function Sidebar() {
             </Typography>
             <Item
               title="Create New Trigger"
-              to="/ifttt_instances"
+              to="/create_new_trigger"
               icon={<EngineeringIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Create New Action"
-              to="/ifttt_instances"
+              to="/create_new_action"
               icon={<WorkIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Your Submissions"
-              to="/ifttt_instances"
+              to="/code_submissions"
               icon={<PublishIcon />}
               selected={selected}
               setSelected={setSelected}
