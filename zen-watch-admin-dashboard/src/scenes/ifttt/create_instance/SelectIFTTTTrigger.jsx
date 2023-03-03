@@ -86,7 +86,7 @@ export default function SelectIFTTTTrigger() {
     email,
     selectedTargetResourceName
   ) {
-    const fetch_ifttt_public_trigger_definitions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/public/trigger_definitions`;
+    const fetch_ifttt_public_trigger_definitions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/public/approved/trigger_definitions`;
     const payload = {
       email: email,
       target_resource_name: selectedTargetResourceName,
