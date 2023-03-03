@@ -18,7 +18,6 @@ export default function IFTTTInstancesList({ items }) {
   const navigate = useNavigate();
   
   const handleIFTTTInstancesActionButtonClick = (_item) => {
-    console.log(`Button clicked for item with id ${_item.id}`, _item);
     // handle button click here
     navigate("/view_ifttt_instance", { state: _item });
   };

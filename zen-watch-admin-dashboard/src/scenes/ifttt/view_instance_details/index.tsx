@@ -5,7 +5,6 @@ import IFTTTInstanceProfile from "./IFTTTInstanceProfile";
 
 export default function ViewIFTTTInstanceDetails() {
   const location = useLocation();
-  console.log("location - ", location, location.state);
   return (
     <Box m="20px">
       {/* HEADER */}

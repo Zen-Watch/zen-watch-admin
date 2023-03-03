@@ -35,8 +35,6 @@ export default function IFTTTInstanceProfile({ data }) {
   const [actionsData, setActionsData] = useState(undefined);
   const [showDetails, setShowDetails] = useState(false);
 
-  console.log("IFTTTInstanceProfile.data", data);
-
   // Toggle Instance Status
   async function update_iftt_instance_status(email, instance_id, new_instance_status) {
     const update_iftt_instance_status_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/update/ifttt_instance/status`;

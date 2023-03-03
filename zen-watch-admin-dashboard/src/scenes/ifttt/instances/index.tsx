@@ -26,7 +26,6 @@ export default function IFTTTInstances() {
   }
 
   useEffect(() => {
-    console.log("fetching data for email -", email)
     const resp = fetch_ifttt_instances(email);
     resp
       .then((result) => {
@@ -39,7 +38,6 @@ export default function IFTTTInstances() {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success - ", result);
         setData(result.message);
       })
       .catch((err) => {
