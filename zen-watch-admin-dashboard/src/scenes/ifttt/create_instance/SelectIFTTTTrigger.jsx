@@ -48,6 +48,12 @@ export default function SelectIFTTTTrigger() {
   }
 
   useEffect(() => {
+    if (location?.state?.outputJson) {
+      setOutputJson(location.state.outputJson);
+    }
+  }, [location]);
+
+  useEffect(() => {
     console.log(
       "fetching target resource names for public triggers on load -",
       email
@@ -153,6 +159,7 @@ export default function SelectIFTTTTrigger() {
     setSelectedTriggerDefinition(selectedTriggerDefinition);
     // If you change the trigger reset the json and raw input
     setOutputJson({
+      ...location.state.outputJson,
       trigger_target_resource_name: selectedTriggerDefinition.target_resource_name,
       trigger_info: {
         trigger_id: selectedTriggerDefinition.id,
