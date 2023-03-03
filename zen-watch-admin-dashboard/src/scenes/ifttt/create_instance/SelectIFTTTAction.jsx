@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { tokens } from "../../../theme";
 import {
   Box,
   Typography,
@@ -9,6 +10,7 @@ import {
   Button,
   Divider,
   Paper,
+  useTheme
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
@@ -18,24 +20,26 @@ import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
   const location = useLocation();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   console.log("location SelectIFTTTAction - ", location, location.state);
   const email = useAppSelector((state) => state.app.email);
   const [targetResourceNames, setTargetResourceNames] = useState([]);
   const [selectedTargetResourceName, setSelectedTargetResourceName] =
     useState("");
-  const [triggers, setTriggers] = useState([]);
-  const [selectedTriggerDefinition, setSelectedTriggerDefinition] =
+  const [actions, setActions] = useState([]);
+  const [selectedActionDefinition, setSelectedActionDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
   const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
-  const [rawTriggerInput, setRawTriggerInput] = useState({});
+  const [rawActionInput, setRawActionInput] = useState({});
   const navigate = useNavigate();
 
-  async function fetch_target_resource_names_for_public_triggers(email) {
-    const fetch_ifttt_target_resource_names_for_public_triggers_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/unique/public/trigger/target_resource_names`;
+  async function fetch_target_resource_names_for_public_actions(email) {
+    const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/unique/public/action/target_resource_names`;
     const payload = { email };
     const result = await make_api_request(
-      fetch_ifttt_target_resource_names_for_public_triggers_url,
+      fetch_ifttt_target_resource_names_for_public_actions_url,
       {
         method: "POST",
         headers: {
@@ -56,10 +60,10 @@ export default function SelectIFTTTAction() {
 
   useEffect(() => {
     console.log(
-      "fetching target resource names for public triggers on load -",
+      "fetching target resource names for public actions on load -",
       email
     );
-    const resp = fetch_target_resource_names_for_public_triggers(email);
+    const resp = fetch_target_resource_names_for_public_actions(email);
     resp
       .then((result) => {
         if (result.status === UNAUTHORIZED_ACCESS) {
@@ -82,17 +86,17 @@ export default function SelectIFTTTAction() {
       });
   }, [email]);
 
-  async function fetch_public_trigger_definitions(
+  async function fetch_public_action_definitions(
     email,
     selectedTargetResourceName
   ) {
-    const fetch_ifttt_public_trigger_definitions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/public/approved/trigger_definitions`;
+    const fetch_ifttt_public_action_definitions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/public/approved/action_definitions`;
     const payload = {
       email: email,
       target_resource_name: selectedTargetResourceName,
     };
     const result = await make_api_request(
-      fetch_ifttt_public_trigger_definitions_url,
+      fetch_ifttt_public_action_definitions_url,
       {
         method: "POST",
         headers: {
@@ -107,11 +111,11 @@ export default function SelectIFTTTAction() {
 
   useEffect(() => {
     console.log(
-      "fetching public trigger definitions for email, selectedTargetResourceName -",
+      "fetching public action definitions for email, selectedTargetResourceName -",
       email,
       selectedTargetResourceName
     );
-    const resp = fetch_public_trigger_definitions(
+    const resp = fetch_public_action_definitions(
       email,
       selectedTargetResourceName
     );
@@ -126,8 +130,8 @@ export default function SelectIFTTTAction() {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success setTriggers - ", result);
-        setTriggers(result.message);
+        console.log("result success setActions - ", result);
+        setActions(result.message);
       })
       .catch((err) => {
         console.log(err);
@@ -137,8 +141,8 @@ export default function SelectIFTTTAction() {
   // This is to reduce the cognitive overload of the user, by abstracting implementation details
   useEffect(() => {
     const newJson = filter_output_json(outputJson);
-    console.log('original outputJson - ', outputJson)
-    console.log('filter_output_json newJson - ', newJson)
+    console.log("original outputJson - ", outputJson);
+    console.log("filter_output_json newJson - ", newJson);
     setOutputJsonFiltered(newJson);
   }, [outputJson]);
 
@@ -146,54 +150,43 @@ export default function SelectIFTTTAction() {
     setSelectedTargetResourceName(event.target.value);
   };
 
-  const handleTriggerChange = (event) => {
-    const selectedTriggerDefinitionId = event.target.value;
-    const selectedTriggerDefinition = triggers.find(
-      (trigger) => trigger.id === selectedTriggerDefinitionId
+  const handleActionChange = (event) => {
+    const selectedActionDefinitionId = event.target.value;
+    const selectedActionDefinition = actions.find(
+      (action) => action.id === selectedActionDefinitionId
     );
-    setSelectedTriggerDefinition(selectedTriggerDefinition);
-    // If you change the trigger reset the json and raw input
+    setSelectedActionDefinition(selectedActionDefinition);
+    // If you change the action reset the json and raw input
 
-    const _trigger_output_json = {
+    const _action_output_json = {
       ...outputJson,
-      is_trigger_trusted_source: selectedTriggerDefinition.is_trusted_source,
-      is_trigger_compute_intensive:
-        selectedTriggerDefinition.is_compute_intensive,
-      is_trigger_push_mechanism: selectedTriggerDefinition.is_push_mechanism,
-      trigger_target_resource_name:
-        selectedTriggerDefinition.target_resource_name,
-      trigger_info: {
-        trigger_id: selectedTriggerDefinition.id,
-        params: {},
-      },
-    }
-    console.log("handleTriggerChange - ", _trigger_output_json)
-    setOutputJson(_trigger_output_json);
-    
+    };
+    console.log("handleActionChange - ", _action_output_json);
+    setOutputJson(_action_output_json);
   };
 
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
-    setRawTriggerInput(rawInput);
+    setRawActionInput(rawInput);
   };
 
   const parseCommaSeparatedString = (str) => {
-    const object = str.split(',').reduce((acc, curr) => {
-      const [key, value] = curr.trim().split(':');
+    const object = str.split(",").reduce((acc, curr) => {
+      const [key, value] = curr.trim().split(":");
       acc[key] = value.trim();
       return acc;
     }, {});
     return object; //If required,  JSON.stringify(object, null, 2);
-  }
-  
+  };
+
   const handleAddParameters = () => {
-    const rawInput = rawTriggerInput;
+    const rawInput = rawActionInput;
     try {
       const parsedInput = parseCommaSeparatedString(rawInput);
       const outputJsonCopy = JSON.parse(JSON.stringify(outputJson));
-      outputJsonCopy.trigger_info.params = parsedInput;
+      outputJsonCopy.action_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
-      setRawTriggerInput("");
+      setRawActionInput("");
     } catch (err) {
       alert("Invalid input, please check your input and try again!");
       return;
@@ -201,9 +194,22 @@ export default function SelectIFTTTAction() {
   };
 
   const handleNextClick = () => {
-    console.log('passed on - ', outputJson);
+    console.log("passed on - ", outputJson);
     navigate("/create_ifttt_select_action", {
-      state: { outputJson: outputJson },
+      state: {
+        outputJson: outputJson,
+        action_count: location.state.action_count + 1,
+      },
+    });
+  };
+
+  const handleCreateIFTTTInstance = () => {
+    console.log("passed on - ", outputJson);
+    navigate("/create_ifttt_select_action", {
+      state: {
+        outputJson: outputJson,
+        action_count: location.state.action_count + 1,
+      },
     });
   };
 
@@ -243,30 +249,30 @@ export default function SelectIFTTTAction() {
               </FormControl>
 
               <FormControl sx={{ minWidth: 240 }}>
-                <InputLabel id="trigger-select-label">Trigger</InputLabel>
+                <InputLabel id="action-select-label">Action</InputLabel>
                 <Select
-                  labelId="trigger-select-label"
-                  id="trigger-select"
-                  value={selectedTriggerDefinition?.id || ""}
-                  label="Trigger"
-                  onChange={handleTriggerChange}
-                  disabled={triggers.length === 0}
+                  labelId="action-select-label"
+                  id="action-select"
+                  value={selectedActionDefinition?.id || ""}
+                  label="Action"
+                  onChange={handleActionChange}
+                  disabled={actions.length === 0}
                 >
-                  {triggers.map((trigger) => (
-                    <MenuItem key={trigger.id} value={trigger.id}>
-                      {trigger.trigger_name}
+                  {actions.map((action) => (
+                    <MenuItem key={action.id} value={action.id}>
+                      {action.action_name}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </Box>
 
-            {selectedTriggerDefinition && (
+            {selectedActionDefinition && (
               <Box sx={{ marginTop: 4 }}>
                 <Divider sx={{ marginBottom: 2 }} />
 
                 <Typography variant="h6" gutterBottom>
-                  <strong>Trigger Details</strong>
+                  <strong>Action Details</strong>
                 </Typography>
 
                 <Box sx={{ marginBottom: 2 }}>
@@ -274,7 +280,7 @@ export default function SelectIFTTTAction() {
                     <strong>Name:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_name}
+                    {selectedActionDefinition.action_name}
                   </Typography>
                 </Box>
 
@@ -283,7 +289,7 @@ export default function SelectIFTTTAction() {
                     <strong>Description:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_description}
+                    {selectedActionDefinition.action_description}
                   </Typography>
                 </Box>
 
@@ -292,7 +298,7 @@ export default function SelectIFTTTAction() {
                     <strong>Signature:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_signature}
+                    {selectedActionDefinition.action_signature}
                   </Typography>
                 </Box>
 
@@ -301,7 +307,7 @@ export default function SelectIFTTTAction() {
                     <strong>Signature Description:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_signature_description}
+                    {selectedActionDefinition.action_signature_description}
                   </Typography>
                 </Box>
 
@@ -318,7 +324,7 @@ export default function SelectIFTTTAction() {
                     }}
                   >
                     <pre>
-                      <code>{selectedTriggerDefinition.trigger_code}</code>
+                      <code>{selectedActionDefinition.action_code}</code>
                     </pre>
                   </Box>
                 </Box>
@@ -336,7 +342,7 @@ export default function SelectIFTTTAction() {
                   >
                     <pre>
                       <code>
-                        {selectedTriggerDefinition.trigger_expected_input}
+                        {selectedActionDefinition.action_expected_input}
                       </code>
                     </pre>
                   </Box>
@@ -355,7 +361,7 @@ export default function SelectIFTTTAction() {
                   >
                     <pre>
                       <code>
-                        {selectedTriggerDefinition.trigger_expected_output}
+                        {selectedActionDefinition.action_expected_output}
                       </code>
                     </pre>
                   </Box>
@@ -369,16 +375,27 @@ export default function SelectIFTTTAction() {
           <Paper sx={{ padding: 2, minWidth: 300 }}>
             <Box sx={{ marginBottom: 2 }}>
               <Typography variant="subtitle2" gutterBottom>
-                <strong>Trigger Inputs</strong>
+                <strong>Action Inputs</strong>
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Enter trigger input here:
+                Enter action input here:
               </Typography>
               <textarea
                 rows={5}
                 cols={50}
                 onChange={handleRawInputChange}
               ></textarea>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                marginTop: 2,
+              }}
+            >
+              <Typography variant="body1" gutterBottom>
+                Current Action Count: {location.state.action_count} (Max Count:
+                2)
+              </Typography>
             </Box>
 
             <Box
@@ -388,11 +405,29 @@ export default function SelectIFTTTAction() {
                 marginTop: 2,
               }}
             >
-              <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAddParameters}>
+              <Button
+                sx={{ marginRight: 2 }}
+                variant="contained"
+                onClick={handleAddParameters}
+              >
                 Add Parameters
               </Button>
-              <Button variant="contained" onClick={handleNextClick}>
-                Next
+              {location.state.action_count < 2 && (
+                <Button
+                  sx={{ marginRight: 2 }}
+                  variant="contained"
+                  onClick={handleNextClick}
+                >
+                  Add Another Action
+                </Button>
+              )}
+              <Button sx={{               
+                backgroundColor: colors.greenAccent[700],
+                color: colors.grey[100],
+                fontWeight: "bold",
+              }}
+              variant="contained" onClick={handleCreateIFTTTInstance}>
+                Create IFTTT Instance
               </Button>
             </Box>
           </Paper>

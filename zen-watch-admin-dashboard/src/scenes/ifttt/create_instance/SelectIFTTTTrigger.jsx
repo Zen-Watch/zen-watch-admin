@@ -392,7 +392,7 @@ export default function SelectIFTTTTrigger() {
                 Add Parameters
               </Button>
               <Button variant="contained" onClick={handleNextClick}>
-                Next
+                Add Action
               </Button>
             </Box>
           </Paper>
