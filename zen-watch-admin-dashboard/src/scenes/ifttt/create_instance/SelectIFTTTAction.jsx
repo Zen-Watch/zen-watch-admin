@@ -22,7 +22,6 @@ export default function SelectIFTTTAction() {
   const location = useLocation();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  console.log("location SelectIFTTTAction - ", location, location.state);
   const email = useAppSelector((state) => state.app.email);
   const [targetResourceNames, setTargetResourceNames] = useState([]);
   const [selectedTargetResourceName, setSelectedTargetResourceName] =
@@ -59,10 +58,6 @@ export default function SelectIFTTTAction() {
   }, [location]);
 
   useEffect(() => {
-    console.log(
-      "fetching target resource names for public actions on load -",
-      email
-    );
     const resp = fetch_target_resource_names_for_public_actions(email);
     resp
       .then((result) => {
@@ -75,7 +70,6 @@ export default function SelectIFTTTAction() {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success setTargetResourceNames - ", result);
         setTargetResourceNames(result.message);
         if (result.message.length > 0) {
           setSelectedTargetResourceName(result.message[0].target_resource_name);
@@ -110,11 +104,6 @@ export default function SelectIFTTTAction() {
   }
 
   useEffect(() => {
-    console.log(
-      "fetching public action definitions for email, selectedTargetResourceName -",
-      email,
-      selectedTargetResourceName
-    );
     const resp = fetch_public_action_definitions(
       email,
       selectedTargetResourceName
@@ -130,7 +119,6 @@ export default function SelectIFTTTAction() {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success setActions - ", result);
         setActions(result.message);
       })
       .catch((err) => {
@@ -141,8 +129,6 @@ export default function SelectIFTTTAction() {
   // This is to reduce the cognitive overload of the user, by abstracting implementation details
   useEffect(() => {
     const newJson = filter_output_json(outputJson);
-    console.log("original outputJson - ", outputJson);
-    console.log("filter_output_json newJson - ", newJson);
     setOutputJsonFiltered(newJson);
   }, [outputJson]);
 
@@ -158,7 +144,6 @@ export default function SelectIFTTTAction() {
     setSelectedActionDefinition(selectedActionDefinition);
     // If you change the action reset the json and raw input
     
-    console.log("handleActionChange - ", selectedActionDefinitionId, selectedActionDefinition);
     const new_action_info = {
       action_id: selectedActionDefinitionId,
       params: {},
@@ -169,7 +154,6 @@ export default function SelectIFTTTAction() {
     };
 
     _action_output_json.actions_info.push(new_action_info);
-    console.log("handleActionChange final - ", _action_output_json);
     setOutputJson(_action_output_json);
   };
 
@@ -207,7 +191,6 @@ export default function SelectIFTTTAction() {
   };
 
   const handleNextClick = () => {
-    console.log("passed on - ", outputJson);
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,
@@ -217,7 +200,6 @@ export default function SelectIFTTTAction() {
   };
 
   const handleCreateIFTTTInstance = () => {
-    console.log("passed on - ", outputJson);
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,

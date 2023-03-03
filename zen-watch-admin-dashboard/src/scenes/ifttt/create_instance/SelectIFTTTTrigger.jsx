@@ -23,7 +23,6 @@ export default function SelectIFTTTTrigger() {
   const location = useLocation();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  console.log("location SelectIFTTTTrigger - ", location, location.state);
   const email = useAppSelector((state) => state.app.email);
   const [targetResourceNames, setTargetResourceNames] = useState([]);
   const [selectedTargetResourceName, setSelectedTargetResourceName] =
@@ -60,10 +59,6 @@ export default function SelectIFTTTTrigger() {
   }, [location]);
 
   useEffect(() => {
-    console.log(
-      "fetching target resource names for public triggers on load -",
-      email
-    );
     const resp = fetch_target_resource_names_for_public_triggers(email);
     resp
       .then((result) => {
@@ -76,7 +71,6 @@ export default function SelectIFTTTTrigger() {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success setTargetResourceNames - ", result);
         setTargetResourceNames(result.message);
         if (result.message.length > 0) {
           setSelectedTargetResourceName(result.message[0].target_resource_name);
@@ -111,11 +105,6 @@ export default function SelectIFTTTTrigger() {
   }
 
   useEffect(() => {
-    console.log(
-      "fetching public trigger definitions for email, selectedTargetResourceName -",
-      email,
-      selectedTargetResourceName
-    );
     const resp = fetch_public_trigger_definitions(
       email,
       selectedTargetResourceName
@@ -131,7 +120,6 @@ export default function SelectIFTTTTrigger() {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success setTriggers - ", result);
         setTriggers(result.message);
       })
       .catch((err) => {
@@ -142,8 +130,6 @@ export default function SelectIFTTTTrigger() {
   // This is to reduce the cognitive overload of the user, by abstracting implementation details
   useEffect(() => {
     const newJson = filter_output_json(outputJson);
-    console.log('original outputJson - ', outputJson)
-    console.log('filter_output_json newJson - ', newJson)
     setOutputJsonFiltered(newJson);
   }, [outputJson]);
 
@@ -173,7 +159,6 @@ export default function SelectIFTTTTrigger() {
       },
       actions_info: [],
     }
-    console.log("handleTriggerChange - ", _trigger_output_json)
     setOutputJson(_trigger_output_json);
     
   };
@@ -207,7 +192,6 @@ export default function SelectIFTTTTrigger() {
   };
 
   const handleNextClick = () => {
-    console.log('passed on - ', outputJson);
     navigate("/create_ifttt_select_action", {
       state: { outputJson: outputJson, action_count: location.state.action_count },
     });
