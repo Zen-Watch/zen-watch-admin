@@ -30,11 +30,11 @@ export default function SelectIFTTTAction() {
   const [selectedActionDefinition, setSelectedActionDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
+  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawActionInput, setRawActionInput] = useState({});
   const navigate = useNavigate();
 
   async function fetch_target_resource_names_for_public_actions(email) {
-    console.log('fetch_target_resource_names_for_public_actions');
     const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/unique/public/action/target_resource_names`;
     const payload = { email };
     const result = await make_api_request(
@@ -84,7 +84,6 @@ export default function SelectIFTTTAction() {
     email,
     selectedTargetResourceName
   ) {
-    console.log('fetch_public_action_definitions');
     const fetch_ifttt_public_action_definitions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/public/approved/action_definitions`;
     const payload = {
       email: email,
@@ -152,6 +151,11 @@ export default function SelectIFTTTAction() {
     setOutputJson(_action_output_json);
   };
 
+  useEffect(() => {
+    const copy_json = filter_output_json(outputJson);
+    setOutputJsonFiltered(copy_json);
+  }, [outputJson]);
+
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
     setRawActionInput(rawInput);
@@ -201,12 +205,40 @@ export default function SelectIFTTTAction() {
     });
   };
 
+  async function create_ifttt_instance() {
+    const create_ifttt_instance_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/create/ifttt_instance`;
+    const payload = { email, ...outputJson };
+    const result = await make_api_request(
+      create_ifttt_instance_url,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    return result;
+  }
+
   const handleCreateIFTTTInstance = () => {
-    navigate("/create_ifttt_select_action", {
-      state: {
-        outputJson: outputJson,
-        action_count: location.state.action_count + 1,
-      },
+    const resp = create_ifttt_instance();
+    resp
+    .then((result) => {
+      if (result.status === UNAUTHORIZED_ACCESS) {
+        alert(
+          "Unauthorized access, please check your api key or contact support!"
+        );
+        return;
+      } else if (result.status !== STATUS_OK) {
+        alert("API Error, please contact support.");
+        return;
+      }
+      alert("IFTTT instance created successfully!");
+    })
+    .catch((err) => {
+      console.log(err);
     });
   };
 
@@ -451,7 +483,7 @@ export default function SelectIFTTTAction() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJson, null, 2)}
+                {JSON.stringify(outputJsonFiltered, null, 2)}
               </Box>
             </Box>
           )}

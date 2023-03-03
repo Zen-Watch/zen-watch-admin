@@ -31,6 +31,7 @@ export default function SelectIFTTTTrigger() {
   const [selectedTriggerDefinition, setSelectedTriggerDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
+  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawTriggerInput, setRawTriggerInput] = useState({});
   const navigate = useNavigate();
 
@@ -155,6 +156,11 @@ export default function SelectIFTTTTrigger() {
     setOutputJson(_trigger_output_json);
     
   };
+
+  useEffect(() => {
+    const copy_json = filter_output_json(outputJson);
+    setOutputJsonFiltered(copy_json);
+  }, [outputJson]);
 
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
@@ -402,7 +408,7 @@ export default function SelectIFTTTTrigger() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJson, null, 2)}
+                {JSON.stringify(outputJsonFiltered, null, 2)}
               </Box>
             </Box>
           )}

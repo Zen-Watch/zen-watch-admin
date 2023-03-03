@@ -1,5 +1,5 @@
 export function filter_output_json(outputJson: any) {
-    const newJson = { ...outputJson };
+    const newJson = JSON.parse(JSON.stringify(outputJson));
 
     if (outputJson && 'is_trigger_trusted_source' in outputJson)
         delete newJson.is_trigger_trusted_source;
