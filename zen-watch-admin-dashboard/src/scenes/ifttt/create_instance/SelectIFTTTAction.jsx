@@ -14,6 +14,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
+import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
   const location = useLocation();
@@ -46,6 +47,12 @@ export default function SelectIFTTTAction() {
     );
     return result;
   }
+
+  useEffect(() => {
+    if (location?.state?.outputJson) {
+      setOutputJson(location.state.outputJson);
+    }
+  }, [location]);
 
   useEffect(() => {
     console.log(
@@ -129,16 +136,10 @@ export default function SelectIFTTTAction() {
 
   // This is to reduce the cognitive overload of the user, by abstracting implementation details
   useEffect(() => {
-    // Check if the 'trigger_info.trigger_id' field exists in the original JSON object
-    if (outputJson?.trigger_info?.trigger_id) {
-      // Copy the original JSON object to a new object with the 'trigger_info.trigger_id' field removed
-      const newJson = { ...outputJson };
-      delete newJson.trigger_info.trigger_id;
-      setOutputJsonFiltered(newJson);
-    } else {
-      // If the 'trigger_info.trigger_id' field doesn't exist, copy the original JSON object as is
-      setOutputJsonFiltered({ ...outputJson });
-    }
+    const newJson = filter_output_json(outputJson);
+    console.log('original outputJson - ', outputJson)
+    console.log('filter_output_json newJson - ', newJson)
+    setOutputJsonFiltered(newJson);
   }, [outputJson]);
 
   const handleResourceChange = (event) => {
@@ -152,14 +153,23 @@ export default function SelectIFTTTAction() {
     );
     setSelectedTriggerDefinition(selectedTriggerDefinition);
     // If you change the trigger reset the json and raw input
-    setOutputJson({
-      trigger_target_resource_name: selectedTriggerDefinition.target_resource_name,
+
+    const _trigger_output_json = {
+      ...outputJson,
+      is_trigger_trusted_source: selectedTriggerDefinition.is_trusted_source,
+      is_trigger_compute_intensive:
+        selectedTriggerDefinition.is_compute_intensive,
+      is_trigger_push_mechanism: selectedTriggerDefinition.is_push_mechanism,
+      trigger_target_resource_name:
+        selectedTriggerDefinition.target_resource_name,
       trigger_info: {
         trigger_id: selectedTriggerDefinition.id,
-        params: {
-        }
+        params: {},
       },
-    });
+    }
+    console.log("handleTriggerChange - ", _trigger_output_json)
+    setOutputJson(_trigger_output_json);
+    
   };
 
   const handleRawInputChange = (event) => {
@@ -190,16 +200,9 @@ export default function SelectIFTTTAction() {
     }
   };
 
-  const handleAnotherAction = () => {
-    console.log('passed on - ', outputJson);
-    navigate("/trigger-details", {
-      state: { outputJson: outputJson },
-    });
-  };
-
   const handleNextClick = () => {
     console.log('passed on - ', outputJson);
-    navigate("/trigger-details", {
+    navigate("/create_ifttt_select_action", {
       state: { outputJson: outputJson },
     });
   };
@@ -388,11 +391,8 @@ export default function SelectIFTTTAction() {
               <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAddParameters}>
                 Add Parameters
               </Button>
-              <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAnotherAction}>
-                Add Another Action
-              </Button>
               <Button variant="contained" onClick={handleNextClick}>
-                Create Instance
+                Next
               </Button>
             </Box>
           </Paper>

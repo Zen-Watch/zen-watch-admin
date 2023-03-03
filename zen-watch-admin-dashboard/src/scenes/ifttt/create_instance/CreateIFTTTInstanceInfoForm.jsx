@@ -4,10 +4,6 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   TextField,
   Button,
   Paper
@@ -15,38 +11,11 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function CreateIFTTTInstanceInfoForm() {
-  const [isTriggerTrustedSource, setIsTriggerTrustedSource] = useState(true);
-  const [isTriggerComputeIntensive, setIsTriggerComputeIntensive] = useState(
-    false
-  );
-  const [isTriggerPushMechanism, setIsTriggerPushMechanism] = useState(true);
-  const [triggerTargetResourceName, setTriggerTargetResourceName] =
-    useState("polygon_mainnet");
-  const [iftttInstanceName, setIftttInstanceName] = useState(
-    "erc20_inbound_transfer_post_webhook_feb_21_2023"
-  );
-  const [iftttInstanceDescription, setIftttInstanceDescription] = useState(
-    "If there is an erc20 deposit, call my pre-configured webhooks"
-  );
+  const [iftttInstanceName, setIftttInstanceName] = useState("");
+  const [iftttInstanceDescription, setIftttInstanceDescription] = useState("");
   const [iftttInstanceIsOn, setIftttInstanceIsOn] = useState(true);
 
   const navigate = useNavigate();
-
-  const handleIsTriggerTrustedSourceChange = (event) => {
-    setIsTriggerTrustedSource(event.target.checked);
-  };
-
-  const handleIsTriggerComputeIntensiveChange = (event) => {
-    setIsTriggerComputeIntensive(event.target.checked);
-  };
-
-  const handleIsTriggerPushMechanismChange = (event) => {
-    setIsTriggerPushMechanism(event.target.checked);
-  };
-
-  const handleTriggerTargetResourceNameChange = (event) => {
-    setTriggerTargetResourceName(event.target.value);
-  };
 
   const handleIftttInstanceNameChange = (event) => {
     setIftttInstanceName(event.target.value);
@@ -62,15 +31,13 @@ export default function CreateIFTTTInstanceInfoForm() {
 
   const handleNextClick = () => {
     const outputJson = {
-      is_trigger_trusted_source: isTriggerTrustedSource,
-      is_trigger_compute_intensive: isTriggerComputeIntensive,
-      is_trigger_push_mechanism: isTriggerPushMechanism,
-      trigger_target_resource_name: triggerTargetResourceName,
       ifttt_instance_name: iftttInstanceName,
       ifttt_instance_description: iftttInstanceDescription,
       ifttt_instance_is_on: iftttInstanceIsOn,
     };
-    navigate("/create_ifttt_select_trigger", { state: { outputJson: outputJson } });
+    // there can be only one trigger, but multiple actions - like send an email and update google sheets
+    const action_count = 0;
+    navigate("/create_ifttt_select_trigger", { state: { outputJson: outputJson, action_count } });
   };
 
   return (
@@ -83,64 +50,6 @@ export default function CreateIFTTTInstanceInfoForm() {
 
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
         <Paper sx={{ padding: 2, minWidth: 400 }}>
-          <Box sx={{ marginBottom: 2 }}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isTriggerTrustedSource}
-                  onChange={handleIsTriggerTrustedSourceChange}
-                  name="isTriggerTrustedSource"
-                />
-              }
-              label="Is the trigger a trusted source?"
-            />
-          </Box>
-
-          <Box sx={{ marginBottom: 2 }}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isTriggerComputeIntensive}
-                  onChange={handleIsTriggerComputeIntensiveChange}
-                  name="isTriggerComputeIntensive"
-                />
-              }
-              label="Is the trigger compute intensive?"
-            />
-          </Box>
-
-          <Box sx={{ marginBottom: 2 }}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isTriggerPushMechanism}
-                  onChange={handleIsTriggerPushMechanismChange}
-                  name="isTriggerPushMechanism"
-                />
-              }
-              label="Does the trigger use a push mechanism?"
-            />
-          </Box>
-
-          <Box sx={{ marginBottom: 2 }}>
-            <FormControl sx={{ minWidth: 120 }}>
-              <InputLabel id="target-resource-select-label">
-                Target Resource
-              </InputLabel>
-              <Select
-                labelId="target-resource-select-label"
-                id="target-resource-select"
-                value={triggerTargetResourceName}
-                label="Target Resource"
-                onChange={handleTriggerTargetResourceNameChange}
-              >
-                <MenuItem value="polygon_mainnet">Polygon Mainnet</MenuItem>
-                <MenuItem value="polygon_testnet">Polygon Testnet</MenuItem>
-                <MenuItem value="ethereum_mainnet">Ethereum Mainnet</MenuItem>
-                <MenuItem value="ethereum_testnet">Ethereum Testnet</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
 
           <Box sx={{ marginBottom: 2 }}>
             <TextField
@@ -175,7 +84,7 @@ export default function CreateIFTTTInstanceInfoForm() {
                   name="iftttInstanceIsOn"
                 />
               }
-              label="Is the IFTTT instance on?"
+              label="Activate this instance on creation?"
             />
           </Box>
 
