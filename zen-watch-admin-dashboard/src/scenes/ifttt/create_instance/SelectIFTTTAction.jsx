@@ -157,11 +157,19 @@ export default function SelectIFTTTAction() {
     );
     setSelectedActionDefinition(selectedActionDefinition);
     // If you change the action reset the json and raw input
+    
+    console.log("handleActionChange - ", selectedActionDefinitionId, selectedActionDefinition);
+    const new_action_info = {
+      action_id: selectedActionDefinitionId,
+      params: {},
+    }
 
     const _action_output_json = {
       ...outputJson,
     };
-    console.log("handleActionChange - ", _action_output_json);
+
+    _action_output_json.actions_info.push(new_action_info);
+    console.log("handleActionChange final - ", _action_output_json);
     setOutputJson(_action_output_json);
   };
 
@@ -184,7 +192,12 @@ export default function SelectIFTTTAction() {
     try {
       const parsedInput = parseCommaSeparatedString(rawInput);
       const outputJsonCopy = JSON.parse(JSON.stringify(outputJson));
-      outputJsonCopy.action_info.params = parsedInput;
+      
+      const selected_action_info = outputJsonCopy.actions_info.find(
+        (action_info) => action_info.action_id === selectedActionDefinition.id
+      );
+
+      selected_action_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
       setRawActionInput("");
     } catch (err) {

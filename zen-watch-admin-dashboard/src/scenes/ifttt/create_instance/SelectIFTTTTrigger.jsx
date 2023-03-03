@@ -171,6 +171,7 @@ export default function SelectIFTTTTrigger() {
         trigger_id: selectedTriggerDefinition.id,
         params: {},
       },
+      actions_info: [],
     }
     console.log("handleTriggerChange - ", _trigger_output_json)
     setOutputJson(_trigger_output_json);
