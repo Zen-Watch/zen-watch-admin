@@ -31,7 +31,6 @@ export default function SelectIFTTTTrigger() {
   const [selectedTriggerDefinition, setSelectedTriggerDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
-  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawTriggerInput, setRawTriggerInput] = useState({});
   const navigate = useNavigate();
 
@@ -126,12 +125,6 @@ export default function SelectIFTTTTrigger() {
         console.log(err);
       });
   }, [email, selectedTargetResourceName]);
-
-  // This is to reduce the cognitive overload of the user, by abstracting implementation details
-  useEffect(() => {
-    const newJson = filter_output_json(outputJson);
-    setOutputJsonFiltered(newJson);
-  }, [outputJson]);
 
   const handleResourceChange = (event) => {
     setSelectedTargetResourceName(event.target.value);
@@ -409,7 +402,7 @@ export default function SelectIFTTTTrigger() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJsonFiltered, null, 2)}
+                {JSON.stringify(outputJson, null, 2)}
               </Box>
             </Box>
           )}
