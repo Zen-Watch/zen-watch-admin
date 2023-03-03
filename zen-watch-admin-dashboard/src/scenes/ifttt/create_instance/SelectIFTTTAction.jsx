@@ -190,6 +190,13 @@ export default function SelectIFTTTAction() {
     }
   };
 
+  const handleAnotherAction = () => {
+    console.log('passed on - ', outputJson);
+    navigate("/trigger-details", {
+      state: { outputJson: outputJson },
+    });
+  };
+
   const handleNextClick = () => {
     console.log('passed on - ', outputJson);
     navigate("/trigger-details", {
@@ -381,8 +388,11 @@ export default function SelectIFTTTAction() {
               <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAddParameters}>
                 Add Parameters
               </Button>
+              <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAnotherAction}>
+                Add Another Action
+              </Button>
               <Button variant="contained" onClick={handleNextClick}>
-                Next
+                Create Instance
               </Button>
             </Box>
           </Paper>
