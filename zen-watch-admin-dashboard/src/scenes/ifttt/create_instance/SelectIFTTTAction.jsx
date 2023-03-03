@@ -192,7 +192,14 @@ export default function SelectIFTTTAction() {
     }
   };
 
+  const removeCurrentActionFromActionsList = () => {
+    const new_actions_list = actions.filter((action) => action.id !== selectedActionDefinition.id);
+    setActions(new_actions_list);
+    setSelectedActionDefinition(null);
+  }
+
   const handleNextClick = () => {
+    removeCurrentActionFromActionsList();
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,
