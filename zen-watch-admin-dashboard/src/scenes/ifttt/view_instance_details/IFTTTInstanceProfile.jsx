@@ -59,9 +59,6 @@ export default function IFTTTInstanceProfile({ data }) {
     _instance_id,
     new_instance_status
   ) => {
-    console.log(
-      `Changing status of instance ${_instance_id} to the new status ${new_instance_status}`
-    );
     const resp = update_iftt_instance_status(email, _instance_id, new_instance_status);
     resp
       .then((result) => {
@@ -74,7 +71,6 @@ export default function IFTTTInstanceProfile({ data }) {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success update_iftt_instance_status - ", result);
         navigate("/ifttt_instances");
       })
       .catch((err) => {
@@ -105,11 +101,6 @@ export default function IFTTTInstanceProfile({ data }) {
   }
 
   useEffect(() => {
-    console.log(
-      "fetching data for email, trigger_info.trigger_id -",
-      email,
-      trigger_info.trigger_id
-    );
     const resp = fetch_trigger_definition(email, trigger_info.trigger_id);
     resp
       .then((result) => {
@@ -122,7 +113,6 @@ export default function IFTTTInstanceProfile({ data }) {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success trigger_details - ", result);
         setTriggerData(result.message);
       })
       .catch((err) => {
@@ -149,9 +139,7 @@ export default function IFTTTInstanceProfile({ data }) {
   }
 
   useEffect(() => {
-    console.log("fetching data for email, actions_info -", email, actions_info);
     const action_ids = actions_info.map((_info) => _info.action_id);
-    console.log("fetching data for email, action_ids -", email, action_ids);
     const resp = fetch_action_definition(email, action_ids);
     resp
       .then((result) => {
@@ -164,7 +152,6 @@ export default function IFTTTInstanceProfile({ data }) {
           alert("API Error, please contact support.");
           return;
         }
-        console.log("result success action_details - ", result);
         setActionsData(result.message);
       })
       .catch((err) => {

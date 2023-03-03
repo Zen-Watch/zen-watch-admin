@@ -35,6 +35,7 @@ export default function SelectIFTTTAction() {
   const navigate = useNavigate();
 
   async function fetch_target_resource_names_for_public_actions(email) {
+    console.log('fetch_target_resource_names_for_public_actions');
     const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/unique/public/action/target_resource_names`;
     const payload = { email };
     const result = await make_api_request(
@@ -84,6 +85,7 @@ export default function SelectIFTTTAction() {
     email,
     selectedTargetResourceName
   ) {
+    console.log('fetch_public_action_definitions');
     const fetch_ifttt_public_action_definitions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/public/approved/action_definitions`;
     const payload = {
       email: email,
