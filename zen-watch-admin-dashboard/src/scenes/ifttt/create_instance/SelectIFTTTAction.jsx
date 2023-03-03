@@ -414,7 +414,12 @@ export default function SelectIFTTTAction() {
               </Button>
               {location.state.action_count < 2 && (
                 <Button
-                  sx={{ marginRight: 2 }}
+                  sx={{ 
+                    marginRight: 2,
+                    backgroundColor: 'orange', 
+                    color: colors.grey[100],
+                    fontWeight: "bold",
+                  }}
                   variant="contained"
                   onClick={handleNextClick}
                 >

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { tokens } from "../../../theme";
+
 import {
   Box,
   Typography,
@@ -9,6 +11,7 @@ import {
   Button,
   Divider,
   Paper,
+  useTheme
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
@@ -18,6 +21,8 @@ import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTTrigger() {
   const location = useLocation();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   console.log("location SelectIFTTTTrigger - ", location, location.state);
   const email = useAppSelector((state) => state.app.email);
   const [targetResourceNames, setTargetResourceNames] = useState([]);
@@ -391,7 +396,12 @@ export default function SelectIFTTTTrigger() {
               <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAddParameters}>
                 Add Parameters
               </Button>
-              <Button variant="contained" onClick={handleNextClick}>
+              <Button sx={{ 
+                    backgroundColor: 'orange', 
+                    color: colors.grey[100],
+                    fontWeight: "bold",
+                  }}
+                  variant="contained" onClick={handleNextClick}>
                 Add Action
               </Button>
             </Box>
