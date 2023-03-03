@@ -11,13 +11,15 @@ import UnprivatePrivateRoute from "./components/UnprivateRoute";
 import NoMatch from "./scenes/global/NoMatch";
 import GasCostTableView from "./scenes/v1/gas_cost/GasCostTableView";
 import IFTTTInstances from "./scenes/ifttt/instances";
-import CreateIFTTTInstance from "./scenes/ifttt/create_instance";
 import ViewIFTTTInstanceDetails from "./scenes/ifttt/view_instance_details";
 import IFTTTTriggerRunHistory from "./scenes/ifttt/trigger_run_history";
 import IFTTTActionRunHistory from "./scenes/ifttt/action_run_history";
 import IFTTTCreateNewTrigger from "./scenes/ifttt/create_new_trigger";
 import IFTTTCreateNewAction from "./scenes/ifttt/create_new_action";
 import IFTTTCodeSubmissions from "./scenes/ifttt/code_submissions";
+import CreateIFTTTInstanceInfoFormWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceInfoFormWrapper";
+import CreateIFTTTInstanceSelectTriggerWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectTriggerWrapper";
+import CreateIFTTTInstanceSelectActionWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectActionWrapper";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -35,7 +37,9 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route path="/ifttt_instances" element={<IFTTTInstances />} />
-                <Route path="/create_ifttt" element={<CreateIFTTTInstance />} />
+                <Route path="/create_ifttt" element={<CreateIFTTTInstanceInfoFormWrapper />} />
+                <Route path="/create_ifttt_select_trigger" element={<CreateIFTTTInstanceSelectTriggerWrapper />} />
+                <Route path="/create_ifttt_select_action" element={<CreateIFTTTInstanceSelectActionWrapper />} />
                 <Route path="/view_ifttt_instance" element={<ViewIFTTTInstanceDetails />} />
                 <Route path="/trigger_run_history" element={<IFTTTTriggerRunHistory />} />
                 <Route path="/action_run_history" element={<IFTTTActionRunHistory />} />

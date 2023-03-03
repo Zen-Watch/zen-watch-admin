@@ -15,7 +15,7 @@ import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 
-export default function SelectIFTTTTriggerPage() {
+export default function SelectIFTTTAction() {
   const email = useAppSelector((state) => state.app.email);
   const [targetResourceNames, setTargetResourceNames] = useState([]);
   const [selectedTargetResourceName, setSelectedTargetResourceName] =
@@ -24,7 +24,7 @@ export default function SelectIFTTTTriggerPage() {
   const [selectedTriggerDefinition, setSelectedTriggerDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
-  //const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
+  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawTriggerInput, setRawTriggerInput] = useState({});
   const navigate = useNavigate();
 
@@ -125,6 +125,20 @@ export default function SelectIFTTTTriggerPage() {
       });
   }, [email, selectedTargetResourceName]);
 
+  // This is to reduce the cognitive overload of the user, by abstracting implementation details
+  useEffect(() => {
+    // Check if the 'trigger_info.trigger_id' field exists in the original JSON object
+    if (outputJson?.trigger_info?.trigger_id) {
+      // Copy the original JSON object to a new object with the 'trigger_info.trigger_id' field removed
+      const newJson = { ...outputJson };
+      delete newJson.trigger_info.trigger_id;
+      setOutputJsonFiltered(newJson);
+    } else {
+      // If the 'trigger_info.trigger_id' field doesn't exist, copy the original JSON object as is
+      setOutputJsonFiltered({ ...outputJson });
+    }
+  }, [outputJson]);
+
   const handleResourceChange = (event) => {
     setSelectedTargetResourceName(event.target.value);
   };
@@ -185,7 +199,7 @@ export default function SelectIFTTTTriggerPage() {
     <Box sx={{ flexGrow: 1 }}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Select Trigger
+          Select Action
         </Typography>
       </Box>
 
@@ -388,7 +402,7 @@ export default function SelectIFTTTTriggerPage() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJson, null, 2)}
+                {JSON.stringify(outputJsonFiltered, null, 2)}
               </Box>
             </Box>
           )}
