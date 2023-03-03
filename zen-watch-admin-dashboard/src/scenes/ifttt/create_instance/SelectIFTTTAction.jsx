@@ -10,12 +10,14 @@ import {
   Divider,
   Paper,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 
 export default function SelectIFTTTAction() {
+  const location = useLocation();
+  console.log("location SelectIFTTTAction - ", location, location.state);
   const email = useAppSelector((state) => state.app.email);
   const [targetResourceNames, setTargetResourceNames] = useState([]);
   const [selectedTargetResourceName, setSelectedTargetResourceName] =
