@@ -423,7 +423,7 @@ export default function SelectIFTTTAction() {
                 Enter action input here:
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Comma separated representation of a json, new lines accepted - Ex., a:1, b:2
+                Comma separated payload inputs, new lines accepted - Ex., a:1, b:2
               </Typography>
               <textarea
                 rows={5}
