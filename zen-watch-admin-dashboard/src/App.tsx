@@ -20,6 +20,7 @@ import IFTTTCodeSubmissions from "./scenes/ifttt/code_submissions";
 import CreateIFTTTInstanceInfoFormWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceInfoFormWrapper";
 import CreateIFTTTInstanceSelectTriggerWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectTriggerWrapper";
 import CreateIFTTTInstanceSelectActionWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectActionWrapper";
+import MessagePage from "./components/MessagePage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/create_ifttt" element={<CreateIFTTTInstanceInfoFormWrapper />} />
                 <Route path="/create_ifttt_select_trigger" element={<CreateIFTTTInstanceSelectTriggerWrapper />} />
                 <Route path="/create_ifttt_select_action" element={<CreateIFTTTInstanceSelectActionWrapper />} />
+                <Route path="/status_page" element={<MessagePage />} />
                 <Route path="/view_ifttt_instance" element={<ViewIFTTTInstanceDetails />} />
                 <Route path="/trigger_run_history" element={<IFTTTTriggerRunHistory />} />
                 <Route path="/action_run_history" element={<IFTTTActionRunHistory />} />

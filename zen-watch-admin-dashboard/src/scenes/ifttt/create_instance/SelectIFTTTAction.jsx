@@ -15,7 +15,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
-import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
+import { STATUS_OK, SUCCESS, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
@@ -235,10 +235,23 @@ export default function SelectIFTTTAction() {
         alert("API Error, please contact support.");
         return;
       }
-      alert("IFTTT instance created successfully!");
+      navigate("/status_page", {
+        state: {
+          status: SUCCESS,
+          message: "You successfully created an IFTTT instance!",
+          submessage: "Check the run history pages for more details. You can turn on/off anytime from IFTTT instances page."
+        },
+      });
     })
     .catch((err) => {
       console.log(err);
+      navigate("/status_page", {
+        state: {
+          status: Error,
+          message: "You IFTTT instance creation failed!",
+          submessage: "Please contact support@zen.watch or contact us on our discord channel."
+        },
+      });
     });
   };
 
