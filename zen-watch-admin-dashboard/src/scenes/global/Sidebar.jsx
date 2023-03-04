@@ -12,8 +12,6 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import WorkIcon from '@mui/icons-material/Work';
 import PublishIcon from '@mui/icons-material/Publish';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-//import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -141,13 +139,6 @@ export default function Sidebar() {
               title="Create New Action"
               to="/create_new_action"
               icon={<WorkIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Test Echo Bot"
-              to="/create_new_action"
-              icon={<SmartToyIcon />}
               selected={selected}
               setSelected={setSelected}
             />
