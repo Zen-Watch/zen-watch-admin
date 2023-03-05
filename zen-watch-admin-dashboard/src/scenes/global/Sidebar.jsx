@@ -148,7 +148,7 @@ export default function Sidebar() {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Submissions
+              Status
             </Typography>
             <Item
               title="Your Submissions"
