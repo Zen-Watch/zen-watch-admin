@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { tokens } from "../../../theme";
+import { tokens } from "../../../../theme";
 import {
   Typography,
   Grid,
@@ -9,11 +9,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../app/hooks";
-import { make_api_request } from "../../../util/common_util.methods";
-import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
+import { useAppSelector } from "../../../../app/hooks";
+import { make_api_request } from "../../../../util/common_util.methods";
+import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../../util/constants";
 
-export default function IFTTTInstanceProfile({ data }) {
+export default function IFTTTActionRunHistoryProfile({ data }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);

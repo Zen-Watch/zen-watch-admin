@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function IFTTTInstancesList({ items }) {
+export default function IFTTTTriggerCodeSubmissionHistoryList({ items }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -28,25 +28,29 @@ export default function IFTTTInstancesList({ items }) {
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Instances
+        Your IFTTT Trigger Code Submissions
       </Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={headerStyle}>Name</TableCell>
-            <TableCell style={headerStyle}>Description</TableCell>
+            <TableCell style={headerStyle}>Trigger Name</TableCell>
+            <TableCell style={headerStyle}>Trigger Description</TableCell>
             <TableCell style={headerStyle}>Resource</TableCell>
-            <TableCell style={headerStyle}>Status</TableCell>
-            <TableCell style={headerStyle}>Action</TableCell>
+            <TableCell style={headerStyle}>Availability</TableCell>
+            <TableCell style={headerStyle}>Approval Status</TableCell>
+            <TableCell style={headerStyle}>Created Time</TableCell>
+            <TableCell style={headerStyle}>Profile View</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {items.map((_item) => (
             <TableRow key={_item.id}>
-              <TableCell style={contentStyle}>{_item.ifttt_instance_name}</TableCell>
-              <TableCell style={contentStyle}> {_item.ifttt_instance_description} </TableCell>
-              <TableCell style={contentStyle}> {_item.trigger_target_resource_name} </TableCell>
-              <TableCell style={contentStyle}> {_item.ifttt_instance_is_on ? "On" : "Off"} </TableCell>
+              <TableCell style={contentStyle}>{_item.trigger_name}</TableCell>
+              <TableCell style={contentStyle}> {_item.trigger_description} </TableCell>
+              <TableCell style={contentStyle}> {_item.target_resource_name} </TableCell>
+              <TableCell style={contentStyle}> {_item.is_public ? "Public" : "Private"} </TableCell>
+              <TableCell style={contentStyle}> {_item.is_approved ? "Approved" : "Pending"} </TableCell>
+              <TableCell style={contentStyle}> {_item.created_ts } </TableCell>
               <TableCell>
                 <Button
                   sx={{
@@ -61,7 +65,7 @@ export default function IFTTTInstancesList({ items }) {
                   color="primary"
                   onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
                 >
-                  {_item.ifttt_instance_is_on ? "View Details / Turn Off" : "View Details / Turn On"}
+                  Details
                 </Button>
               </TableCell>
             </TableRow>

@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function IFTTTInstancesList({ items }) {
+export default function IFTTTTriggerRunHistoryList({ items }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -28,16 +28,17 @@ export default function IFTTTInstancesList({ items }) {
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Instances
+        Your IFTTT Trigger Activations
       </Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={headerStyle}>Name</TableCell>
-            <TableCell style={headerStyle}>Description</TableCell>
+            <TableCell style={headerStyle}>IFTTT Instance Name</TableCell>
+            <TableCell style={headerStyle}>Trigger Name</TableCell>
             <TableCell style={headerStyle}>Resource</TableCell>
-            <TableCell style={headerStyle}>Status</TableCell>
-            <TableCell style={headerStyle}>Action</TableCell>
+            <TableCell style={headerStyle}>Schedule Time</TableCell>
+            <TableCell style={headerStyle}>Trigger Time</TableCell>
+            <TableCell style={headerStyle}>Profile View</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,7 +62,7 @@ export default function IFTTTInstancesList({ items }) {
                   color="primary"
                   onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
                 >
-                  {_item.ifttt_instance_is_on ? "View Details / Turn Off" : "View Details / Turn On"}
+                  Details
                 </Button>
               </TableCell>
             </TableRow>

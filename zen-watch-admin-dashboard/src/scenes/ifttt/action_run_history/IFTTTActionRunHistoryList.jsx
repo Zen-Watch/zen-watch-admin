@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function IFTTTInstancesList({ items }) {
+export default function IFTTTActionRunHistoryList({ items }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -28,14 +28,14 @@ export default function IFTTTInstancesList({ items }) {
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Instances
+        Your IFTTT Action Activations
       </Typography>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell style={headerStyle}>Name</TableCell>
             <TableCell style={headerStyle}>Description</TableCell>
-            <TableCell style={headerStyle}>Resource</TableCell>
+            <TableCell style={headerStyle}>Type</TableCell>
             <TableCell style={headerStyle}>Status</TableCell>
             <TableCell style={headerStyle}>Action</TableCell>
           </TableRow>

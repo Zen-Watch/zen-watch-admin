@@ -12,6 +12,10 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import WorkIcon from '@mui/icons-material/Work';
 import PublishIcon from '@mui/icons-material/Publish';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import DynamicFormIcon from '@mui/icons-material/DynamicForm';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';   
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -94,14 +98,14 @@ export default function Sidebar() {
               Setup IFTTT
             </Typography>
             <Item
-              title="Create An Instance"
+              title="Create IFTTT Instance"
               to="/create_ifttt"
               icon={<CreateIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Your Instances"
+              title="Your IFTTT instances"
               to="/ifttt_instances"
               icon={<ToggleOnIcon />}
               selected={selected}
@@ -142,6 +146,57 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+            {/* <Divider />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Setup Bots
+            </Typography>
+            <Item
+              title="Deploy a Bot"
+              to="/create_ifttt"
+              icon={<PrecisionManufacturingIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Your Bots"
+              to="/ifttt_instances"
+              icon={<DynamicFormIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Create Bots
+            </Typography>
+            <Item
+              title="Create a Bot"
+              to="/create_ifttt"
+              icon={<SmartToyIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Divider />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              App Events
+            </Typography>
+            <Item
+              title="SQL Editor"
+              to="/create_ifttt"
+              icon={<QueryStatsIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
             <Divider />
             <Typography
               variant="h6"

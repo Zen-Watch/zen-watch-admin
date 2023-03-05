@@ -11,7 +11,7 @@ import UnprivatePrivateRoute from "./components/UnprivateRoute";
 import NoMatch from "./scenes/global/NoMatch";
 import GasCostTableView from "./scenes/v1/gas_cost/GasCostTableView";
 import IFTTTInstances from "./scenes/ifttt/instances";
-import ViewIFTTTInstanceDetails from "./scenes/ifttt/view_instance_details";
+import ViewIFTTTInstanceDetails from "./scenes/ifttt/detailed_profile_views/view_instance_details";
 import IFTTTTriggerRunHistory from "./scenes/ifttt/trigger_run_history";
 import IFTTTActionRunHistory from "./scenes/ifttt/action_run_history";
 import IFTTTCreateNewTrigger from "./scenes/ifttt/create_new_trigger";
