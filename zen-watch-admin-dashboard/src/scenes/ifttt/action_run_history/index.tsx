@@ -1,17 +1,3 @@
-// import { Box } from "@mui/material";
-// import Header from "../../../components/Header";
-
-// export default function IFTTTActionRunHistory() {
-//   return (
-//     <Box m="20px">
-//       {/* HEADER */}
-//       <Box display="flex" justifyContent="space-between" alignItems="center">
-//         <Header title="IFTTT Action Run History" subtitle="History of all your IFTTT action activations" />
-//       </Box>
-//     </Box>
-//   );
-// }
-
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Header from "../../../components/Header";
@@ -24,10 +10,10 @@ export default function IFTTTActionRunHistory() {
   const email = useAppSelector((state) => state.app.email);
   const [data, setData] = useState(undefined);
 
-  async function fetch_ifttt_instances(email: string) {
-    const fetch_ifttt_instances_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/ifttt_instances`;
+  async function fetch_ifttt_action_run_history(email: string) {
+    const fetch_ifttt_action_run_history_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/ifttt_action_run_history`;
     const payload = { email };
-    const result = await make_api_request(fetch_ifttt_instances_url, {
+    const result = await make_api_request(fetch_ifttt_action_run_history_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -39,7 +25,7 @@ export default function IFTTTActionRunHistory() {
   }
 
   useEffect(() => {
-    const resp = fetch_ifttt_instances(email);
+    const resp = fetch_ifttt_action_run_history(email);
     resp
       .then((result) => {
         if (result.status === UNAUTHORIZED_ACCESS) {

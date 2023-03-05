@@ -16,3 +16,27 @@ export function filter_output_json(outputJson: any) {
 
     return newJson;
 }
+
+// same definition as instance-worker, action-worker from the backend
+export const IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_FATAL_ERROR = -1;
+export const IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_UNPROCESSED = 0;
+export const IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_UNDER_PROCESSING = 1;
+export const IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_SUCCESS = 2;
+export const IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_FAILURE = 3;
+
+export function get_ifttt_batch_processing_status(status: number) {
+    switch (status) {
+        case IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_FATAL_ERROR:
+            return 'Fatal Error';
+        case IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_UNPROCESSED:
+            return 'Unprocessed';
+        case IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_UNDER_PROCESSING:
+            return 'Under Processing';
+        case IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_SUCCESS:
+            return 'Success';
+        case IFTTT_TRIGGER_RUN_HISTORY_WORKER_STATUS_FAILURE:
+            return 'Failure';
+        default:
+            return 'Unknown';
+    }
+}

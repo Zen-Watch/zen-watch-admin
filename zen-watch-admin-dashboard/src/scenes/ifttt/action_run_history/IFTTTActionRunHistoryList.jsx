@@ -6,64 +6,46 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Button,
   useTheme,
   Typography
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import {get_ifttt_batch_processing_status} from '../../../util/ifttt/ifttt_util.methods';
 
 export default function IFTTTActionRunHistoryList({ items }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate = useNavigate();
   
-  const handleIFTTTInstancesActionButtonClick = (_item) => {
-    // handle button click here
-    navigate("/view_ifttt_instance", { state: _item });
-  };
-
   const headerStyle = { fontSize: 16 };
   const contentStyle = { fontSize: 14 };
+
+
+  console.log("IFTTTActionRunHistoryList.items: ", items)
 
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Action Activations
+        Your IFTTT Action Run History
       </Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={headerStyle}>Name</TableCell>
-            <TableCell style={headerStyle}>Description</TableCell>
-            <TableCell style={headerStyle}>Type</TableCell>
-            <TableCell style={headerStyle}>Status</TableCell>
-            <TableCell style={headerStyle}>Action</TableCell>
+            <TableCell style={headerStyle}>IFTTT Instance Name</TableCell>
+            <TableCell style={headerStyle}>Action Name</TableCell>
+            <TableCell style={headerStyle}>Resource</TableCell>
+            <TableCell style={headerStyle}>Schedule Time</TableCell>
+            <TableCell style={headerStyle}>action Time</TableCell>
+            <TableCell style={headerStyle}>Run Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {items.map((_item) => (
             <TableRow key={_item.id}>
               <TableCell style={contentStyle}>{_item.ifttt_instance_name}</TableCell>
-              <TableCell style={contentStyle}> {_item.ifttt_instance_description} </TableCell>
-              <TableCell style={contentStyle}> {_item.trigger_target_resource_name} </TableCell>
-              <TableCell style={contentStyle}> {_item.ifttt_instance_is_on ? "On" : "Off"} </TableCell>
-              <TableCell>
-                <Button
-                  sx={{
-                    backgroundColor: colors.greenAccent[700],
-                    color: colors.grey[100],
-                    fontSize: "12px",
-                    fontWeight: "bold",
-
-                    m: 1,
-                  }}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
-                >
-                  {_item.ifttt_instance_is_on ? "View Details / Turn Off" : "View Details / Turn On"}
-                </Button>
-              </TableCell>
+              <TableCell style={contentStyle}> {_item.ifttt_action_name} </TableCell>
+              <TableCell style={contentStyle}> {_item.action_target_resource_name} </TableCell>
+              <TableCell style={contentStyle}> {_item.created_ts} </TableCell>
+              <TableCell style={contentStyle}> {_item.updated_ts} </TableCell>
+              <TableCell style={contentStyle}> {get_ifttt_batch_processing_status(_item.action_run_status)} </TableCell>
             </TableRow>
           ))}
         </TableBody>
