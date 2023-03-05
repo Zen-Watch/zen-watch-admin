@@ -18,9 +18,6 @@ export default function IFTTTActionRunHistoryList({ items }) {
   const headerStyle = { fontSize: 16 };
   const contentStyle = { fontSize: 14 };
 
-
-  console.log("IFTTTActionRunHistoryList.items: ", items)
-
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
