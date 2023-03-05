@@ -14,23 +14,22 @@ import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS, TBD, SUCCESS, ERROR } from "../../../util/constants";
 
-export default function CreateIFTTTTriggerForm() {
+export default function CreateIFTTTActionForm() {
   const email = useAppSelector((state) => state.app.email);
-  const [isPushMechanism, setIsPushMechanism] = useState(false);
   const [isPublic, setIsPublic] = useState(true);
   const [targetResourceName, setTargetResourceName] = useState("");
   const [targetResourceNameList, setTargetResourceNameList] = useState([]);
-  const [triggerName, setTriggerName] = useState("");
-  const [triggerDescription, setTriggerDescription] = useState("");
-  const [triggerCode, setTriggerCode] = useState("");
+  const [actionName, setActionName] = useState("");
+  const [actionDescription, setActionDescription] = useState("");
+  const [actionCode, setActionCode] = useState("");
 
   const navigate = useNavigate();
 
-  async function fetch_target_resource_names_for_public_triggers(email) {
-    const fetch_ifttt_target_resource_names_for_public_triggers_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/trigger_target_resource_name`;
+  async function fetch_target_resource_names_for_public_actions(email) {
+    const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/action_target_resource_name`;
     const payload = { email };
     const result = await make_api_request(
-      fetch_ifttt_target_resource_names_for_public_triggers_url,
+      fetch_ifttt_target_resource_names_for_public_actions_url,
       {
         method: "POST",
         headers: {
@@ -43,29 +42,28 @@ export default function CreateIFTTTTriggerForm() {
     return result;
   }
 
-  async function create_ifttt_trigger_definition() {
-    const create_ifttt_trigger_definition_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/create/trigger_definition`;
+  async function create_ifttt_action_definition() {
+    const create_ifttt_action_definition_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/create/action_definition`;
     const payload = {
       email: email,
       is_public: isPublic,
       is_approved: false,
       is_trusted_source: true,
       is_compute_intensive: false,
-      is_push_mechanism: isPushMechanism,
       target_resource_name: targetResourceName,
-      trigger_name: triggerName,
-      trigger_description: triggerDescription,
-      trigger_signature: TBD,
-      trigger_signature_description: TBD,
-      trigger_code: triggerCode,
-      trigger_code_description: TBD,
-      trigger_expected_input: TBD,
-      trigger_expected_input_description: TBD,
-      trigger_expected_output: TBD,
-      trigger_expected_output_description: TBD,
+      action_name: actionName,
+      action_description: actionDescription,
+      action_signature: TBD,
+      action_signature_description: TBD,
+      action_code: actionCode,
+      action_code_description: TBD,
+      action_expected_input: TBD,
+      action_expected_input_description: TBD,
+      action_expected_output: TBD,
+      action_expected_output_description: TBD,
     };
     const result = await make_api_request(
-      create_ifttt_trigger_definition_url,
+      create_ifttt_action_definition_url,
       {
         method: "POST",
         headers: {
@@ -79,7 +77,7 @@ export default function CreateIFTTTTriggerForm() {
   }
 
   useEffect(() => {
-    const resp = fetch_target_resource_names_for_public_triggers(email);
+    const resp = fetch_target_resource_names_for_public_actions(email);
     resp
       .then((result) => {
         if (result.status === UNAUTHORIZED_ACCESS) {
@@ -102,10 +100,6 @@ export default function CreateIFTTTTriggerForm() {
       });
   }, [email]);
 
-  const handleIsPushMechanismChange = (event) => {
-    setIsPushMechanism(event.target.checked);
-  };
-
   const handleIsPublicChange = (event) => {
     setIsPublic(event.target.checked);
   };
@@ -114,20 +108,20 @@ export default function CreateIFTTTTriggerForm() {
     setTargetResourceName(event.target.value);
   };
 
-  const handleTriggerNameChange = (event) => {
-    setTriggerName(event.target.value);
+  const handleActionNameChange = (event) => {
+    setActionName(event.target.value);
   };
 
-  const handleTriggerDescriptionChange = (event) => {
-    setTriggerDescription(event.target.value);
+  const handleActionDescriptionChange = (event) => {
+    setActionDescription(event.target.value);
   };
 
-  const handleTriggerCodeChange = (event) => {
-    setTriggerCode(event.target.value);
+  const handleActionCodeChange = (event) => {
+    setActionCode(event.target.value);
   };
 
-  const handleTriggerSubmit = async () => {
-    const resp = create_ifttt_trigger_definition();
+  const handleActionSubmit = async () => {
+    const resp = create_ifttt_action_definition();
     resp
     .then((result) => {
       if (result.status === UNAUTHORIZED_ACCESS) {
@@ -142,8 +136,8 @@ export default function CreateIFTTTTriggerForm() {
       navigate("/status_page", {
         state: {
           status: SUCCESS,
-          message: "You successfully submitted an IFTTT trigger function for review!",
-          submessage: "Check the trigger section of your submissions page for the status of your submission."
+          message: "You successfully submitted an IFTTT action function for review!",
+          submessage: "Check the action section of your submissions page for the status of your submission."
         },
       });
     })
@@ -152,7 +146,7 @@ export default function CreateIFTTTTriggerForm() {
       navigate("/status_page", {
         state: {
           status: ERROR,
-          message: "You IFTTT trigger function submission failed!",
+          message: "You IFTTT action function submission failed!",
           submessage: "Please contact support@zen.watch or contact us on our discord channel."
         },
       });
@@ -163,7 +157,7 @@ export default function CreateIFTTTTriggerForm() {
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Create Trigger
+          Create Action
         </Typography>
       </Box>
 
@@ -176,19 +170,6 @@ export default function CreateIFTTTTriggerForm() {
         }}
       >
         <Paper sx={{ padding: 2, minWidth: 400, width: "98%" }}>
-          <Box sx={{ marginBottom: 2 }}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isPushMechanism}
-                  onChange={handleIsPushMechanismChange}
-                  name="isPushMechanism"
-                />
-              }
-              label="Is this a Push Mechanism based Trigger (Websockets, Event Driven - Ex., On-chain Events)?"
-            />
-          </Box>
-
           <Box sx={{ marginBottom: 2 }}>
             <FormControlLabel
               control={
@@ -222,37 +203,37 @@ export default function CreateIFTTTTriggerForm() {
 
           <Box sx={{ marginBottom: 2 }}>
             <TextField
-              id="trigger-name"
-              label="Trigger Name"
+              id="action-name"
+              label="Action Name"
               variant="outlined"
               fullWidth
-              value={triggerName}
-              onChange={handleTriggerNameChange}
+              value={actionName}
+              onChange={handleActionNameChange}
             />
           </Box>
 
           <Box sx={{ marginBottom: 2 }}>
             <TextField
-              id="trigger-name"
-              label="Trigger Description"
+              id="action-name"
+              label="Action Description"
               variant="outlined"
               fullWidth
-              value={triggerDescription}
-              onChange={handleTriggerDescriptionChange}
+              value={actionDescription}
+              onChange={handleActionDescriptionChange}
             />
           </Box>
 
           <Box sx={{ marginBottom: 2 }}>
             <TextField
-              id="trigger-code"
-              label="Trigger Code"
+              id="action-code"
+              label="Action Code"
               variant="outlined"
               fullWidth
               multiline
               rows={10}
               // sx={{ backgroundColor: "#2D2D2D", color: "#FFFFFF" }}
-              value={triggerCode}
-              onChange={handleTriggerCodeChange}
+              value={actionCode}
+              onChange={handleActionCodeChange}
             />
           </Box>
 
@@ -263,7 +244,7 @@ export default function CreateIFTTTTriggerForm() {
               marginTop: 2,
             }}
           >
-            <Button variant="contained" onClick={handleTriggerSubmit}>
+            <Button variant="contained" onClick={handleActionSubmit}>
               Submit
             </Button>
           </Box>

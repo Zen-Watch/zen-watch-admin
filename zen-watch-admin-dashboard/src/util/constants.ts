@@ -24,3 +24,5 @@ export const GAS_COST_TABLE_VIEW = "Table View"
 // states
 export const ERROR = "error";
 export const SUCCESS = "success";
+
+export const TBD = "tbd";

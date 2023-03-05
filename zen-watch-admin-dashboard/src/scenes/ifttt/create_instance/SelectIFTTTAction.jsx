@@ -15,7 +15,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
-import { STATUS_OK, SUCCESS, UNAUTHORIZED_ACCESS } from "../../../util/constants";
+import { STATUS_OK, SUCCESS, UNAUTHORIZED_ACCESS, ERROR } from "../../../util/constants";
 import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
@@ -247,7 +247,7 @@ export default function SelectIFTTTAction() {
       console.log(err);
       navigate("/status_page", {
         state: {
-          status: Error,
+          status: ERROR,
           message: "You IFTTT instance creation failed!",
           submessage: "Please contact support@zen.watch or contact us on our discord channel."
         },
