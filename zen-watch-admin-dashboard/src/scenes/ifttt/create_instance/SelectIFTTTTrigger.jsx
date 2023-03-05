@@ -36,7 +36,7 @@ export default function SelectIFTTTTrigger() {
   const navigate = useNavigate();
 
   async function fetch_target_resource_names_for_public_triggers(email) {
-    const fetch_ifttt_target_resource_names_for_public_triggers_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/unique/public/trigger/target_resource_names`;
+    const fetch_ifttt_target_resource_names_for_public_triggers_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/trigger_target_resource_name`;
     const payload = { email };
     const result = await make_api_request(
       fetch_ifttt_target_resource_names_for_public_triggers_url,
@@ -167,24 +167,17 @@ export default function SelectIFTTTTrigger() {
     setRawTriggerInput(rawInput);
   };
 
-  const parseCommaSeparatedString = (str) => {
-    const object = str.split(',').reduce((acc, curr) => {
-      const [key, value] = curr.trim().split(':');
-      acc[key] = value.trim();
-      return acc;
-    }, {});
-    return object; //If required,  JSON.stringify(object, null, 2);
-  }
-  
   const handleAddParameters = () => {
     const rawInput = rawTriggerInput;
     try {
-      const parsedInput = parseCommaSeparatedString(rawInput);
+      console.log(rawInput);
+      const parsedInput = JSON.parse(rawInput);
       const outputJsonCopy = JSON.parse(JSON.stringify(outputJson));
       outputJsonCopy.trigger_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
       setRawTriggerInput("");
     } catch (err) {
+      console.log(err);
       alert("Invalid input, please check your input and try again!");
       return;
     }

@@ -29,7 +29,7 @@ import { STATUS_OK, UNAUTHORIZED_ACCESS, TBD, SUCCESS, ERROR } from "../../../ut
 */
 export default function CreateIFTTTTriggerForm() {
   const email = useAppSelector((state) => state.app.email);
-  const [isPushMechanism, setIsPushMechanism] = useState(false);
+  const [isPushMechanism, setIsPushMechanism] = useState(true);
   const [isPublic, setIsPublic] = useState(true);
   const [targetResourceName, setTargetResourceName] = useState("");
   const [targetResourceNameList, setTargetResourceNameList] = useState([]);

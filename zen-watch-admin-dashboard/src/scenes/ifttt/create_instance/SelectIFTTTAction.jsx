@@ -35,7 +35,7 @@ export default function SelectIFTTTAction() {
   const navigate = useNavigate();
 
   async function fetch_target_resource_names_for_public_actions(email) {
-    const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/unique/public/action/target_resource_names`;
+    const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/action_target_resource_name`;
     const payload = { email };
     const result = await make_api_request(
       fetch_ifttt_target_resource_names_for_public_actions_url,
@@ -161,19 +161,11 @@ export default function SelectIFTTTAction() {
     setRawActionInput(rawInput);
   };
 
-  const parseCommaSeparatedString = (str) => {
-    const object = str.split(",").reduce((acc, curr) => {
-      const [key, value] = curr.trim().split(":");
-      acc[key] = value.trim();
-      return acc;
-    }, {});
-    return object; //If required,  JSON.stringify(object, null, 2);
-  };
-
   const handleAddParameters = () => {
     const rawInput = rawActionInput;
     try {
-      const parsedInput = parseCommaSeparatedString(rawInput);
+      console.log(rawInput);
+      const parsedInput = JSON.parse(rawInput);
       const outputJsonCopy = JSON.parse(JSON.stringify(outputJson));
       
       const selected_action_info = outputJsonCopy.actions_info.find(
@@ -184,6 +176,7 @@ export default function SelectIFTTTAction() {
       setOutputJson(outputJsonCopy);
       setRawActionInput("");
     } catch (err) {
+      console.log(err);
       alert("Invalid input, please check your input and try again!");
       return;
     }

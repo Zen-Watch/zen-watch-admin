@@ -61,7 +61,7 @@ export default function IFTTTInstancesList({ items }) {
                   color="primary"
                   onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
                 >
-                  {_item.ifttt_instance_is_on ? "View Details / Turn Off" : "View Details / Turn On"}
+                  {_item.ifttt_instance_is_on ? "Details / Turn Off" : "Details / Turn On"}
                 </Button>
               </TableCell>
             </TableRow>
