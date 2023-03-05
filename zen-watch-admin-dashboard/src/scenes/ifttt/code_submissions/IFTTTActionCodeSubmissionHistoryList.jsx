@@ -19,7 +19,7 @@ export default function IFTTTActionCodeSubmissionHistoryList({ items }) {
   
   const handleIFTTTInstancesActionButtonClick = (_item) => {
     // handle button click here
-    navigate("/view_ifttt_instance", { state: _item });
+    navigate("/view_submitted_action_details", { state: _item });
   };
 
   const headerStyle = { fontSize: 16 };

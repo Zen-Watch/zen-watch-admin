@@ -14,6 +14,19 @@ import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS, TBD, SUCCESS, ERROR } from "../../../util/constants";
 
+/*
+/*
+  To make this component full screen, do the following from L180-188
+  <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 4,
+          width: "98%",
+        }}
+      >
+        <Paper sx={{ padding: 2, minWidth: 400, width: "98%" }}>
+*/
 export default function CreateIFTTTTriggerForm() {
   const email = useAppSelector((state) => state.app.email);
   const [isPushMechanism, setIsPushMechanism] = useState(false);
