@@ -19,7 +19,7 @@ import { auth, getFirebaseErrorMessage } from "../../firebase-config";
 import { useAppDispatch } from "../../app/hooks";
 import { connect } from "../../features/appSlice";
 import { STATUS_NOT_FOUND, UNAUTHORIZED_ACCESS } from "../../util/constants";
-import { make_api_request } from "../../util/util.methods";
+import { make_api_request } from "../../util/common_util.methods";
 
 const registerSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
@@ -108,7 +108,7 @@ export default function Form() {
       onSubmitProps.resetForm();
       if (userCredentials) {
         dispatch(connect(userCredentials.user.email));
-        navigate("/home");
+        navigate("/ifttt_instances");
       }
     } catch (error) {
       //TODO: Replace this with a good toast

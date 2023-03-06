@@ -17,7 +17,7 @@ export default function Login()  {
           Zen.Watch
         </Typography>
         <Typography variant="h3" color={colors.greenAccent[400]}>
-          Product analytics & observability for web3 devs 
+        Web3 IFTTT Automation For Developers 
         </Typography>
       </Box>
 

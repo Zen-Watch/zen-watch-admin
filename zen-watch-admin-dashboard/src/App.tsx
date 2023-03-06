@@ -2,14 +2,27 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import GasCost from "./scenes/gas_cost";
+import GasCost from "./scenes/v1/gas_cost";
 import { Route, Routes } from "react-router-dom";
 import Login from "./scenes/login";
 import { useAppSelector } from "./app/hooks";
 import PrivateRoutes from "./components/PrivateRoutes";
 import UnprivatePrivateRoute from "./components/UnprivateRoute";
 import NoMatch from "./scenes/global/NoMatch";
-import GasCostTableView from "./scenes/gas_cost/GasCostTableView";
+import GasCostTableView from "./scenes/v1/gas_cost/GasCostTableView";
+import IFTTTInstances from "./scenes/ifttt/instances";
+import ViewIFTTTInstanceDetails from "./scenes/ifttt/detailed_profile_views/view_instance_details";
+import IFTTTTriggerRunHistory from "./scenes/ifttt/trigger_run_history";
+import IFTTTActionRunHistory from "./scenes/ifttt/action_run_history";
+import IFTTTCreateNewTrigger from "./scenes/ifttt/create_new_trigger";
+import IFTTTCreateNewAction from "./scenes/ifttt/create_new_action";
+import IFTTTCodeSubmissions from "./scenes/ifttt/code_submissions";
+import CreateIFTTTInstanceInfoFormWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceInfoFormWrapper";
+import CreateIFTTTInstanceSelectTriggerWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectTriggerWrapper";
+import CreateIFTTTInstanceSelectActionWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectActionWrapper";
+import MessagePage from "./components/MessagePage";
+import ViewIFTTTSubmittedTriggerDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_submitted_code_details";
+import ViewIFTTTSubmittedActionDetails from "./scenes/ifttt/detailed_profile_views/view_action_submitted_code_details";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,9 +39,21 @@ function App() {
             {connected && <Topbar />}
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/home" element={<GasCost />} />
-                <Route path="/gas_cost" element={<GasCost />} />
+                <Route path="/ifttt_instances" element={<IFTTTInstances />} />
+                <Route path="/create_ifttt" element={<CreateIFTTTInstanceInfoFormWrapper />} />
+                <Route path="/create_ifttt_select_trigger" element={<CreateIFTTTInstanceSelectTriggerWrapper />} />
+                <Route path="/create_ifttt_select_action" element={<CreateIFTTTInstanceSelectActionWrapper />} />
+                <Route path="/status_page" element={<MessagePage />} />
+                <Route path="/view_ifttt_instance" element={<ViewIFTTTInstanceDetails />} />
+                <Route path="/trigger_run_history" element={<IFTTTTriggerRunHistory />} />
+                <Route path="/action_run_history" element={<IFTTTActionRunHistory />} />
+                <Route path="/create_new_trigger" element={<IFTTTCreateNewTrigger />} />
+                <Route path="/create_new_action" element={<IFTTTCreateNewAction />} />
+                <Route path="/code_submissions" element={<IFTTTCodeSubmissions />} />  
+                <Route path="/view_submitted_trigger_details" element={<ViewIFTTTSubmittedTriggerDetails />} />   
+                <Route path="/view_submitted_action_details" element={<ViewIFTTTSubmittedActionDetails />} />              
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
+                <Route path="/gas_cost" element={<GasCost />} />
                 <Route path="/gas_cost_tableview" element={<GasCostTableView />} />
               </Route>
               <Route element={<UnprivatePrivateRoute />}>
