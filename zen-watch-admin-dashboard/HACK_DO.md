@@ -78,6 +78,10 @@ For admin-api-server, run from the root folder:
 npm run build
 pm2 start app.config.json
 
+For marco-bot-server, run from the root folder:
+npm run build
+pm2 start app.config.json
+
 For admin-dashboard, run from the root (make sure to start the admin-api-server before this):
 npm run build
 pm2 start app.config.json
