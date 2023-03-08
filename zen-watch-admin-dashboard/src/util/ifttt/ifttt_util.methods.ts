@@ -42,11 +42,8 @@ export function get_ifttt_batch_processing_status(status: number) {
 }
 
 export function cleanAndParseJSON(rawJSON: any) {
-    console.log("Calling cleanAndParseJSON with rawJSON", rawJSON);
-
     // Remove all whitespace except for whitespace within quotes
     const cleanedInput = rawJSON.replace(/(?!\B"[^"]*)\s+(?![^"]*"\B)/g, "");
-    console.log("cleanedInput", cleanedInput);
 
     // Convert to valid json
     const transformedJsonInput = cleanedInput
@@ -59,15 +56,12 @@ export function cleanAndParseJSON(rawJSON: any) {
         /,\s*([\]}])/g,
         "$1"
     );
-    console.log("noTrailingCommaInput", noTrailingCommaInput);
 
     try {
         const parsedInput = JSON.parse(noTrailingCommaInput);
-        console.log("parsedInput", parsedInput);
         return parsedInput;
     } catch (e) {
         console.log(e);
-        console.error(`Error parsing JSON: ${e}`);
         return null;
     }
 }
