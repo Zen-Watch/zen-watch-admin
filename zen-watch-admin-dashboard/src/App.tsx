@@ -23,6 +23,7 @@ import CreateIFTTTInstanceSelectActionWrapper from "./scenes/ifttt/create_instan
 import MessagePage from "./components/MessagePage";
 import ViewIFTTTSubmittedTriggerDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_submitted_code_details";
 import ViewIFTTTSubmittedActionDetails from "./scenes/ifttt/detailed_profile_views/view_action_submitted_code_details";
+import ViewIFTTTTriggerRunHistoryDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_run_history_details";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -51,7 +52,8 @@ function App() {
                 <Route path="/create_new_action" element={<IFTTTCreateNewAction />} />
                 <Route path="/code_submissions" element={<IFTTTCodeSubmissions />} />  
                 <Route path="/view_submitted_trigger_details" element={<ViewIFTTTSubmittedTriggerDetails />} />   
-                <Route path="/view_submitted_action_details" element={<ViewIFTTTSubmittedActionDetails />} />              
+                <Route path="/view_submitted_action_details" element={<ViewIFTTTSubmittedActionDetails />} /> 
+                <Route path="/view_trigger_run_history_details" element={<ViewIFTTTTriggerRunHistoryDetails />} />                
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
                 <Route path="/gas_cost" element={<GasCost />} />
                 <Route path="/gas_cost_tableview" element={<GasCostTableView />} />
