@@ -345,7 +345,7 @@ export default function SelectIFTTTAction() {
                   </Typography>
                 </Box>
 
-                <Box sx={{ marginBottom: 2 }}>
+                {/* <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     <strong>Signature:</strong>
                   </Typography>
@@ -361,9 +361,9 @@ export default function SelectIFTTTAction() {
                   <Typography variant="body1">
                     {selectedActionDefinition.action_signature_description}
                   </Typography>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ marginBottom: 2 }}>
+                {/* <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     {" "}
                     <strong>Code:</strong>{" "}
@@ -379,7 +379,7 @@ export default function SelectIFTTTAction() {
                       <code>{selectedActionDefinition.action_code}</code>
                     </pre>
                   </Box>
-                </Box>
+                </Box> */}
 
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">

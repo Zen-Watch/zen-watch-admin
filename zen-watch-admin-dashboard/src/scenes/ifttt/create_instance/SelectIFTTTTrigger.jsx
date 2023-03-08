@@ -280,7 +280,7 @@ export default function SelectIFTTTTrigger() {
                   </Typography>
                 </Box>
 
-                <Box sx={{ marginBottom: 2 }}>
+                {/* <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     <strong>Signature:</strong>
                   </Typography>
@@ -296,9 +296,9 @@ export default function SelectIFTTTTrigger() {
                   <Typography variant="body1">
                     {selectedTriggerDefinition.trigger_signature_description}
                   </Typography>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ marginBottom: 2 }}>
+                {/* <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     {" "}
                     <strong>Code:</strong>{" "}
@@ -314,7 +314,7 @@ export default function SelectIFTTTTrigger() {
                       <code>{selectedTriggerDefinition.trigger_code}</code>
                     </pre>
                   </Box>
-                </Box>
+                </Box> */}
 
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">

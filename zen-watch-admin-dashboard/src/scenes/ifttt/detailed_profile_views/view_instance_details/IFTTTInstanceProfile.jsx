@@ -195,11 +195,11 @@ export default function IFTTTInstanceProfile({ data }) {
                   <strong>Target Resource Name:</strong>{" "}
                   {triggerData.target_resource_name}
                 </Typography>
-                <Typography variant="body1">
+                {/* <Typography variant="body1">
                   <strong>Trigger Signature:</strong>{" "}
                   {triggerData.trigger_signature}
-                </Typography>
-                <Typography variant="body1">
+                </Typography> */}
+                {/* <Typography variant="body1">
                   <strong>Trigger Code:</strong>
                 </Typography>
                 <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
@@ -208,7 +208,7 @@ export default function IFTTTInstanceProfile({ data }) {
                       {triggerData.trigger_code}
                     </code>
                   </pre>
-                </Paper>
+                </Paper> */}
                 <Typography variant="body1">
                   <strong>Trigger Expected Output:</strong>{" "}
                   <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
@@ -244,11 +244,11 @@ export default function IFTTTInstanceProfile({ data }) {
                     <strong>Target Resource Name:</strong>{" "}
                     {actionData.target_resource_name}
                   </Typography>
-                  <Typography variant="body1">
+                  {/* <Typography variant="body1">
                     <strong>Action Signature:</strong>{" "}
                     {actionData.action_signature}
-                  </Typography>
-                  <Typography variant="body1">
+                  </Typography> */}
+                  {/* <Typography variant="body1">
                     <strong>Action Code:</strong>
                   </Typography>
                   <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
@@ -257,7 +257,7 @@ export default function IFTTTInstanceProfile({ data }) {
                         {actionData.action_code}
                       </code>
                     </pre>
-                  </Paper>
+                  </Paper> */}
                   <Typography variant="body1">
                     <strong>Action Expected Output:</strong>{" "}
                     <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
