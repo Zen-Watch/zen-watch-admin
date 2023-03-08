@@ -88,10 +88,10 @@ export const tokens = (mode: any) => ({
           100: "#0f2922",
           200: "#1e5245",
           300: "#2e7c67",
-          400: "#3da58a",
-          500: "#4cceac",
+          400: "#3e4296", // originally 3da58a
+          500: "#4cceac", // originally 4cceac
           600: "#70d8bd",
-          700: "#94e2cd",
+          700: "#a4a9fc", // originally 94e2cd
           800: "#b7ebde",
           900: "#dbf5ee",
         },
