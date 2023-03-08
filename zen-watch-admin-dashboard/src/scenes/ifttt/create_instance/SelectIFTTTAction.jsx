@@ -510,6 +510,9 @@ export default function SelectIFTTTAction() {
                   backgroundColor: colors.greenAccent[700],
                   color: colors.grey[100],
                   fontWeight: "bold",
+                  "&:hover": {
+                    bgcolor: "#1976d2",
+                  },  
                 }}
                 variant="contained"
                 onClick={handleCreateIFTTTInstance}

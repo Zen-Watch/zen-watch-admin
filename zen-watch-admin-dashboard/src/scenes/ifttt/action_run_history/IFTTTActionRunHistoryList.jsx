@@ -59,7 +59,9 @@ export default function IFTTTActionRunHistoryList({ items }) {
                     color: colors.grey[100],
                     fontSize: "12px",
                     fontWeight: "bold",
-
+                    "&:hover": {
+                      bgcolor: "#1976d2",
+                    },  
                     m: 1,
                   }}
                   variant="contained"

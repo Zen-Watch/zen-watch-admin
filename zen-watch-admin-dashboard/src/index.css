@@ -26,10 +26,10 @@ body,
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #e0e0e0;
 }
 
 /* Handle on Hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #e0e0e0;
 }

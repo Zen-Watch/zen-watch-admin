@@ -296,6 +296,9 @@ export default function IFTTTInstanceProfile({ data }) {
           color: colors.grey[100],
           fontSize: "12px",
           fontWeight: "bold",
+          "&:hover": {
+            bgcolor: "#1976d2",
+          },  
         }}
         variant="contained"
         color="primary"

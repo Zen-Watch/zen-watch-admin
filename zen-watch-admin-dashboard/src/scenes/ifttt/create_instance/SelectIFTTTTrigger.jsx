@@ -417,6 +417,9 @@ export default function SelectIFTTTTrigger() {
                   backgroundColor: "orange",
                   color: colors.grey[100],
                   fontWeight: "bold",
+                  "&:hover": {
+                    bgcolor: "#1976d2",
+                  },  
                 }}
                 variant="contained"
                 onClick={handleNextClick}

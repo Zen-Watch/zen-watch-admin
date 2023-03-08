@@ -182,6 +182,9 @@ export default function Form() {
                 color: colors.grey[100],
                 fontSize: "14px",
                 fontWeight: "bold",
+                "&:hover": {
+                  bgcolor: "#1976d2",
+                },  
               }}
             >
               {isLogin ? "LOGIN" : "REGISTER"}

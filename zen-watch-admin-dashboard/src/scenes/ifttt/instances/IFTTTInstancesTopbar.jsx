@@ -33,6 +33,9 @@ export default function IFTTTInstancesTopBar() {
               padding: "10px 20px",
               m: 1,
               height: 53,
+              "&:hover": {
+                bgcolor: "#1976d2",
+              },  
             }}
             onClick={handleCreateIFTTTInstance}
           >
