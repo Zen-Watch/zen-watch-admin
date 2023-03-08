@@ -21,7 +21,7 @@ import {
   UNAUTHORIZED_ACCESS,
   ERROR,
 } from "../../../util/constants";
-import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
+import { filter_output_json, cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
   const location = useLocation();
@@ -166,37 +166,6 @@ export default function SelectIFTTTAction() {
     setRawActionInput(rawInput);
   };
 
-  function cleanAndParseJSON(rawJSON) {
-    console.log("Calling cleanAndParseJSON with rawJSON", rawJSON);
-
-    // Remove all whitespace except for whitespace within quotes
-    const cleanedInput = rawJSON.replace(/(?!\B"[^"]*)\s+(?![^"]*"\B)/g, "");
-    console.log("cleanedInput", cleanedInput);
-
-    // Convert to valid json
-    const transformedJsonInput = cleanedInput
-      .replace(/\n|\r|\t/g, "")
-      .replace(/(?:^|\s)(["'[{])/g, "$1")
-      .replace(/(["'\]}])(?:\s|$)/g, "$1");
-
-    // Remove trailing commas
-    const noTrailingCommaInput = transformedJsonInput.replace(
-      /,\s*([\]}])/g,
-      "$1"
-    );
-    console.log("noTrailingCommaInput", noTrailingCommaInput);
-
-    try {
-      const parsedInput = JSON.parse(noTrailingCommaInput);
-      console.log("parsedInput", parsedInput);
-      return parsedInput;
-    } catch (e) {
-      console.log(e);
-      console.error(`Error parsing JSON: ${e}`);
-      return null;
-    }
-  }
-
   const handleAddParameters = () => {
     try {
       const parsedInput = cleanAndParseJSON(rawActionInput);
@@ -205,9 +174,6 @@ export default function SelectIFTTTAction() {
       const selected_action_info = outputJsonCopy.actions_info.find(
         (action_info) => action_info.action_id === selectedActionDefinition.id
       );
-
-      console.log('Adding parameters to action: ', selected_action_info);
-      console.log('Adding parameters to action: ', parsedInput);
 
       selected_action_info.params = parsedInput;
       setOutputJson(outputJsonCopy);

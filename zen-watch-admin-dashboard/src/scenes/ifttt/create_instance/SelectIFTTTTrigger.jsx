@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
+import { filter_output_json, cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTTrigger() {
   const location = useLocation();
@@ -168,10 +168,8 @@ export default function SelectIFTTTTrigger() {
   };
 
   const handleAddParameters = () => {
-    const rawInput = rawTriggerInput;
     try {
-      console.log(rawInput);
-      const parsedInput = JSON.parse(rawInput);
+      const parsedInput = cleanAndParseJSON(rawTriggerInput);
       const outputJsonCopy = JSON.parse(JSON.stringify(outputJson));
       outputJsonCopy.trigger_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
