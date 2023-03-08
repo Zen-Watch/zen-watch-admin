@@ -50,24 +50,24 @@ export function cleanAndParseJSON(rawJSON: any) {
 
     // Convert to valid json
     const transformedJsonInput = cleanedInput
-      .replace(/\n|\r|\t/g, "")
-      .replace(/(?:^|\s)(["'[{])/g, "$1")
-      .replace(/(["'\]}])(?:\s|$)/g, "$1");
+        .replace(/\n|\r|\t/g, "")
+        .replace(/(?:^|\s)(["'[{])/g, "$1")
+        .replace(/(["'\]}])(?:\s|$)/g, "$1");
 
     // Remove trailing commas
     const noTrailingCommaInput = transformedJsonInput.replace(
-      /,\s*([\]}])/g,
-      "$1"
+        /,\s*([\]}])/g,
+        "$1"
     );
     console.log("noTrailingCommaInput", noTrailingCommaInput);
 
     try {
-      const parsedInput = JSON.parse(noTrailingCommaInput);
-      console.log("parsedInput", parsedInput);
-      return parsedInput;
+        const parsedInput = JSON.parse(noTrailingCommaInput);
+        console.log("parsedInput", parsedInput);
+        return parsedInput;
     } catch (e) {
-      console.log(e);
-      console.error(`Error parsing JSON: ${e}`);
-      return null;
+        console.log(e);
+        console.error(`Error parsing JSON: ${e}`);
+        return null;
     }
-  }
+}
