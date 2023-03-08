@@ -10,12 +10,17 @@ import {
   Button,
   Divider,
   Paper,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
-import { STATUS_OK, SUCCESS, UNAUTHORIZED_ACCESS, ERROR } from "../../../util/constants";
+import {
+  STATUS_OK,
+  SUCCESS,
+  UNAUTHORIZED_ACCESS,
+  ERROR,
+} from "../../../util/constants";
 import { filter_output_json } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
@@ -137,11 +142,11 @@ export default function SelectIFTTTAction() {
     );
     setSelectedActionDefinition(selectedActionDefinition);
     // If you change the action reset the json and raw input
-    
+
     const new_action_info = {
       action_id: selectedActionDefinitionId,
       params: {},
-    }
+    };
 
     const _action_output_json = {
       ...outputJson,
@@ -161,16 +166,48 @@ export default function SelectIFTTTAction() {
     setRawActionInput(rawInput);
   };
 
-  const handleAddParameters = () => {
-    const rawInput = rawActionInput;
+  function cleanAndParseJSON(rawJSON) {
+    console.log("Calling cleanAndParseJSON with rawJSON", rawJSON);
+
+    // Remove all whitespace except for whitespace within quotes
+    const cleanedInput = rawJSON.replace(/(?!\B"[^"]*)\s+(?![^"]*"\B)/g, "");
+    console.log("cleanedInput", cleanedInput);
+
+    // Convert to valid json
+    const transformedJsonInput = cleanedInput
+      .replace(/\n|\r|\t/g, "")
+      .replace(/(?:^|\s)(["'[{])/g, "$1")
+      .replace(/(["'\]}])(?:\s|$)/g, "$1");
+
+    // Remove trailing commas
+    const noTrailingCommaInput = transformedJsonInput.replace(
+      /,\s*([\]}])/g,
+      "$1"
+    );
+    console.log("noTrailingCommaInput", noTrailingCommaInput);
+
     try {
-      console.log(rawInput);
-      const parsedInput = JSON.parse(rawInput);
+      const parsedInput = JSON.parse(noTrailingCommaInput);
+      console.log("parsedInput", parsedInput);
+      return parsedInput;
+    } catch (e) {
+      console.log(e);
+      console.error(`Error parsing JSON: ${e}`);
+      return null;
+    }
+  }
+
+  const handleAddParameters = () => {
+    try {
+      const parsedInput = cleanAndParseJSON(rawActionInput);
       const outputJsonCopy = JSON.parse(JSON.stringify(outputJson));
-      
+
       const selected_action_info = outputJsonCopy.actions_info.find(
         (action_info) => action_info.action_id === selectedActionDefinition.id
       );
+
+      console.log('Adding parameters to action: ', selected_action_info);
+      console.log('Adding parameters to action: ', parsedInput);
 
       selected_action_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
@@ -201,51 +238,50 @@ export default function SelectIFTTTAction() {
   async function create_ifttt_instance() {
     const create_ifttt_instance_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/create/ifttt_instance`;
     const payload = { email, ...outputJson };
-    const result = await make_api_request(
-      create_ifttt_instance_url,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    const result = await make_api_request(create_ifttt_instance_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
+      },
+      body: JSON.stringify(payload),
+    });
     return result;
   }
 
   const handleCreateIFTTTInstance = () => {
     const resp = create_ifttt_instance();
     resp
-    .then((result) => {
-      if (result.status === UNAUTHORIZED_ACCESS) {
-        alert(
-          "Unauthorized access, please check your api key or contact support!"
-        );
-        return;
-      } else if (result.status !== STATUS_OK) {
-        alert("API Error, please contact support.");
-        return;
-      }
-      navigate("/status_page", {
-        state: {
-          status: SUCCESS,
-          message: "You successfully created an IFTTT instance!",
-          submessage: "Check the run history pages for more details. You can turn on/off anytime from IFTTT instances page."
-        },
+      .then((result) => {
+        if (result.status === UNAUTHORIZED_ACCESS) {
+          alert(
+            "Unauthorized access, please check your api key or contact support!"
+          );
+          return;
+        } else if (result.status !== STATUS_OK) {
+          alert("API Error, please contact support.");
+          return;
+        }
+        navigate("/status_page", {
+          state: {
+            status: SUCCESS,
+            message: "You successfully created an IFTTT instance!",
+            submessage:
+              "Check the run history pages for more details. You can turn on/off anytime from IFTTT instances page.",
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/status_page", {
+          state: {
+            status: ERROR,
+            message: "You IFTTT instance creation failed!",
+            submessage:
+              "Please contact support@zen.watch or contact us on our discord channel.",
+          },
+        });
       });
-    })
-    .catch((err) => {
-      console.log(err);
-      navigate("/status_page", {
-        state: {
-          status: ERROR,
-          message: "You IFTTT instance creation failed!",
-          submessage: "Please contact support@zen.watch or contact us on our discord channel."
-        },
-      });
-    });
   };
 
   return (
@@ -416,7 +452,8 @@ export default function SelectIFTTTAction() {
                 Enter action input here:
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Comma separated payload inputs, new lines accepted - Ex., a:1, b:2
+                Comma separated payload inputs, new lines accepted - Ex., a:1,
+                b:2
               </Typography>
               <textarea
                 rows={5}
@@ -464,12 +501,15 @@ export default function SelectIFTTTAction() {
                   Add Another Action
                 </Button>
               )} */}
-              <Button sx={{               
-                backgroundColor: colors.greenAccent[700],
-                color: colors.grey[100],
-                fontWeight: "bold",
-              }}
-              variant="contained" onClick={handleCreateIFTTTInstance}>
+              <Button
+                sx={{
+                  backgroundColor: colors.greenAccent[700],
+                  color: colors.grey[100],
+                  fontWeight: "bold",
+                }}
+                variant="contained"
+                onClick={handleCreateIFTTTInstance}
+              >
                 Create IFTTT Instance
               </Button>
             </Box>
