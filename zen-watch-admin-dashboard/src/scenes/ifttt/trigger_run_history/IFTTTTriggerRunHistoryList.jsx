@@ -21,7 +21,7 @@ export default function IFTTTTriggerRunHistoryList({ items }) {
   const headerStyle = { fontSize: 16 };
   const contentStyle = { fontSize: 14 };
 
-  const handleIFTTTRunHistoryDetailsButtonClick = (_item) => {
+  const handleIFTTTTriggerRunHistoryDetailsButtonClick = (_item) => {
     // handle button click here
     navigate("/view_trigger_run_history_details", { state: _item });
   };
@@ -64,7 +64,7 @@ export default function IFTTTTriggerRunHistoryList({ items }) {
                   }}
                   variant="contained"
                   color="primary"
-                  onClick={() => handleIFTTTRunHistoryDetailsButtonClick(_item)}
+                  onClick={() => handleIFTTTTriggerRunHistoryDetailsButtonClick(_item)}
                 >
                   Details
                 </Button>
