@@ -11,13 +11,17 @@ import {
   Button,
   Divider,
   Paper,
-  useTheme
+  useTheme,
 } from "@mui/material";
+import { FileCopy } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import { filter_output_json, cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
+import {
+  filter_output_json,
+  cleanAndParseJSON,
+} from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTTrigger() {
   const location = useLocation();
@@ -34,6 +38,13 @@ export default function SelectIFTTTTrigger() {
   const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawTriggerInput, setRawTriggerInput] = useState({});
   const navigate = useNavigate();
+
+  const [copySuccess, setCopySuccess] = useState("");
+
+  function copyToClipboard(textToCopy) {
+    navigator.clipboard.writeText(textToCopy);
+    setCopySuccess("Copied to clipboard!");
+  }
 
   async function fetch_target_resource_names_for_public_triggers(email) {
     const fetch_ifttt_target_resource_names_for_public_triggers_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/trigger_target_resource_name`;
@@ -152,9 +163,8 @@ export default function SelectIFTTTTrigger() {
         params: {},
       },
       actions_info: [],
-    }
+    };
     setOutputJson(_trigger_output_json);
-    
   };
 
   useEffect(() => {
@@ -183,7 +193,10 @@ export default function SelectIFTTTTrigger() {
 
   const handleNextClick = () => {
     navigate("/create_ifttt_select_action", {
-      state: { outputJson: outputJson, action_count: location.state.action_count },
+      state: {
+        outputJson: outputJson,
+        action_count: location.state.action_count,
+      },
     });
   };
 
@@ -306,6 +319,26 @@ export default function SelectIFTTTTrigger() {
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     <strong>Expected Input:</strong>{" "}
+                    <Button
+                      onClick={() =>
+                        copyToClipboard(
+                          selectedTriggerDefinition.trigger_expected_input
+                        )
+                      }
+                      variant="outlined"
+                      size="small"
+                      startIcon={<FileCopy />}
+                      sx={{
+                        border: "none",
+                        borderBottom: "1px solid",
+                        marginBottom: "-1px",
+                        borderRadius: "0px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Copy to clipboard
+                    </Button>
+                    {copySuccess}
                   </Typography>
                   <Box
                     sx={{
@@ -355,7 +388,8 @@ export default function SelectIFTTTTrigger() {
                 Enter trigger input here:
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Comma separated payload inputs, new lines accepted - Ex., a:1, b:2
+                Comma separated payload inputs, new lines accepted - Ex., a:1,
+                b:2
               </Typography>
               <textarea
                 rows={5}
@@ -371,15 +405,22 @@ export default function SelectIFTTTTrigger() {
                 marginTop: 2,
               }}
             >
-              <Button sx={{ marginRight: 2 }} variant="contained" onClick={handleAddParameters}>
+              <Button
+                sx={{ marginRight: 2 }}
+                variant="contained"
+                onClick={handleAddParameters}
+              >
                 Add Parameters
               </Button>
-              <Button sx={{ 
-                    backgroundColor: 'orange', 
-                    color: colors.grey[100],
-                    fontWeight: "bold",
-                  }}
-                  variant="contained" onClick={handleNextClick}>
+              <Button
+                sx={{
+                  backgroundColor: "orange",
+                  color: colors.grey[100],
+                  fontWeight: "bold",
+                }}
+                variant="contained"
+                onClick={handleNextClick}
+              >
                 Add Action
               </Button>
             </Box>
