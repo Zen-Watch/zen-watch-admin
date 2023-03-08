@@ -12,6 +12,7 @@ import {
   Paper,
   useTheme,
 } from "@mui/material";
+import { FileCopy } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
@@ -38,6 +39,20 @@ export default function SelectIFTTTAction() {
   const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawActionInput, setRawActionInput] = useState({});
   const navigate = useNavigate();
+  const [copySuccess, setCopySuccess] = useState("");
+
+  function copyToClipboard(textToCopy) {
+    let _textToCopy = textToCopy;
+    try {
+      const _json = JSON.parse(textToCopy)
+      _textToCopy = JSON.stringify(_json.params, null, 2)
+    }
+    catch (err) {
+      console.log(err);
+    }
+    navigator.clipboard.writeText(_textToCopy);
+    setCopySuccess("Copied to clipboard!");
+  }
 
   async function fetch_target_resource_names_for_public_actions(email) {
     const fetch_ifttt_target_resource_names_for_public_actions_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/fetch/action_target_resource_name`;
@@ -369,6 +384,29 @@ export default function SelectIFTTTAction() {
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     <strong>Expected Input:</strong>{" "}
+                  </Typography>
+                  <Typography variant="subtitle1" color="red">
+                    Action input contains the user supplied params, as well as trigger output{" "}
+                    <Button
+                      onClick={() =>
+                        copyToClipboard(
+                          selectedActionDefinition.action_expected_input
+                        )
+                      }
+                      variant="outlined"
+                      size="small"
+                      startIcon={<FileCopy />}
+                      sx={{
+                        border: "none",
+                        borderBottom: "1px solid",
+                        marginBottom: "-1px",
+                        borderRadius: "0px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Copy user params to clipboard
+                    </Button>
+                    {copySuccess}
                   </Typography>
                   <Box
                     sx={{
