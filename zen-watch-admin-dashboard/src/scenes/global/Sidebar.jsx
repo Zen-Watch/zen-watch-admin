@@ -98,14 +98,14 @@ export default function Sidebar() {
               Setup IFTTT
             </Typography>
             <Item
-              title="Create IFTTT Instance"
+              title="Create IFTTT Recipe"
               to="/create_ifttt"
               icon={<CreateIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Your IFTTT instances"
+              title="Your IFTTT Recipes"
               to="/ifttt_instances"
               icon={<ToggleOnIcon />}
               selected={selected}

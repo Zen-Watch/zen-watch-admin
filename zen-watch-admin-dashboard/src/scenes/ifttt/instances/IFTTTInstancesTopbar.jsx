@@ -40,7 +40,7 @@ export default function IFTTTInstancesTopBar() {
             onClick={handleCreateIFTTTInstance}
           >
             <AddIcon sx={{ mr: "10px" }} />
-              Create an IFTTT Instance
+              Create an IFTTT Recipe
           </Button>
         </Box>
       </Box>

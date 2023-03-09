@@ -28,7 +28,7 @@ export default function IFTTTInstancesList({ items }) {
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Instances
+        Your IFTTT Recipes
       </Typography>
       <Table>
         <TableHead>

@@ -34,7 +34,7 @@ export default function IFTTTActionRunHistoryList({ items }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={headerStyle}>IFTTT Instance Name</TableCell>
+            <TableCell style={headerStyle}>IFTTT Recipe Name</TableCell>
             <TableCell style={headerStyle}>Action Name</TableCell>
             <TableCell style={headerStyle}>Resource</TableCell>
             <TableCell style={headerStyle}>Schedule Time</TableCell>

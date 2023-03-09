@@ -50,8 +50,8 @@ export default function IFTTTInstances() {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="Your IFTTT Instances"
-          subtitle="Create and manage your IFTTT instances"
+          title="Your IFTTT Recipes"
+          subtitle="Create and manage your IFTTT recipes"
         />
       </Box>
       <IFTTTInstancesTopBar />

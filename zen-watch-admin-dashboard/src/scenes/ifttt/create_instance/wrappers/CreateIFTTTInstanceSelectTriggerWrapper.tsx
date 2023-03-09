@@ -7,7 +7,7 @@ export default function CreateIFTTTInstanceSelectTriggerWrapper() {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Create an IFTTT Instance" subtitle="Create an IFTTT instance using existing triggers and actions" />
+        <Header title="Create an IFTTT Recipe" subtitle="Create an IFTTT recipe using existing triggers and actions" />
       </Box>
       <SelectIFTTTTrigger />
     </Box>

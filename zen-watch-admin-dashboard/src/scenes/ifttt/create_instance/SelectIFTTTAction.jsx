@@ -246,9 +246,9 @@ export default function SelectIFTTTAction() {
         navigate("/status_page", {
           state: {
             status: SUCCESS,
-            message: "You successfully created an IFTTT instance!",
+            message: "You successfully created an IFTTT recipe!",
             submessage:
-              "Check the run history pages for more details. You can turn on/off anytime from IFTTT instances page.",
+              "Check the run history pages for more details. You can turn on/off anytime from IFTTT recipes page.",
           },
         });
       })
@@ -257,7 +257,7 @@ export default function SelectIFTTTAction() {
         navigate("/status_page", {
           state: {
             status: ERROR,
-            message: "You IFTTT instance creation failed!",
+            message: "You IFTTT recipe creation failed!",
             submessage:
               "Please contact support@zen.watch or contact us on our discord channel.",
           },
@@ -517,7 +517,7 @@ export default function SelectIFTTTAction() {
                 variant="contained"
                 onClick={handleCreateIFTTTInstance}
               >
-                Create IFTTT Instance
+                Create IFTTT Recipe
               </Button>
             </Box>
           </Paper>
@@ -525,7 +525,7 @@ export default function SelectIFTTTAction() {
           {outputJson && (
             <Box sx={{ marginTop: 4 }}>
               <Typography variant="h6" gutterBottom>
-                <strong>Your IFTTT Instance</strong>
+                <strong>Your IFTTT Recipe</strong>
               </Typography>
 
               <Box

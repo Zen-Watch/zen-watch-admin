@@ -44,7 +44,7 @@ export default function CreateIFTTTInstanceInfoForm() {
     <Box sx={{ flexGrow: 1 }}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Enter Instance Details
+          Enter Recipe Details
         </Typography>
       </Box>
 
@@ -54,7 +54,7 @@ export default function CreateIFTTTInstanceInfoForm() {
           <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="ifttt-instance-name"
-              label="IFTTT Instance Name"
+              label="IFTTT Recipe Name"
               variant="outlined"
               fullWidth
               value={iftttInstanceName}
@@ -65,7 +65,7 @@ export default function CreateIFTTTInstanceInfoForm() {
           <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="ifttt-instance-description"
-              label="IFTTT Instance Description"
+              label="IFTTT Recipe Description"
               variant="outlined"
               fullWidth
               multiline

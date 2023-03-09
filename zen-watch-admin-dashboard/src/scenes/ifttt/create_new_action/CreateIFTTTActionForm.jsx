@@ -179,7 +179,7 @@ export default function CreateIFTTTActionForm() {
                   name="isPublic"
                 />
               }
-              label="Is Public? (Others can reuse this definition to create their own IFTTT instances)"
+              label="Is Public? (Others can reuse this definition to create their own IFTTT recipes)"
             />
           </Box>
 

@@ -211,7 +211,7 @@ export default function CreateIFTTTTriggerForm() {
                   name="isPublic"
                 />
               }
-              label="Is Public? (Others can reuse this definition to create their own IFTTT instances)"
+              label="Is Public? (Others can reuse this definition to create their own IFTTT Recipes)"
             />
           </Box>
 

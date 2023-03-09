@@ -432,7 +432,7 @@ export default function SelectIFTTTTrigger() {
           {outputJson && (
             <Box sx={{ marginTop: 4 }}>
               <Typography variant="h6" gutterBottom>
-                <strong>Your IFTTT Instance</strong>
+                <strong>Your IFTTT Recipe</strong>
               </Typography>
 
               <Box

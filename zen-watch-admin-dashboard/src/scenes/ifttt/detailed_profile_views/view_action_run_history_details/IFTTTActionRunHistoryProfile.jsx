@@ -45,7 +45,7 @@ export default function IFTTTActionRunHistoryProfile(props) {
 
             <Box sx={{ marginBottom: 2 }}>
               <Typography variant="subtitle2">
-                <strong>IFTTT Instance Name:</strong>{" "}
+                <strong>IFTTT Recipe Name:</strong>{" "}
               </Typography>
               <Typography variant="body1">
                 {data.ifttt_instance_name}
