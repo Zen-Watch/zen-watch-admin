@@ -1,5 +1,5 @@
 import { Box, Typography, Paper } from "@mui/material";
-import {get_ifttt_batch_processing_status} from '../../../../util/ifttt/ifttt_util.methods';
+import {get_ifttt_batch_processing_status, mask_trigger_id_from_trigger_info} from '../../../../util/ifttt/ifttt_util.methods';
 
 export default function IFTTTTriggerRunHistoryProfile(props) {
   const data = props.data;
@@ -51,11 +51,24 @@ export default function IFTTTTriggerRunHistoryProfile(props) {
                 {data.ifttt_instance_name}
               </Typography>
             </Box>
+
+            <Box sx={{ marginBottom: 2 }}>
+              <Typography variant="subtitle2">
+                <strong>Trigger Run Info:</strong>
+              </Typography>
+              <Typography variant="subtitle2" color="red"> Input that triggered your IFTTT recipe </Typography>
+              <Box sx={{ backgroundColor: "black", color: "white", p: 1 }}>
+                <pre>
+                  <code>{mask_trigger_id_from_trigger_info(data.trigger_run_info)}</code>
+                </pre>
+              </Box>
+            </Box>
             
             <Box sx={{ marginBottom: 2 }}>
               <Typography variant="subtitle2">
                 <strong>Trigger Run Output:</strong>
               </Typography>
+              <Typography variant="subtitle2" color="red"> Output from your trigger action / run </Typography>
               <Box sx={{ backgroundColor: "black", color: "white", p: 1 }}>
                 <pre>
                   <code>{JSON.stringify(data.trigger_run_output, null, 2)}</code>

@@ -1,5 +1,5 @@
 import { Box, Typography, Paper } from "@mui/material";
-import {get_ifttt_batch_processing_status} from '../../../../util/ifttt/ifttt_util.methods';
+import {get_ifttt_batch_processing_status, mask_action_id_from_action_info} from '../../../../util/ifttt/ifttt_util.methods';
 
 export default function IFTTTActionRunHistoryProfile(props) {
   const data = props.data;
@@ -51,11 +51,24 @@ export default function IFTTTActionRunHistoryProfile(props) {
                 {data.ifttt_instance_name}
               </Typography>
             </Box>
+
+            <Box sx={{ marginBottom: 2 }}>
+              <Typography variant="subtitle2">
+                <strong>Trigger Run Info:</strong>
+              </Typography>
+              <Typography variant="subtitle2" color="red"> Input to your action activation / run. Combines your custom input and trigger output. </Typography>
+              <Box sx={{ backgroundColor: "black", color: "white", p: 1 }}>
+                <pre>
+                  <code>{mask_action_id_from_action_info(data.action_run_info)}</code>
+                </pre>
+              </Box>
+            </Box>
             
             <Box sx={{ marginBottom: 2 }}>
               <Typography variant="subtitle2">
                 <strong>Action Run Output:</strong>
               </Typography>
+              <Typography variant="subtitle2" color="red"> Output of your action activation / run. </Typography>
               <Box sx={{ backgroundColor: "black", color: "white", p: 1 }}>
                 <pre>
                   <code>{JSON.stringify(data.action_run_output, null, 2)}</code>
