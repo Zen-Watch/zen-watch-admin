@@ -65,3 +65,15 @@ export function cleanAndParseJSON(rawJSON: any) {
         return null;
     }
 }
+
+export function mask_trigger_id_from_trigger_info(trigger_info: any) {
+    const new_trigger_info = JSON.parse(JSON.stringify(trigger_info));
+    delete new_trigger_info.trigger_id;
+    return JSON.stringify(new_trigger_info, null, 2)
+}
+
+export function mask_action_id_from_action_info(action_info: any) {
+    const new_action_info = JSON.parse(JSON.stringify(action_info));
+    delete new_action_info.action_id;
+    return JSON.stringify(new_action_info, null, 2)
+}

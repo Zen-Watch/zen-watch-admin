@@ -357,6 +357,15 @@ export default function SelectIFTTTTrigger() {
 
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
+                    <strong>Expected Input Description:</strong>
+                  </Typography>
+                  <Typography variant="body1">
+                    {selectedTriggerDefinition.trigger_expected_input_description}
+                  </Typography>
+                </Box>
+
+                <Box sx={{ marginBottom: 2 }}>
+                  <Typography variant="subtitle2">
                     <strong>Expected Output:</strong>{" "}
                   </Typography>
                   <Box
@@ -373,6 +382,16 @@ export default function SelectIFTTTTrigger() {
                     </pre>
                   </Box>
                 </Box>
+
+                <Box sx={{ marginBottom: 2 }}>
+                  <Typography variant="subtitle2">
+                    <strong>Expected Output Description:</strong>
+                  </Typography>
+                  <Typography variant="body1">
+                    {selectedTriggerDefinition.trigger_expected_output_description}
+                  </Typography>
+                </Box>    
+
               </Box>
             )}
           </Paper>

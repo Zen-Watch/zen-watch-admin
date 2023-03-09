@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../../app/hooks";
 import { make_api_request } from "../../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../../util/constants";
+import {mask_trigger_id_from_trigger_info, mask_action_id_from_action_info} from "../../../../util/ifttt/ifttt_util.methods";
 
 export default function IFTTTInstanceProfile({ data }) {
   const theme = useTheme();
@@ -138,6 +139,22 @@ export default function IFTTTInstanceProfile({ data }) {
     return result;
   }
 
+  function merge_result_msg_with_action_info(result_msg, actions_info) {
+    if (result_msg.length === 0 || actions_info.length === 0) {
+      return [];
+    }
+    const merged_data = result_msg.map(result_obj => {
+      const action_info_obj = actions_info.find(action_info_obj => action_info_obj.action_id === result_obj.id);
+      if (action_info_obj) {
+        return { ...result_obj,  _masked_action_info: mask_action_id_from_action_info(action_info_obj) };
+      } else {
+        return result_obj;
+      }
+    });
+    console.log('merged_data', merged_data);
+    return merged_data;
+  }
+
   useEffect(() => {
     const action_ids = actions_info.map((_info) => _info.action_id);
     const resp = fetch_action_definition(email, action_ids);
@@ -152,7 +169,8 @@ export default function IFTTTInstanceProfile({ data }) {
           alert("API Error, please contact support.");
           return;
         }
-        setActionsData(result.message);
+        const merged_data = merge_result_msg_with_action_info(result.message, actions_info);
+        setActionsData(merged_data);
       })
       .catch((err) => {
         console.log(err);
@@ -210,6 +228,31 @@ export default function IFTTTInstanceProfile({ data }) {
                   </pre>
                 </Paper> */}
                 <Typography variant="body1">
+                  <strong>Trigger Expected Input:</strong>{" "}
+                  <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
+                    <pre>
+                      <code style={{ color: "#fff" }}>
+                        {triggerData.trigger_expected_input}
+                      </code>
+                    </pre>
+                  </Paper>
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Expected Input Description:</strong>{" "}
+                  {triggerData.trigger_expected_input_description}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Trigger Info:</strong>{" "}
+                  <Typography variant="body1" color="red"> The parameters you passed when creating this recipe </Typography>
+                  <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
+                    <pre>
+                      <code style={{ color: "#fff" }}>
+                        {mask_trigger_id_from_trigger_info(trigger_info)}
+                      </code>
+                    </pre>
+                  </Paper>
+                </Typography>
+                <Typography variant="body1">
                   <strong>Trigger Expected Output:</strong>{" "}
                   <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
                     <pre>
@@ -218,6 +261,10 @@ export default function IFTTTInstanceProfile({ data }) {
                       </code>
                     </pre>
                   </Paper>
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Expected Output Description:</strong>{" "}
+                  {triggerData.trigger_expected_output_description}
                 </Typography>
               </Paper>
             </Grid>
@@ -259,6 +306,31 @@ export default function IFTTTInstanceProfile({ data }) {
                     </pre>
                   </Paper> */}
                   <Typography variant="body1">
+                    <strong>Action Expected Input:</strong>{" "}
+                    <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
+                      <pre>
+                        <code style={{ color: "#fff" }}>
+                          {actionData.action_expected_input}
+                        </code>
+                      </pre>
+                    </Paper>
+                  </Typography>
+                  <Typography variant="body1">
+                  <strong>Expected Input Description:</strong>{" "}
+                  {actionData.action_expected_input_description}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Action Info:</strong>{" "}
+                  <Typography variant="body1" color="red"> The parameters you passed when creating this recipe </Typography>
+                  <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
+                    <pre>
+                      <code style={{ color: "#fff" }}>
+                        {actionData._masked_action_info}
+                      </code>
+                    </pre>
+                  </Paper>
+                </Typography>
+                  <Typography variant="body1">
                     <strong>Action Expected Output:</strong>{" "}
                     <Paper sx={{ padding: 2, backgroundColor: "#000" }}>
                       <pre>
@@ -268,6 +340,10 @@ export default function IFTTTInstanceProfile({ data }) {
                       </pre>
                     </Paper>
                   </Typography>
+                  <Typography variant="body1">
+                  <strong>Expected Output Description:</strong>{" "}
+                  {actionData.action_expected_output_description}
+                </Typography>
                 </Paper>
               </Grid>
             </Grid>
