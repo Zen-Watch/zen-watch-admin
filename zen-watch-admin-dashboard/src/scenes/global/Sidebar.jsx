@@ -93,7 +93,7 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? "undefined" : "10%"}>
-          <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -121,7 +121,7 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider />
+            <Divider /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -180,7 +180,7 @@ export default function Sidebar() {
               setSelected={setSelected}
             />
             <Divider />
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -223,7 +223,7 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider />
+            <Divider /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
