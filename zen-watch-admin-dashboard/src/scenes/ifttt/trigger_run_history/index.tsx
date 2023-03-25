@@ -5,6 +5,7 @@ import { make_api_request } from "../../../util/common_util.methods";
 import { useAppSelector } from "../../../app/hooks";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 import IFTTTTriggerRunHistoryList from "./IFTTTTriggerRunHistoryList";
+import IFTTTTriggerRunHistoryListWithPagination from "./IFTTTTriggerRunHistoryListWithPagination";
 
 export default function IFTTTTriggerRunHistory() {
   const email = useAppSelector((state) => state.app.email);
@@ -53,7 +54,7 @@ export default function IFTTTTriggerRunHistory() {
           subtitle="History of all your IFTTT trigger activations"
         />
       </Box>
-      {data && <IFTTTTriggerRunHistoryList items={data} />}
+      {data && <IFTTTTriggerRunHistoryListWithPagination items={data} />}
     </Box>
   );
 }
