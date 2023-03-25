@@ -21,10 +21,17 @@ import CreateIFTTTInstanceInfoFormWrapper from "./scenes/ifttt/create_instance/w
 import CreateIFTTTInstanceSelectTriggerWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectTriggerWrapper";
 import CreateIFTTTInstanceSelectActionWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectActionWrapper";
 import MessagePage from "./components/MessagePage";
+import CommunityStoreFront from "./scenes/community/storefront";
 import ViewIFTTTSubmittedTriggerDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_submitted_code_details";
 import ViewIFTTTSubmittedActionDetails from "./scenes/ifttt/detailed_profile_views/view_action_submitted_code_details";
 import ViewIFTTTTriggerRunHistoryDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_run_history_details";
 import ViewIFTTTActionRunHistoryDetails from "./scenes/ifttt/detailed_profile_views/view_action_run_history_details";
+import ProtocolManuals from "./scenes/community/protocol_manuals";
+import IFTTTRecipeTutorials from "./scenes/community/recipe_tutorials";
+import CreateCloudFunction from "./scenes/function/create_cloud_function";
+import DeployCloudFunction from "./scenes/function/deploy_cloud_function";
+import YourCloudFunctions from "./scenes/function/your_cloud_function";
+import AppEventsSQLEditor from "./scenes/events/sql_editor";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -55,7 +62,18 @@ function App() {
                 <Route path="/view_submitted_trigger_details" element={<ViewIFTTTSubmittedTriggerDetails />} />   
                 <Route path="/view_submitted_action_details" element={<ViewIFTTTSubmittedActionDetails />} /> 
                 <Route path="/view_trigger_run_history_details" element={<ViewIFTTTTriggerRunHistoryDetails />} />  
-                <Route path="/view_action_run_history_details" element={<ViewIFTTTActionRunHistoryDetails />} />                  
+                <Route path="/view_action_run_history_details" element={<ViewIFTTTActionRunHistoryDetails />} /> 
+
+                <Route path="/storefront" element={<CommunityStoreFront />} />
+                <Route path="/protocol_manuals" element={<ProtocolManuals />} />
+                <Route path="/recipe_tutorials" element={<IFTTTRecipeTutorials />} />
+
+                <Route path="/create_cloud_function" element={<CreateCloudFunction />} />
+                <Route path="/deploy_cloud_function" element={<DeployCloudFunction />} />
+                <Route path="/your_cloud_functions" element={<YourCloudFunctions />} />
+
+                <Route path="/app_events_sql_editor" element={<AppEventsSQLEditor />} />
+
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
                 <Route path="/gas_cost" element={<GasCost />} />
                 <Route path="/gas_cost_tableview" element={<GasCostTableView />} />

@@ -4,7 +4,10 @@ import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
+import SchoolIcon from '@mui/icons-material/School';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import CreateIcon from '@mui/icons-material/Create';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
@@ -90,12 +93,41 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? "undefined" : "10%"}>
+          <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Community
+            </Typography>
+            <Item
+              title="Storefront"
+              to="/storefront"
+              icon={<StorefrontIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Protocol Manuals"
+              to="/protocol_manuals"
+              icon={<MenuBookIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Recipe Tutorials"
+              to="/recipe_tutorials"
+              icon={<SchoolIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Setup IFTTT
+              Recipe
             </Typography>
             <Item
               title="Create IFTTT Recipe"
@@ -125,12 +157,13 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Create IFTTT
+              Template
             </Typography>
             <Item
               title="Create New Trigger"
@@ -146,38 +179,31 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Divider />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Setup Bots
+              Function
             </Typography>
             <Item
-              title="Deploy a Bot"
-              to="/create_ifttt"
+              title="Deploy a Function"
+              to="/deploy_cloud_function"
               icon={<PrecisionManufacturingIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Your Bots"
-              to="/ifttt_instances"
+              title="Your Functions"
+              to="/your_cloud_functions"
               icon={<DynamicFormIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Create Bots
-            </Typography>
             <Item
-              title="Create a Bot"
-              to="/create_ifttt"
+              title="Create a Function"
+              to="/create_cloud_function"
               icon={<SmartToyIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -188,15 +214,15 @@ export default function Sidebar() {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              App Events
+              Events
             </Typography>
             <Item
               title="SQL Editor"
-              to="/create_ifttt"
+              to="/app_events_sql_editor"
               icon={<QueryStatsIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             <Divider />
             <Typography
               variant="h6"
