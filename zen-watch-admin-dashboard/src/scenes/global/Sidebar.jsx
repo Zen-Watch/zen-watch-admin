@@ -101,8 +101,8 @@ export default function Sidebar() {
               Community
             </Typography>
             <Item
-              title="Storefront"
-              to="/storefront"
+              title="Showcase"
+              to="/showcase"
               icon={<StorefrontIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -8,7 +8,7 @@ export default function AppEventsSQLEditor() {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="App Events SQL Editor"
-          subtitle="Visualize your app events in SQL"
+          subtitle="Visualize your app events in SQL, set up alerts or invoke cloud functions when certain events occur"
         />
       </Box>
     </Box>

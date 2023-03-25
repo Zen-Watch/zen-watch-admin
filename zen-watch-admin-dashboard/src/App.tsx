@@ -21,7 +21,7 @@ import CreateIFTTTInstanceInfoFormWrapper from "./scenes/ifttt/create_instance/w
 import CreateIFTTTInstanceSelectTriggerWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectTriggerWrapper";
 import CreateIFTTTInstanceSelectActionWrapper from "./scenes/ifttt/create_instance/wrappers/CreateIFTTTInstanceSelectActionWrapper";
 import MessagePage from "./components/MessagePage";
-import CommunityStoreFront from "./scenes/community/storefront";
+import CommunityShowcase from "./scenes/community/showcase";
 import ViewIFTTTSubmittedTriggerDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_submitted_code_details";
 import ViewIFTTTSubmittedActionDetails from "./scenes/ifttt/detailed_profile_views/view_action_submitted_code_details";
 import ViewIFTTTTriggerRunHistoryDetails from "./scenes/ifttt/detailed_profile_views/view_trigger_run_history_details";
@@ -64,7 +64,7 @@ function App() {
                 <Route path="/view_trigger_run_history_details" element={<ViewIFTTTTriggerRunHistoryDetails />} />  
                 <Route path="/view_action_run_history_details" element={<ViewIFTTTActionRunHistoryDetails />} /> 
 
-                <Route path="/storefront" element={<CommunityStoreFront />} />
+                <Route path="/showcase" element={<CommunityShowcase />} />
                 <Route path="/protocol_manuals" element={<ProtocolManuals />} />
                 <Route path="/recipe_tutorials" element={<IFTTTRecipeTutorials />} />
 
