@@ -4,9 +4,8 @@ import Header from "../../../components/Header";
 import { make_api_request } from "../../../util/common_util.methods";
 import { useAppSelector } from "../../../app/hooks";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import IFTTTTriggerCodeSubmissionHistoryList from "./IFTTTTriggerCodeSubmissionHistoryList";
-import IFTTTActionCodeSubmissionHistoryList from "./IFTTTActionCodeSubmissionHistoryList";
-
+import IFTTTTriggerCodeSubmissionHistoryListWithPagination from "./IFTTTTriggerCodeSubmissionHistoryListWithPagination";
+import IFTTTActionCodeSubmissionHistoryListWithPagination from "./IFTTTActionCodeSubmissionHistoryListWithPagination";
 
 export default function IFTTTCodeSubmissions() {
   const email = useAppSelector((state) => state.app.email);
@@ -100,10 +99,10 @@ export default function IFTTTCodeSubmissions() {
         </Tabs>
       </Box>
       {selectedTab === 0 && triggerData && (
-        <IFTTTTriggerCodeSubmissionHistoryList items={triggerData} />
+        <IFTTTTriggerCodeSubmissionHistoryListWithPagination items={triggerData} />
       )}
       {selectedTab === 1 && actionData && (
-        <IFTTTActionCodeSubmissionHistoryList items={actionData} />
+        <IFTTTActionCodeSubmissionHistoryListWithPagination items={actionData} />
       )}
       {/* {selectedTab === 2 && botData && (
         <IFTTTTBDRunHistoryList items={botData} />
