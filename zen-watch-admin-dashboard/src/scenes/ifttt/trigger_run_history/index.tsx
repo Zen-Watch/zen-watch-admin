@@ -4,7 +4,6 @@ import Header from "../../../components/Header";
 import { make_api_request } from "../../../util/common_util.methods";
 import { useAppSelector } from "../../../app/hooks";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import IFTTTTriggerRunHistoryList from "./IFTTTTriggerRunHistoryList";
 import IFTTTTriggerRunHistoryListWithPagination from "./IFTTTTriggerRunHistoryListWithPagination";
 
 export default function IFTTTTriggerRunHistory() {

@@ -5,22 +5,23 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
   Button,
   useTheme,
+  Typography,
   TextField,
   TablePagination,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { get_ifttt_batch_processing_status } from "../../../util/ifttt/ifttt_util.methods";
 import { tokens } from "../../../theme";
 
-export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
+export default function IFTTTInstancesListWithPagination({ items }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     setFilteredItems(
@@ -29,7 +30,7 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
           _item.ifttt_instance_name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
-          _item.ifttt_trigger_name
+          _item.ifttt_instance_description
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
           _item.trigger_target_resource_name
@@ -52,19 +53,17 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
     setSearchTerm(event.target.value);
   };
 
-  const handleIFTTTTriggerRunHistoryDetailsButtonClick = (_item) => {
-    navigate("/view_trigger_run_history_details", { state: _item });
+  const handleIFTTTInstancesActionButtonClick = (_item) => {
+    navigate("/view_ifttt_instance", { state: _item });
   };
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const headerStyle = { fontSize: 16 };
   const contentStyle = { fontSize: 14 };
 
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Trigger Run History
+        Your IFTTT Recipes
       </Typography>
       <TextField
         label="Search"
@@ -75,13 +74,11 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={headerStyle}>IFTTT Recipe Name</TableCell>
-            <TableCell style={headerStyle}>Trigger Name</TableCell>
+            <TableCell style={headerStyle}>Name</TableCell>
+            <TableCell style={headerStyle}>Description</TableCell>
             <TableCell style={headerStyle}>Resource</TableCell>
-            <TableCell style={headerStyle}>Schedule Time</TableCell>
-            <TableCell style={headerStyle}>Trigger Time</TableCell>
-            <TableCell style={headerStyle}>Run Status</TableCell>
-            <TableCell style={headerStyle}>Details</TableCell>
+            <TableCell style={headerStyle}>Status</TableCell>
+            <TableCell style={headerStyle}>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -93,15 +90,13 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
                   {_item.ifttt_instance_name}
                 </TableCell>
                 <TableCell style={contentStyle}>
-                  {_item.ifttt_trigger_name}
+                  {_item.ifttt_instance_description}
                 </TableCell>
                 <TableCell style={contentStyle}>
                   {_item.trigger_target_resource_name}
                 </TableCell>
-                <TableCell style={contentStyle}>{_item.created_ts}</TableCell>
-                <TableCell style={contentStyle}>{_item.updated_ts}</TableCell>
                 <TableCell style={contentStyle}>
-                  {get_ifttt_batch_processing_status(_item.trigger_run_status)}
+                  {_item.ifttt_instance_is_on ? "On" : "Off"}
                 </TableCell>
                 <TableCell>
                   <Button
@@ -117,11 +112,11 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
                     }}
                     variant="contained"
                     color="primary"
-                    onClick={() =>
-                      handleIFTTTTriggerRunHistoryDetailsButtonClick(_item)
-                    }
+                    onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
                   >
-                    Details
+                    {_item.ifttt_instance_is_on
+                      ? "Details / Turn Off"
+                      : "Details / Turn On"}
                   </Button>
                 </TableCell>
               </TableRow>

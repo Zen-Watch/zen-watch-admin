@@ -5,7 +5,7 @@ import IFTTTInstancesTopBar from "./IFTTTInstancesTopbar";
 import { make_api_request } from "../../../util/common_util.methods";
 import { useAppSelector } from "../../../app/hooks";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import IFTTTInstancesList from "./IFTTTInstancesList";
+import IFTTTInstancesListWithPagination from "./IFTTTInstancesListWithPagination";
 
 export default function IFTTTInstances() {
   const email = useAppSelector((state) => state.app.email);
@@ -55,7 +55,7 @@ export default function IFTTTInstances() {
         />
       </Box>
       <IFTTTInstancesTopBar />
-      {data && <IFTTTInstancesList items={data} />}
+      {data && <IFTTTInstancesListWithPagination items={data} />}
     </Box>
   );
 }

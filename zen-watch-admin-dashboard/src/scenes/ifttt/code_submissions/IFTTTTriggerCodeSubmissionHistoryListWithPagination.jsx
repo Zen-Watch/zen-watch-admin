@@ -5,36 +5,28 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
   Button,
   useTheme,
+  Typography,
   TextField,
   TablePagination,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { get_ifttt_batch_processing_status } from "../../../util/ifttt/ifttt_util.methods";
 import { tokens } from "../../../theme";
 
-export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
+export default function IFTTTTriggerCodeSubmissionHistoryListWithPagination({ items }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     setFilteredItems(
-      items.filter(
-        (_item) =>
-          _item.ifttt_instance_name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          _item.ifttt_trigger_name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          _item.trigger_target_resource_name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
+      items.filter((_item) =>
+        _item.trigger_name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   }, [searchTerm, items]);
@@ -52,19 +44,17 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
     setSearchTerm(event.target.value);
   };
 
-  const handleIFTTTTriggerRunHistoryDetailsButtonClick = (_item) => {
-    navigate("/view_trigger_run_history_details", { state: _item });
+  const handleIFTTTInstancesActionButtonClick = (_item) => {
+    navigate("/view_submitted_trigger_details", { state: _item });
   };
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const headerStyle = { fontSize: 16 };
   const contentStyle = { fontSize: 14 };
 
   return (
     <div>
       <Typography variant="h4" color={colors.greenAccent[400]}>
-        Your IFTTT Trigger Run History
+        Your IFTTT Trigger Code Submissions
       </Typography>
       <TextField
         label="Search"
@@ -75,13 +65,13 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={headerStyle}>IFTTT Recipe Name</TableCell>
             <TableCell style={headerStyle}>Trigger Name</TableCell>
+            <TableCell style={headerStyle}>Trigger Description</TableCell>
             <TableCell style={headerStyle}>Resource</TableCell>
-            <TableCell style={headerStyle}>Schedule Time</TableCell>
-            <TableCell style={headerStyle}>Trigger Time</TableCell>
-            <TableCell style={headerStyle}>Run Status</TableCell>
-            <TableCell style={headerStyle}>Details</TableCell>
+            <TableCell style={headerStyle}>Availability</TableCell>
+            <TableCell style={headerStyle}>Approval Status</TableCell>
+            <TableCell style={headerStyle}>Created Time</TableCell>
+            <TableCell style={headerStyle}>Profile View</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -89,20 +79,20 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((_item) => (
               <TableRow key={_item.id}>
+                <TableCell style={contentStyle}>{_item.trigger_name}</TableCell>
                 <TableCell style={contentStyle}>
-                  {_item.ifttt_instance_name}
+                  {_item.trigger_description}
                 </TableCell>
                 <TableCell style={contentStyle}>
-                  {_item.ifttt_trigger_name}
+                  {_item.target_resource_name}
                 </TableCell>
                 <TableCell style={contentStyle}>
-                  {_item.trigger_target_resource_name}
+                  {_item.is_public ? "Public" : "Private"}
+                </TableCell>
+                <TableCell style={contentStyle}>
+                  {_item.is_approved ? "Approved" : "Pending"}
                 </TableCell>
                 <TableCell style={contentStyle}>{_item.created_ts}</TableCell>
-                <TableCell style={contentStyle}>{_item.updated_ts}</TableCell>
-                <TableCell style={contentStyle}>
-                  {get_ifttt_batch_processing_status(_item.trigger_run_status)}
-                </TableCell>
                 <TableCell>
                   <Button
                     sx={{
@@ -117,9 +107,7 @@ export default function IFTTTTriggerRunHistoryListWithPagination({ items }) {
                     }}
                     variant="contained"
                     color="primary"
-                    onClick={() =>
-                      handleIFTTTTriggerRunHistoryDetailsButtonClick(_item)
-                    }
+                    onClick={() => handleIFTTTInstancesActionButtonClick(_item)}
                   >
                     Details
                   </Button>
