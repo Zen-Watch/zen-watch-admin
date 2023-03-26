@@ -106,7 +106,7 @@ export default function IFTTTCodeSubmissions() {
         <IFTTTActionCodeSubmissionHistoryList items={actionData} />
       )}
       {/* {selectedTab === 2 && botData && (
-        <IFTTTTriggerRunHistoryList items={botData} />
+        <IFTTTTBDRunHistoryList items={botData} />
       )} */}
     </Box>
   );
