@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS, TBD, SUCCESS, ERROR } from "../../../util/constants";
+import CreateCodeExternalLinkCallout from "../create_code_callout/CreateCodeExternalLinkCallout";
+
 
 /*
 /*
@@ -179,6 +181,8 @@ export default function CreateIFTTTTriggerForm() {
           Create Trigger
         </Typography>
       </Box>
+
+      <CreateCodeExternalLinkCallout data= {{title: 'Want to develop your own trigger code?', subtitle: 'Fork the developer starter kit and start coding!'}}/>
 
       <Box
         sx={{
