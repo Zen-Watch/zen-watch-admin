@@ -180,14 +180,6 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Function
-            </Typography>
             <Item
               title="Deploy a Function"
               to="/deploy_cloud_function"
@@ -215,27 +207,19 @@ export default function Sidebar() {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Events
-            </Typography>
-            <Item
-              title="SQL Editor"
-              to="/app_events_sql_editor"
-              icon={<QueryStatsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Divider />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Console
+              Utility
             </Typography>
             <Item
               title="AI Console"
               to="/ai_developer_console"
               icon={<SmartToyIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="SQL Editor"
+              to="/app_events_sql_editor"
+              icon={<QueryStatsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
