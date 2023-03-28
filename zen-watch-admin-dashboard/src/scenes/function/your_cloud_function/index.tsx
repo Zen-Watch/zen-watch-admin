@@ -8,7 +8,7 @@ export default function YourCloudFunctions() {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="Your Cloud Functions"
-          subtitle="List of all your deployed Cloud Functions"
+          subtitle="List of all your deployed cloud functions"
         />
       </Box>
     </Box>

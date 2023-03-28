@@ -9,7 +9,7 @@ export default function AIDeveloperConsole() {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="AI Powered Developer Console"
-          subtitle="AI Powered Chatbot Code Generator to build custom triggers, actions and functions for your IFTTT recipes"
+          subtitle="AI powered code generator to build custom triggers, actions and functions for your IFTTT recipes"
         />
       </Box>
       <ChatGPTCodeGenerator />
