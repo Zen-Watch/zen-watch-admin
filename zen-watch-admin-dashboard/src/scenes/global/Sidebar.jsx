@@ -7,6 +7,7 @@ import { tokens } from "../../theme";
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import ExtensionIcon from '@mui/icons-material/Extension';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CreateIcon from '@mui/icons-material/Create';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
@@ -180,7 +181,7 @@ export default function Sidebar() {
               setSelected={setSelected}
             />
             <Divider />
-            {/* <Typography
+            <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -204,7 +205,7 @@ export default function Sidebar() {
             <Item
               title="Create a Function"
               to="/create_cloud_function"
-              icon={<SmartToyIcon />}
+              icon={<ExtensionIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -223,7 +224,22 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider /> */}
+            <Divider />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Console
+            </Typography>
+            <Item
+              title="AI Developer Console"
+              to="/ai_developer_console"
+              icon={<SmartToyIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}

@@ -7,7 +7,7 @@ export default function CreateCloudFunction() {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="Create Cloud Functions"
+          title="Create a Cloud Function"
           subtitle="Create and Publish Serverless Functions to the community"
         />
       </Box>

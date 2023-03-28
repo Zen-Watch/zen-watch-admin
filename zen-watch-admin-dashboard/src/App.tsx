@@ -32,6 +32,7 @@ import CreateCloudFunction from "./scenes/function/create_cloud_function";
 import DeployCloudFunction from "./scenes/function/deploy_cloud_function";
 import YourCloudFunctions from "./scenes/function/your_cloud_function";
 import AppEventsSQLEditor from "./scenes/events/sql_editor";
+import AIDeveloperConsole from "./scenes/console/ai_developer_console";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -73,6 +74,7 @@ function App() {
                 <Route path="/your_cloud_functions" element={<YourCloudFunctions />} />
 
                 <Route path="/app_events_sql_editor" element={<AppEventsSQLEditor />} />
+                <Route path="/ai_developer_console" element={<AIDeveloperConsole />} />
 
                 {/* <Route path="/transaction_errors" element={<TransactionErrors />} /> */}
                 <Route path="/gas_cost" element={<GasCost />} />
