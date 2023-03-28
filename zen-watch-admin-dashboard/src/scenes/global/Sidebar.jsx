@@ -233,7 +233,7 @@ export default function Sidebar() {
               Console
             </Typography>
             <Item
-              title="AI Dev Console"
+              title="AI Console"
               to="/ai_developer_console"
               icon={<SmartToyIcon />}
               selected={selected}
