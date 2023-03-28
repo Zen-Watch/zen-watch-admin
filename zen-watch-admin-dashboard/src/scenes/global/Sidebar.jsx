@@ -101,7 +101,7 @@ export default function Sidebar() {
             >
               Community
             </Typography>
-            <Item
+            {/* <Item
               title="Showcase"
               to="/showcase"
               icon={<StorefrontIcon />}
@@ -114,7 +114,7 @@ export default function Sidebar() {
               icon={<MenuBookIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="Recipe Tutorials"
               to="/recipe_tutorials"
@@ -180,7 +180,7 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Deploy a Function"
               to="/deploy_cloud_function"
               icon={<PrecisionManufacturingIcon />}
@@ -193,9 +193,9 @@ export default function Sidebar() {
               icon={<DynamicFormIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title="Create a Function"
+              title="Create New Function"
               to="/create_cloud_function"
               icon={<ExtensionIcon />}
               selected={selected}
@@ -216,13 +216,13 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="SQL Editor"
               to="/app_events_sql_editor"
               icon={<QueryStatsIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Divider />
             <Typography
               variant="h6"
