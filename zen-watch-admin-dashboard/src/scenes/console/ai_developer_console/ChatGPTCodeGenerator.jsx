@@ -87,6 +87,11 @@ export default function ChatGPTCodeGenerator() {
           ChatGPT Code Generator
         </Typography>
       </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Powered by gpt-3.5-turbo
+        </Typography>
+      </Box>
       <Box
         sx={{
           display: "flex",

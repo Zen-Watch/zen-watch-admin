@@ -7,6 +7,7 @@ import { tokens } from "../../theme";
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CreateIcon from '@mui/icons-material/Create';
@@ -101,10 +102,17 @@ export default function Sidebar() {
             >
               Community
             </Typography>
-            {/* <Item
+            <Item
               title="Showcase"
               to="/showcase"
               icon={<StorefrontIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Dapp Manuals"
+              to="/dapp_manuals"
+              icon={<AppShortcutIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -114,7 +122,7 @@ export default function Sidebar() {
               icon={<MenuBookIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             <Item
               title="Recipe Tutorials"
               to="/recipe_tutorials"

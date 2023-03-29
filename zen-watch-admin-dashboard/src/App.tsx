@@ -33,6 +33,7 @@ import DeployCloudFunction from "./scenes/function/deploy_cloud_function";
 import YourCloudFunctions from "./scenes/function/your_cloud_function";
 import AppEventsSQLEditor from "./scenes/events/sql_editor";
 import AIDeveloperConsole from "./scenes/console/ai_developer_console";
+import DappManuals from "./scenes/community/dapp_manuals";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -67,6 +68,7 @@ function App() {
 
                 <Route path="/showcase" element={<CommunityShowcase />} />
                 <Route path="/protocol_manuals" element={<ProtocolManuals />} />
+                <Route path="/dapp_manuals" element={<DappManuals />} />
                 <Route path="/recipe_tutorials" element={<IFTTTRecipeTutorials />} />
 
                 <Route path="/create_cloud_function" element={<CreateCloudFunction />} />
