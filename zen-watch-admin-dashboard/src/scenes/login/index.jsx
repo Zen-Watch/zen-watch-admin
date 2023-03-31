@@ -17,7 +17,7 @@ export default function Login()  {
           Zen.Watch
         </Typography>
         <Typography variant="h3" color={colors.greenAccent[400]}>
-        IFTTT Infrastructure for Dapps, Protocols and Wallets 
+        IFTTT Infrastructure for Dapps, Protocols, Wallets & Traders 
         </Typography>
       </Box>
 
