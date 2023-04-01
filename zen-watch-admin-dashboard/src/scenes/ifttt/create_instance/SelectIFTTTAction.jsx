@@ -214,6 +214,8 @@ export default function SelectIFTTTAction() {
         action_count: location.state.action_count + 1,
       },
     });
+    setRawActionInput("");
+    document.getElementById("action-input").value = ""; // clear action input
   };
 
   async function create_ifttt_instance() {
@@ -479,6 +481,7 @@ export default function SelectIFTTTAction() {
                 b:2
               </Typography>
               <textarea
+                id="action-input"
                 rows={5}
                 cols={50}
                 onChange={handleRawInputChange}
