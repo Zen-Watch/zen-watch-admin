@@ -8,7 +8,7 @@ export default function CommunityShowcase() {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="Community Showcase"
-          subtitle="See what other builders are building, work with other builders to build your custom IFTTT recipes"
+          subtitle="Get feedback from the community, work with other builders to build your custom IFTTT recipes"
         />
       </Box>
     </Box>

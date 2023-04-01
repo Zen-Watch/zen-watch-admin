@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS, TBD, SUCCESS, ERROR } from "../../../util/constants";
+import CreateCodeExternalLinkCallout from "../create_code_callout/CreateCodeExternalLinkCallout";
+
 
 /*
 /*
@@ -180,6 +182,8 @@ export default function CreateIFTTTTriggerForm() {
         </Typography>
       </Box>
 
+      {/* <CreateCodeExternalLinkCallout data= {{title: 'Want to develop your own trigger code?', subtitle: 'Fork the developer starter kit and start coding!'}}/> */}
+
       <Box
         sx={{
           display: "flex",
@@ -189,7 +193,7 @@ export default function CreateIFTTTTriggerForm() {
         }}
       >
         <Paper sx={{ padding: 2, minWidth: 400, width: "98%" }}>
-          <Box sx={{ marginBottom: 2 }}>
+          {/* <Box sx={{ marginBottom: 2 }}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -200,7 +204,7 @@ export default function CreateIFTTTTriggerForm() {
               }
               label="Is this a Push Mechanism based Trigger (Websockets, Event Driven - Ex., On-chain Events)?"
             />
-          </Box>
+          </Box> */}
 
           <Box sx={{ marginBottom: 2 }}>
             <FormControlLabel

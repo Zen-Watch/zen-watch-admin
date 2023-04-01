@@ -7,8 +7,8 @@ export default function DeployCloudFunction() {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="Deploy Cloud Functions"
-          subtitle="Deploy Available Cloud Functions to the AWS Lambda"
+          title="Deploy a Cloud Function"
+          subtitle="Deploy available cloud functions to the AWS lambda"
         />
       </Box>
     </Box>

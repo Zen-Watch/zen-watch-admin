@@ -7,6 +7,8 @@ import { tokens } from "../../theme";
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+import ExtensionIcon from '@mui/icons-material/Extension';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CreateIcon from '@mui/icons-material/Create';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
@@ -108,13 +110,20 @@ export default function Sidebar() {
               setSelected={setSelected}
             />
             <Item
+              title="Dapp Manuals"
+              to="/dapp_manuals"
+              icon={<AppShortcutIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
               title="Protocol Manuals"
               to="/protocol_manuals"
               icon={<MenuBookIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
+            /> */}
+            {/* <Item
               title="Recipe Tutorials"
               to="/recipe_tutorials"
               icon={<SchoolIcon />}
@@ -179,15 +188,7 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider />
-            {/* <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Function
-            </Typography>
-            <Item
+            {/* <Item
               title="Deploy a Function"
               to="/deploy_cloud_function"
               icon={<PrecisionManufacturingIcon />}
@@ -200,30 +201,37 @@ export default function Sidebar() {
               icon={<DynamicFormIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
-              title="Create a Function"
+            /> */}
+            {/* <Item
+              title="Create New Function"
               to="/create_cloud_function"
-              icon={<SmartToyIcon />}
+              icon={<ExtensionIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Divider />
+            /> */}
+            {/* <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Events
+              Utility
             </Typography>
             <Item
+              title="AI Console"
+              to="/ai_developer_console"
+              icon={<SmartToyIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+            {/* <Item
               title="SQL Editor"
               to="/app_events_sql_editor"
               icon={<QueryStatsIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Divider /> */}
+            /> */}
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}

@@ -200,21 +200,23 @@ export default function SelectIFTTTAction() {
     }
   };
 
-  // const removeCurrentActionFromActionsList = () => {
-  //   const new_actions_list = actions.filter((action) => action.id !== selectedActionDefinition.id);
-  //   setActions(new_actions_list);
-  //   setSelectedActionDefinition(null);
-  // }
+  const removeCurrentActionFromActionsList = () => {
+    const new_actions_list = actions.filter((action) => action.id !== selectedActionDefinition.id);
+    setActions(new_actions_list);
+    setSelectedActionDefinition(null);
+  }
 
-  // const handleNextClick = () => {
-  //   removeCurrentActionFromActionsList();
-  //   navigate("/create_ifttt_select_action", {
-  //     state: {
-  //       outputJson: outputJson,
-  //       action_count: location.state.action_count + 1,
-  //     },
-  //   });
-  // };
+  const handleNextClick = () => {
+    removeCurrentActionFromActionsList();
+    navigate("/create_ifttt_select_action", {
+      state: {
+        outputJson: outputJson,
+        action_count: location.state.action_count + 1,
+      },
+    });
+    setRawActionInput("");
+    document.getElementById("action-input").value = ""; // clear action input
+  };
 
   async function create_ifttt_instance() {
     const create_ifttt_instance_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/create/ifttt_instance`;
@@ -479,6 +481,7 @@ export default function SelectIFTTTAction() {
                 b:2
               </Typography>
               <textarea
+                id="action-input"
                 rows={5}
                 cols={50}
                 onChange={handleRawInputChange}
@@ -492,7 +495,7 @@ export default function SelectIFTTTAction() {
             >
               <Typography variant="body1" gutterBottom>
                 Current Action Count: {location.state.action_count} (Max Count:
-                1)
+                3)
               </Typography>
             </Box>
 
@@ -510,20 +513,23 @@ export default function SelectIFTTTAction() {
               >
                 Add Parameters
               </Button>
-              {/* {location.state.action_count < 2 && (
+              {location.state.action_count < 2 && (
                 <Button
                   sx={{ 
                     marginRight: 2,
                     backgroundColor: 'orange', 
                     color: colors.grey[100],
                     fontWeight: "bold",
+                    "&:hover": {
+                      bgcolor: "#1976d2",
+                    },
                   }}
                   variant="contained"
                   onClick={handleNextClick}
                 >
                   Add Another Action
                 </Button>
-              )} */}
+              )}
               <Button
                 sx={{
                   backgroundColor: colors.greenAccent[700],
