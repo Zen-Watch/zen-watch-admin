@@ -182,7 +182,7 @@ export default function CreateIFTTTTriggerForm() {
         </Typography>
       </Box>
 
-      <CreateCodeExternalLinkCallout data= {{title: 'Want to develop your own trigger code?', subtitle: 'Fork the developer starter kit and start coding!'}}/>
+      {/* <CreateCodeExternalLinkCallout data= {{title: 'Want to develop your own trigger code?', subtitle: 'Fork the developer starter kit and start coding!'}}/> */}
 
       <Box
         sx={{
@@ -193,7 +193,7 @@ export default function CreateIFTTTTriggerForm() {
         }}
       >
         <Paper sx={{ padding: 2, minWidth: 400, width: "98%" }}>
-          <Box sx={{ marginBottom: 2 }}>
+          {/* <Box sx={{ marginBottom: 2 }}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -204,7 +204,7 @@ export default function CreateIFTTTTriggerForm() {
               }
               label="Is this a Push Mechanism based Trigger (Websockets, Event Driven - Ex., On-chain Events)?"
             />
-          </Box>
+          </Box> */}
 
           <Box sx={{ marginBottom: 2 }}>
             <FormControlLabel
