@@ -182,7 +182,7 @@ export default function CreateIFTTTTriggerForm() {
         </Typography>
       </Box>
 
-      {/* <CreateCodeExternalLinkCallout data= {{title: 'Want to develop your own trigger code?', subtitle: 'Fork the developer starter kit and start coding!'}}/> */}
+      <CreateCodeExternalLinkCallout data= {{title: 'Want to develop your own trigger code?', subtitle: 'Fork the developer starter kit and start coding!'}}/>
 
       <Box
         sx={{

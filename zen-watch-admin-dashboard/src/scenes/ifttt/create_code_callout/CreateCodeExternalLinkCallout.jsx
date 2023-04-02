@@ -13,7 +13,7 @@ export default function CreateCodeExternalLinkCallout(props) {
   };
 
   const handleGithubExternalLink = () => {
-    window.open("https://github.com/zen-watch", "_blank");
+    window.open("https://github.com/Zen-Watch/zen-watch-ifttt-starter-kit", "_blank");
   };
 
   const handleReplitExternalLink = () => {
