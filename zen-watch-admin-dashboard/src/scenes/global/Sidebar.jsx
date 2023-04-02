@@ -209,7 +209,7 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             /> */}
-            {/* <Divider />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -223,7 +223,7 @@ export default function Sidebar() {
               icon={<SmartToyIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             {/* <Item
               title="SQL Editor"
               to="/app_events_sql_editor"
