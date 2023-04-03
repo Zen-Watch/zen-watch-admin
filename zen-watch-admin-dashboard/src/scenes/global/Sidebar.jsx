@@ -95,13 +95,13 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? "undefined" : "10%"}>
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Community
-            </Typography>
+            </Typography> */}
             {/* <Item
               title="Showcase"
               to="/showcase"
@@ -123,14 +123,14 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             /> */}
-            <Item
+            {/* <Item
               title="Recipe Tutorials"
               to="/recipe_tutorials"
               icon={<SchoolIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider />
+            <Divider /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}

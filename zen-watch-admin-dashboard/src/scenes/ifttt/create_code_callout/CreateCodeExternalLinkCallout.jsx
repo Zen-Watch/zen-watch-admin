@@ -16,6 +16,10 @@ export default function CreateCodeExternalLinkCallout(props) {
     window.open("https://github.com/Zen-Watch/zen-watch-ifttt-starter-kit", "_blank");
   };
 
+  const handleGPTGithubExternalLink = () => {
+    window.open("https://github.com/Zen-Watch/zen-watch-ask-gpt-starter-kit", "_blank");
+  };
+
   const handleReplitExternalLink = () => {
     window.open(
       "https://replit.com/@MarcoN4/ZenWatch-IFTTT-Starter-Kit",
@@ -80,7 +84,10 @@ export default function CreateCodeExternalLinkCallout(props) {
         </Box>
         <Box sx={{ display: "flex", gap: "16px" }}>
           <Button variant="contained" onClick={handleAskGPTLink}>
-            ASK GPT 
+            ASK GPT ONLINE CONSOLE
+          </Button>
+          <Button variant="contained" onClick={handleGPTGithubExternalLink}>
+            DOWNLOAD ASK GPT TERMINAL FROM GITHUB
           </Button>
         </Box>
       </Box>
