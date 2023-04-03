@@ -1,12 +1,6 @@
 // ChatGPTCodeGenerator.js
 import { useState } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
@@ -23,21 +17,18 @@ export default function ChatGPTCodeGenerator() {
 
   async function ask_gpt(email) {
     const ask_gpt_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/ask/gpt`;
-    const payload = { 
+    const payload = {
       email: email,
-      prompt: promptText, 
+      prompt: promptText,
     };
-    const result = await make_api_request(
-      ask_gpt_url,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    const result = await make_api_request(ask_gpt_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
+      },
+      body: JSON.stringify(payload),
+    });
     return result;
   }
 
@@ -51,7 +42,7 @@ export default function ChatGPTCodeGenerator() {
 
     try {
       const response = await ask_gpt(email);
-      console.log(response)
+      console.log(response);
       clearInterval(progressInterval);
       setProgress(0);
 
@@ -67,8 +58,8 @@ export default function ChatGPTCodeGenerator() {
         return;
       }
     } catch (error) {
-        alert("Unknown Error, possibly Network Error, please contact support.");
-        return;
+      alert("Unknown Error, possibly Network Error, please contact support.");
+      return;
     }
   };
 
@@ -135,14 +126,24 @@ export default function ChatGPTCodeGenerator() {
                   ⏳
                 </span>
               </Typography>
-              <pre>
-                [{"".padStart(progress / 2, "=").padEnd(10, " ")}]
-              </pre>
+              <pre>[{"".padStart(progress / 2, "=").padEnd(10, " ")}]</pre>
             </Box>
           )}
 
-          <Box sx={{ marginBottom: 2, marginTop: 4 }}>
-            <pre style={{ backgroundColor: "black", color: "white" }}>
+          <Box
+            sx={{
+              marginBottom: 2,
+              marginTop: 4,
+              border: "1px solid black",
+              overflow: "auto",
+              maxHeight: "500px",
+              maxWidth: "100%",
+              backgroundColor: "black",
+            }}
+          >
+            <pre
+              style={{ backgroundColor: "black", color: "white", margin: 10 }}
+            >
               {generatedCode}
             </pre>
           </Box>
