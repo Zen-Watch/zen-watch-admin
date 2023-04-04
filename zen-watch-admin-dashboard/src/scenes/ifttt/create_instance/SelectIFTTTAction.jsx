@@ -69,6 +69,15 @@ export default function SelectIFTTTAction() {
 
   const [showCode, setShowCode] = useState(false);
 
+  // reset to default function
+  const resetToDefault = () => {
+    setSelectedActionDefinition(null);
+    setOutputJson(location.state.outputJson);
+    setOutputJsonFiltered(location.state.outputJson);
+    setRawActionInput({});
+    setShowCode(false);
+  };
+
   const handleShowCodeClick = () => {
     setShowCode(!showCode);
   };
@@ -179,6 +188,7 @@ export default function SelectIFTTTAction() {
   }, [email, selectedTargetResourceName]);
 
   const handleResourceChange = (event) => {
+    resetToDefault();
     setSelectedTargetResourceName(event.target.value);
   };
 
@@ -201,6 +211,7 @@ export default function SelectIFTTTAction() {
 
     _action_output_json.actions_info.push(new_action_info);
     setOutputJson(_action_output_json);
+    setShowCode(false);
   };
 
   useEffect(() => {
@@ -239,6 +250,7 @@ export default function SelectIFTTTAction() {
   }
 
   const handleNextClick = () => {
+    setShowCode(false);
     removeCurrentActionFromActionsList();
     navigate("/create_ifttt_select_action", {
       state: {

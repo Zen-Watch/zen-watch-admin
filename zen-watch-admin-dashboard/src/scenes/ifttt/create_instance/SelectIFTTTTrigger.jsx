@@ -69,6 +69,16 @@ export default function SelectIFTTTTrigger() {
 
   const [showCode, setShowCode] = useState(false);
 
+  // handle reset to defafult state function
+  const resetToDefault = () => {
+    setSelectedTargetResourceName("");
+    setSelectedTriggerDefinition(null);
+    setOutputJson(location.state.outputJson);
+    setOutputJsonFiltered(location.state.outputJson);
+    setRawTriggerInput({});
+    setShowCode(false);
+  };
+
   const handleShowCodeClick = () => {
     setShowCode(!showCode);
   };
@@ -171,6 +181,7 @@ export default function SelectIFTTTTrigger() {
   }, [email, selectedTargetResourceName]);
 
   const handleResourceChange = (event) => {
+    resetToDefault();
     setSelectedTargetResourceName(event.target.value);
   };
 
@@ -197,6 +208,7 @@ export default function SelectIFTTTTrigger() {
       actions_info: [],
     };
     setOutputJson(_trigger_output_json);
+    setShowCode(false);
   };
 
   useEffect(() => {
@@ -224,6 +236,7 @@ export default function SelectIFTTTTrigger() {
   };
 
   const handleNextClick = () => {
+    setShowCode(false);
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,
