@@ -114,7 +114,7 @@ export default function ChatGPTCodeGenerator() {
           {progress > 0 && (
             <Box sx={{ marginTop: 2 }}>
               <Typography variant="body1">
-                ChatGPT is generating the result...{" "}
+                AI is generating the result for you...{" "}
                 <span
                   role="img"
                   aria-label="hourglass"
@@ -127,6 +127,9 @@ export default function ChatGPTCodeGenerator() {
                 </span>
               </Typography>
               <pre>[{"".padStart(progress / 2, "=").padEnd(10, " ")}]</pre>
+              <Typography variant="body1">
+                Could take upto 2 minutes based on the query...{" "}
+              </Typography>
             </Box>
           )}
 
