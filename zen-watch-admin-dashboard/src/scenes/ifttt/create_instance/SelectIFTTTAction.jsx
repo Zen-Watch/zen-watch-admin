@@ -23,7 +23,7 @@ import {
   UNAUTHORIZED_ACCESS,
   ERROR,
 } from "../../../util/constants";
-import { filter_output_json, cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
+import { cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
 import ShowIFTTTActionDefinitionCode from "./ShowIFTTTActionDefinitionCode";
 
 function ShowCodeButton({ onClick, expanded }) {
@@ -62,7 +62,6 @@ export default function SelectIFTTTAction() {
   const [selectedActionDefinition, setSelectedActionDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
-  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawActionInput, setRawActionInput] = useState({});
   const navigate = useNavigate();
   const [copySuccess, setCopySuccess] = useState("");
@@ -77,7 +76,6 @@ export default function SelectIFTTTAction() {
     setSelectedActionDefinition(null);
     const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
     setOutputJson(_tempInitialOutputJson);
-    setOutputJsonFiltered(_tempInitialOutputJson);
     setRawActionInput("");
     document.getElementById("action-input").value = ""; // clear action input
     setShowCode(false);
@@ -201,9 +199,6 @@ export default function SelectIFTTTAction() {
 
   const handleActionChange = (event) => {
 
-    console.log('hen', outputJson);
-    console.log('sheep', initialOutputJson);
-
     const selectedActionDefinitionId = event.target.value;
     const selectedActionDefinition = actions.find(
       (action) => action.id === selectedActionDefinitionId
@@ -226,11 +221,6 @@ export default function SelectIFTTTAction() {
     setOutputJson(_action_output_json);
     setShowCode(false);
   };
-
-  useEffect(() => {
-    const copy_json = filter_output_json(outputJson);
-    setOutputJsonFiltered(copy_json);
-  }, [outputJson]);
 
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
@@ -265,7 +255,6 @@ export default function SelectIFTTTAction() {
 
   const handleNextClick = () => {
     setShowCode(false);
-    console.log('next-action-out', outputJson);
     removeCurrentActionFromActionsList();
     navigate("/create_ifttt_select_action", {
       state: {
@@ -405,42 +394,6 @@ export default function SelectIFTTTAction() {
                     {selectedActionDefinition.action_description}
                   </Typography>
                 </Box>
-
-                {/* <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="subtitle2">
-                    <strong>Signature:</strong>
-                  </Typography>
-                  <Typography variant="body1">
-                    {selectedActionDefinition.action_signature}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="subtitle2">
-                    <strong>Signature Description:</strong>
-                  </Typography>
-                  <Typography variant="body1">
-                    {selectedActionDefinition.action_signature_description}
-                  </Typography>
-                </Box> */}
-
-                {/* <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="subtitle2">
-                    {" "}
-                    <strong>Code:</strong>{" "}
-                  </Typography>
-                  <Box
-                    sx={{
-                      backgroundColor: "black",
-                      color: "white",
-                      p: 1,
-                    }}
-                  >
-                    <pre>
-                      <code>{selectedActionDefinition.action_code}</code>
-                    </pre>
-                  </Box>
-                </Box> */}
 
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
@@ -639,7 +592,6 @@ export default function SelectIFTTTAction() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {/* {JSON.stringify(outputJsonFiltered, null, 2)} */}
                 {JSON.stringify(outputJson, null, 2)}
               </Box>
             </Box>

@@ -19,10 +19,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import {
-  filter_output_json,
-  cleanAndParseJSON,
-} from "../../../util/ifttt/ifttt_util.methods";
+import { cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
 import ShowIFTTTTriggerDefinitionCode from "./ShowIFTTTTriggerDefinitionCode";
 
 function ShowCodeButton({ onClick, expanded }) {
@@ -61,7 +58,6 @@ export default function SelectIFTTTTrigger() {
   const [selectedTriggerDefinition, setSelectedTriggerDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
-  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawTriggerInput, setRawTriggerInput] = useState({});
   const navigate = useNavigate();
 
@@ -78,7 +74,6 @@ export default function SelectIFTTTTrigger() {
     setSelectedTriggerDefinition(null);
     const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
     setOutputJson(_tempInitialOutputJson);
-    setOutputJsonFiltered(_tempInitialOutputJson);
     setRawTriggerInput("");
     document.getElementById("trigger-input").value = ""; // clear trigger input
     setShowCode(false);
@@ -194,9 +189,6 @@ export default function SelectIFTTTTrigger() {
 
   const handleTriggerChange = (event) => {
 
-    console.log('hen', outputJson);
-    console.log('sheep', initialOutputJson);
-
     const selectedTriggerDefinitionId = event.target.value;
     const selectedTriggerDefinition = triggers.find(
       (trigger) => trigger.id === selectedTriggerDefinitionId
@@ -224,11 +216,6 @@ export default function SelectIFTTTTrigger() {
     setShowCode(false);
   };
 
-  useEffect(() => {
-    const copy_json = filter_output_json(outputJson);
-    setOutputJsonFiltered(copy_json);
-  }, [outputJson]);
-
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
     setRawTriggerInput(rawInput);
@@ -253,7 +240,6 @@ export default function SelectIFTTTTrigger() {
     setShowCode(false);
     setRawTriggerInput("");
     document.getElementById("trigger-input").value = ""; // clear trigger input
-    console.log('next-trigger-out', outputJson);
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,
@@ -548,7 +534,6 @@ export default function SelectIFTTTTrigger() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {/* {JSON.stringify(outputJsonFiltered, null, 2)} */}
                 {JSON.stringify(outputJson, null, 2)}
               </Box>
             </Box>
