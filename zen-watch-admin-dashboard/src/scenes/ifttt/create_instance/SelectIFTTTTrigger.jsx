@@ -328,42 +328,6 @@ export default function SelectIFTTTTrigger() {
                   </Typography>
                 </Box>
 
-                {/* <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="subtitle2">
-                    <strong>Signature:</strong>
-                  </Typography>
-                  <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_signature}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="subtitle2">
-                    <strong>Signature Description:</strong>
-                  </Typography>
-                  <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_signature_description}
-                  </Typography>
-                </Box> */}
-
-                {/* <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="subtitle2">
-                    {" "}
-                    <strong>Code:</strong>{" "}
-                  </Typography>
-                  <Box
-                    sx={{
-                      backgroundColor: "black",
-                      color: "white",
-                      p: 1,
-                    }}
-                  >
-                    <pre>
-                      <code>{selectedTriggerDefinition.trigger_code}</code>
-                    </pre>
-                  </Box>
-                </Box> */}
-
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     <strong>Expected Input:</strong>{" "}
