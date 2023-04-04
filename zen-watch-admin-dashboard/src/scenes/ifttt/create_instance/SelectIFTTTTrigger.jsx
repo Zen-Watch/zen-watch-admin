@@ -12,6 +12,7 @@ import {
   Divider,
   Paper,
   useTheme,
+  Collapse,
 } from "@mui/material";
 import { FileCopy } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -22,6 +23,31 @@ import {
   filter_output_json,
   cleanAndParseJSON,
 } from "../../../util/ifttt/ifttt_util.methods";
+import ShowIFTTTTriggerDefinitionCode from "./ShowIFTTTTriggerDefinitionCode";
+
+function ShowCodeButton({ onClick, expanded }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  return (
+    <Button
+      variant="contained"
+      onClick={onClick}
+      sx={{
+        backgroundColor: expanded ? colors.grey[100] : "orange",
+        color: expanded ? colors.grey[900] : colors.grey[100],
+        fontWeight: "bold",
+        width: "100%",
+        marginBottom: 2,
+        "&:hover": {
+          bgcolor: expanded ? colors.grey[200] : "#1976d2",
+        },
+      }}
+    >
+      {expanded ? "Hide Code" : "Show Code"}
+    </Button>
+  );
+}
 
 export default function SelectIFTTTTrigger() {
   const location = useLocation();
@@ -40,6 +66,12 @@ export default function SelectIFTTTTrigger() {
   const navigate = useNavigate();
 
   const [copySuccess, setCopySuccess] = useState("");
+
+  const [showCode, setShowCode] = useState(false);
+
+  const handleShowCodeClick = () => {
+    setShowCode(!showCode);
+  };
 
   function copyToClipboard(textToCopy) {
     navigator.clipboard.writeText(textToCopy);
@@ -360,7 +392,9 @@ export default function SelectIFTTTTrigger() {
                     <strong>Expected Input Description:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_expected_input_description}
+                    {
+                      selectedTriggerDefinition.trigger_expected_input_description
+                    }
                   </Typography>
                 </Box>
 
@@ -388,13 +422,31 @@ export default function SelectIFTTTTrigger() {
                     <strong>Expected Output Description:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_expected_output_description}
+                    {
+                      selectedTriggerDefinition.trigger_expected_output_description
+                    }
                   </Typography>
-                </Box>    
-
+                </Box>
               </Box>
             )}
           </Paper>
+
+          {selectedTriggerDefinition && (
+            <Box sx={{ marginTop: 4 }}>
+              <ShowCodeButton
+                onClick={handleShowCodeClick}
+                expanded={showCode}
+              />
+              <Collapse in={showCode}>
+                <Paper sx={{ padding: 2 }}>
+                  <ShowIFTTTTriggerDefinitionCode
+                    selectedTriggerDefinition={selectedTriggerDefinition}
+                    showCode={showCode}
+                  />
+                </Paper>
+              </Collapse>
+            </Box>
+          )}
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -438,7 +490,7 @@ export default function SelectIFTTTTrigger() {
                   fontWeight: "bold",
                   "&:hover": {
                     bgcolor: "#1976d2",
-                  },  
+                  },
                 }}
                 variant="contained"
                 onClick={handleNextClick}

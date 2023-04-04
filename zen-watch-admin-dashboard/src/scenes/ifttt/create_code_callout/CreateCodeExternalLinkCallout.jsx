@@ -84,7 +84,7 @@ export default function CreateCodeExternalLinkCallout(props) {
         </Box>
         <Box sx={{ display: "flex", gap: "16px" }}>
           <Button variant="contained" onClick={handleAskGPTLink}>
-            AI CONSOLE
+            ASK GPT CONSOLE
           </Button>
           {/* <Button variant="contained" onClick={handleGPTGithubExternalLink}>
             DOWNLOAD ASK GPT TERMINAL FROM GITHUB

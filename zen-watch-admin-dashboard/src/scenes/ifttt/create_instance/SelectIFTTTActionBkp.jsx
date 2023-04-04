@@ -11,7 +11,6 @@ import {
   Divider,
   Paper,
   useTheme,
-  Collapse,
 } from "@mui/material";
 import { FileCopy } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -24,31 +23,6 @@ import {
   ERROR,
 } from "../../../util/constants";
 import { filter_output_json, cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
-import ShowIFTTTActionDefinitionCode from "./ShowIFTTTActionDefinitionCode";
-
-function ShowCodeButton({ onClick, expanded }) {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
-  return (
-    <Button
-      variant="contained"
-      onClick={onClick}
-      sx={{
-        backgroundColor: expanded ? colors.grey[100] : "orange",
-        color: expanded ? colors.grey[900] : colors.grey[100],
-        fontWeight: "bold",
-        width: "100%",
-        marginBottom: 2,
-        "&:hover": {
-          bgcolor: expanded ? colors.grey[200] : "#1976d2",
-        },
-      }}
-    >
-      {expanded ? "Hide Code" : "Show Code"}
-    </Button>
-  );
-}
 
 export default function SelectIFTTTAction() {
   const location = useLocation();
@@ -66,12 +40,6 @@ export default function SelectIFTTTAction() {
   const [rawActionInput, setRawActionInput] = useState({});
   const navigate = useNavigate();
   const [copySuccess, setCopySuccess] = useState("");
-
-  const [showCode, setShowCode] = useState(false);
-
-  const handleShowCodeClick = () => {
-    setShowCode(!showCode);
-  };
 
   function copyToClipboard(textToCopy) {
     let _textToCopy = textToCopy;
@@ -497,22 +465,6 @@ export default function SelectIFTTTAction() {
               </Box>
             )}
           </Paper>
-          {selectedActionDefinition && (
-            <Box sx={{ marginTop: 4 }}>
-              <ShowCodeButton
-                onClick={handleShowCodeClick}
-                expanded={showCode}
-              />
-              <Collapse in={showCode}>
-                <Paper sx={{ padding: 2 }}>
-                  <ShowIFTTTActionDefinitionCode
-                    selectedActionDefinition={selectedActionDefinition}
-                    showCode={showCode}
-                  />
-                </Paper>
-              </Collapse>
-            </Box>
-          )}
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column" }}>

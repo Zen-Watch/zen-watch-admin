@@ -218,7 +218,7 @@ export default function Sidebar() {
               Utility
             </Typography>
             <Item
-              title="AI Console"
+              title="Ask GPT Console"
               to="/ai_developer_console"
               icon={<SmartToyIcon />}
               selected={selected}
