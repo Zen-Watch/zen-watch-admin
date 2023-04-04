@@ -69,13 +69,18 @@ export default function SelectIFTTTTrigger() {
 
   const [showCode, setShowCode] = useState(false);
 
+  const [initialOutputJson, setInitialOutputJson] = useState(location.state.outputJson);
+
+
   // handle reset to defafult state function
   const resetToDefault = () => {
     setSelectedTargetResourceName("");
     setSelectedTriggerDefinition(null);
-    setOutputJson(location.state.outputJson);
-    setOutputJsonFiltered(location.state.outputJson);
-    setRawTriggerInput({});
+    const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
+    setOutputJson(_tempInitialOutputJson);
+    setOutputJsonFiltered(_tempInitialOutputJson);
+    setRawTriggerInput("");
+    document.getElementById("trigger-input").value = ""; // clear trigger input
     setShowCode(false);
   };
 
@@ -107,7 +112,9 @@ export default function SelectIFTTTTrigger() {
 
   useEffect(() => {
     if (location?.state?.outputJson) {
-      setOutputJson(location.state.outputJson);
+      const _temp = JSON.parse(JSON.stringify(location.state.outputJson));
+      setInitialOutputJson(_temp);
+      setOutputJson(_temp);
     }
   }, [location]);
 
@@ -186,6 +193,10 @@ export default function SelectIFTTTTrigger() {
   };
 
   const handleTriggerChange = (event) => {
+
+    console.log('hen', outputJson);
+    console.log('sheep', initialOutputJson);
+
     const selectedTriggerDefinitionId = event.target.value;
     const selectedTriggerDefinition = triggers.find(
       (trigger) => trigger.id === selectedTriggerDefinitionId
@@ -193,8 +204,10 @@ export default function SelectIFTTTTrigger() {
     setSelectedTriggerDefinition(selectedTriggerDefinition);
     // If you change the trigger reset the json and raw input
 
+    const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
+
     const _trigger_output_json = {
-      ...outputJson,
+      ..._tempInitialOutputJson,
       is_trigger_trusted_source: selectedTriggerDefinition.is_trusted_source,
       is_trigger_compute_intensive:
         selectedTriggerDefinition.is_compute_intensive,
@@ -228,6 +241,7 @@ export default function SelectIFTTTTrigger() {
       outputJsonCopy.trigger_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
       setRawTriggerInput("");
+      document.getElementById("trigger-input").value = ""; // clear trigger input
     } catch (err) {
       console.log(err);
       alert("Invalid input, please check your input and try again!");
@@ -237,6 +251,9 @@ export default function SelectIFTTTTrigger() {
 
   const handleNextClick = () => {
     setShowCode(false);
+    setRawTriggerInput("");
+    document.getElementById("trigger-input").value = ""; // clear trigger input
+    console.log('next-trigger-out', outputJson);
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,
@@ -476,6 +493,7 @@ export default function SelectIFTTTTrigger() {
                 b:2
               </Typography>
               <textarea
+                id="trigger-input"
                 rows={5}
                 cols={50}
                 onChange={handleRawInputChange}
@@ -530,7 +548,8 @@ export default function SelectIFTTTTrigger() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJsonFiltered, null, 2)}
+                {/* {JSON.stringify(outputJsonFiltered, null, 2)} */}
+                {JSON.stringify(outputJson, null, 2)}
               </Box>
             </Box>
           )}
