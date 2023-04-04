@@ -101,8 +101,8 @@ export default function Sidebar() {
               sx={{ m: "15px 0 5px 20px" }}
             >
               Community
-            </Typography>
-            <Item
+            </Typography> */}
+            {/* <Item
               title="Showcase"
               to="/showcase"
               icon={<StorefrontIcon />}
@@ -209,7 +209,7 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             /> */}
-            {/* <Divider />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -218,12 +218,12 @@ export default function Sidebar() {
               Utility
             </Typography>
             <Item
-              title="AI Console"
+              title="Ask GPT Console"
               to="/ai_developer_console"
               icon={<SmartToyIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             {/* <Item
               title="SQL Editor"
               to="/app_events_sql_editor"

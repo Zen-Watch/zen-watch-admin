@@ -11,7 +11,6 @@ import {
   Divider,
   Paper,
   useTheme,
-  Collapse,
 } from "@mui/material";
 import { FileCopy } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -23,32 +22,7 @@ import {
   UNAUTHORIZED_ACCESS,
   ERROR,
 } from "../../../util/constants";
-import { cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
-import ShowIFTTTActionDefinitionCode from "./ShowIFTTTActionDefinitionCode";
-
-function ShowCodeButton({ onClick, expanded }) {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
-  return (
-    <Button
-      variant="contained"
-      onClick={onClick}
-      sx={{
-        backgroundColor: expanded ? colors.grey[100] : "orange",
-        color: expanded ? colors.grey[900] : colors.grey[100],
-        fontWeight: "bold",
-        width: "100%",
-        marginBottom: 2,
-        "&:hover": {
-          bgcolor: expanded ? colors.grey[200] : "#1976d2",
-        },
-      }}
-    >
-      {expanded ? "Hide Code" : "Show Code"}
-    </Button>
-  );
-}
+import { filter_output_json, cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
 
 export default function SelectIFTTTAction() {
   const location = useLocation();
@@ -62,28 +36,10 @@ export default function SelectIFTTTAction() {
   const [selectedActionDefinition, setSelectedActionDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
+  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawActionInput, setRawActionInput] = useState({});
   const navigate = useNavigate();
   const [copySuccess, setCopySuccess] = useState("");
-
-  const [showCode, setShowCode] = useState(false);
-
-  const [initialOutputJson, setInitialOutputJson] = useState(location.state.outputJson);
-
-
-  // reset to default function
-  const resetToDefault = () => {
-    setSelectedActionDefinition(null);
-    const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
-    setOutputJson(_tempInitialOutputJson);
-    setRawActionInput("");
-    document.getElementById("action-input").value = ""; // clear action input
-    setShowCode(false);
-  };
-
-  const handleShowCodeClick = () => {
-    setShowCode(!showCode);
-  };
 
   function copyToClipboard(textToCopy) {
     let _textToCopy = textToCopy;
@@ -117,9 +73,7 @@ export default function SelectIFTTTAction() {
 
   useEffect(() => {
     if (location?.state?.outputJson) {
-      const _temp = JSON.parse(JSON.stringify(location.state.outputJson));
-      setInitialOutputJson(_temp);
-      setOutputJson(_temp);
+      setOutputJson(location.state.outputJson);
     }
   }, [location]);
 
@@ -193,12 +147,10 @@ export default function SelectIFTTTAction() {
   }, [email, selectedTargetResourceName]);
 
   const handleResourceChange = (event) => {
-    resetToDefault();
     setSelectedTargetResourceName(event.target.value);
   };
 
   const handleActionChange = (event) => {
-
     const selectedActionDefinitionId = event.target.value;
     const selectedActionDefinition = actions.find(
       (action) => action.id === selectedActionDefinitionId
@@ -211,16 +163,18 @@ export default function SelectIFTTTAction() {
       params: {},
     };
 
-    const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
-
     const _action_output_json = {
-      ..._tempInitialOutputJson,
+      ...outputJson,
     };
 
     _action_output_json.actions_info.push(new_action_info);
     setOutputJson(_action_output_json);
-    setShowCode(false);
   };
+
+  useEffect(() => {
+    const copy_json = filter_output_json(outputJson);
+    setOutputJsonFiltered(copy_json);
+  }, [outputJson]);
 
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
@@ -239,7 +193,6 @@ export default function SelectIFTTTAction() {
       selected_action_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
       setRawActionInput("");
-      document.getElementById("action-input").value = ""; // clear action input
     } catch (err) {
       console.log(err);
       alert("Invalid input, please check your input and try again!");
@@ -254,7 +207,6 @@ export default function SelectIFTTTAction() {
   }
 
   const handleNextClick = () => {
-    setShowCode(false);
     removeCurrentActionFromActionsList();
     navigate("/create_ifttt_select_action", {
       state: {
@@ -395,6 +347,42 @@ export default function SelectIFTTTAction() {
                   </Typography>
                 </Box>
 
+                {/* <Box sx={{ marginBottom: 2 }}>
+                  <Typography variant="subtitle2">
+                    <strong>Signature:</strong>
+                  </Typography>
+                  <Typography variant="body1">
+                    {selectedActionDefinition.action_signature}
+                  </Typography>
+                </Box>
+
+                <Box sx={{ marginBottom: 2 }}>
+                  <Typography variant="subtitle2">
+                    <strong>Signature Description:</strong>
+                  </Typography>
+                  <Typography variant="body1">
+                    {selectedActionDefinition.action_signature_description}
+                  </Typography>
+                </Box> */}
+
+                {/* <Box sx={{ marginBottom: 2 }}>
+                  <Typography variant="subtitle2">
+                    {" "}
+                    <strong>Code:</strong>{" "}
+                  </Typography>
+                  <Box
+                    sx={{
+                      backgroundColor: "black",
+                      color: "white",
+                      p: 1,
+                    }}
+                  >
+                    <pre>
+                      <code>{selectedActionDefinition.action_code}</code>
+                    </pre>
+                  </Box>
+                </Box> */}
+
                 <Box sx={{ marginBottom: 2 }}>
                   <Typography variant="subtitle2">
                     <strong>Expected Input:</strong>{" "}
@@ -477,22 +465,6 @@ export default function SelectIFTTTAction() {
               </Box>
             )}
           </Paper>
-          {selectedActionDefinition && (
-            <Box sx={{ marginTop: 4 }}>
-              <ShowCodeButton
-                onClick={handleShowCodeClick}
-                expanded={showCode}
-              />
-              <Collapse in={showCode}>
-                <Paper sx={{ padding: 2 }}>
-                  <ShowIFTTTActionDefinitionCode
-                    selectedActionDefinition={selectedActionDefinition}
-                    showCode={showCode}
-                  />
-                </Paper>
-              </Collapse>
-            </Box>
-          )}
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -592,7 +564,7 @@ export default function SelectIFTTTAction() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJson, null, 2)}
+                {JSON.stringify(outputJsonFiltered, null, 2)}
               </Box>
             </Box>
           )}

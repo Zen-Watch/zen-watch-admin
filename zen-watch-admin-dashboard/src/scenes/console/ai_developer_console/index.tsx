@@ -8,8 +8,8 @@ export default function AIDeveloperConsole() {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="AI Powered Developer Console"
-          subtitle="AI powered code generator to build custom triggers, actions and functions for your IFTTT recipes"
+          title="Ask GPT Console"
+          subtitle="Open AI's Chat GPT powered code generator to build custom triggers, actions and functions for your IFTTT recipes"
         />
       </Box>
       <ChatGPTCodeGenerator />

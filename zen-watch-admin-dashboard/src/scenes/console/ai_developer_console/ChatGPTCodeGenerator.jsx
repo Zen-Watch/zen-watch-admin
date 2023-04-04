@@ -1,97 +1,75 @@
 // ChatGPTCodeGenerator.js
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  MenuItem,
-  Paper,
-  FormControl,
-  InputLabel,
-  Select,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, Typography, TextField, Button, Paper } from "@mui/material";
+import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
 
-const CHATGPT_API_URL = "https://api.example.com/chatgpt/generate_code";
-const TRIGGER_TYPES = [
-  { value: "triggerType1", label: "Trigger Type 1" },
-  { value: "triggerType2", label: "Trigger Type 2" },
-  { value: "triggerType3", label: "Trigger Type 3" },
-];
-
 export default function ChatGPTCodeGenerator() {
-  const [triggerType, setTriggerType] = useState("");
-  const [triggerDefinition, setTriggerDefinition] = useState("");
+  const email = useAppSelector((state) => state.app.email);
   const [promptText, setPromptText] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
-
-  useEffect(() => {
-    if (triggerType) {
-      fetchTriggerDefinition(triggerType);
-    }
-  }, [triggerType]);
-
-  const handleChange = (event) => {
-    setTriggerType(event.target.value);
-  };
+  const [progress, setProgress] = useState(0);
 
   const handlePromptChange = (event) => {
     setPromptText(event.target.value);
   };
 
+  async function ask_gpt(email) {
+    const ask_gpt_url = `${process.env.REACT_APP_ADMIN_BASE_URL}/ifttt/ask/gpt`;
+    const payload = {
+      email: email,
+      prompt: promptText,
+    };
+    const result = await make_api_request(ask_gpt_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "x-api-key": process.env.REACT_APP_ZEN_WATCH_DEV_API_KEY,
+      },
+      body: JSON.stringify(payload),
+    });
+    return result;
+  }
+
   const handleAskGPT = async () => {
+    setProgress(0);
+    const progressInterval = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 100 : prevProgress + 2
+      );
+    }, 500);
+
     try {
-      const response = await make_api_request({
-        url: CHATGPT_API_URL,
-        method: "POST",
-        data: { triggerType, promptText },
-      });
+      const response = await ask_gpt(email);
+      console.log(response);
+      clearInterval(progressInterval);
+      setProgress(0);
 
       if (response.status === STATUS_OK) {
-        setGeneratedCode(response.data.generatedCode);
+        setGeneratedCode(response.message);
       } else if (response.status === UNAUTHORIZED_ACCESS) {
-        // Handle unauthorized access error
+        alert(
+          "Unauthorized access, please check your api key or contact support!"
+        );
+        return;
       } else {
-        // Handle other API errors
+        alert("API Error, please contact support.");
+        return;
       }
     } catch (error) {
-      // Handle network errors
+      alert("Unknown Error, possibly Network Error, please contact support.");
+      return;
     }
   };
 
-  async function fetchTriggerDefinition(triggerType) {
-    try {
-      const response = await make_api_request({
-        url: `https://api.example.com/chatgpt/trigger_definitions/${triggerType}`,
-        method: "GET",
-      });
-
-      if (response.status === STATUS_OK) {
-        setTriggerDefinition(response.data.triggerDefinition);
-      } else if (response.status === UNAUTHORIZED_ACCESS) {
-        // Handle unauthorized access error
-      } else {
-        // Handle other API errors
-      }
-    } catch (error) {
-      // Handle network errors
-    }
-  }
+  const handleClear = () => {
+    setPromptText("");
+    setGeneratedCode("");
+  };
 
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Typography variant="h2" component="h1" gutterBottom>
-          ChatGPT Code Generator
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Powered by gpt-3.5-turbo
-        </Typography>
-      </Box>
       <Box
         sx={{
           display: "flex",
@@ -102,32 +80,13 @@ export default function ChatGPTCodeGenerator() {
       >
         <Paper sx={{ padding: 2, minWidth: 400, width: "98%" }}>
           <Box sx={{ marginBottom: 2 }}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel id="trigger-type-label">Trigger Type</InputLabel>
-              <Select
-                labelId="trigger-type-label"
-                id="trigger-type"
-                value={triggerType}
-                onChange={handleChange}
-                label="Trigger Type"
-              >
-                {TRIGGER_TYPES.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="prompt-text"
               label="Prompt Text"
               variant="outlined"
               fullWidth
-              multiline // Set the multiline prop to enable multiple lines
-              rows={4} // Set the rows prop to the desired height (in this case, 4 lines)
+              multiline
+              rows={4}
               value={promptText}
               onChange={handlePromptChange}
             />
@@ -140,23 +99,56 @@ export default function ChatGPTCodeGenerator() {
               marginTop: 2,
             }}
           >
-            <Button variant="contained" onClick={handleAskGPT}>
+            <Button
+              variant="contained"
+              onClick={handleAskGPT}
+              sx={{ marginRight: 1 }}
+            >
               Ask GPT
+            </Button>
+            <Button variant="outlined" onClick={handleClear}>
+              Clear
             </Button>
           </Box>
 
-          <Box sx={{ marginBottom: 2, marginTop: 4 }}>
-            <Typography variant="h6" component="h2" gutterBottom>
-              Trigger Definition
-            </Typography>
-            <pre>{triggerDefinition}</pre>
-          </Box>
+          {progress > 0 && (
+            <Box sx={{ marginTop: 2 }}>
+              <Typography variant="body1">
+                AI is generating the result for you...{" "}
+                <span
+                  role="img"
+                  aria-label="hourglass"
+                  style={{
+                    animation: "spin 2s linear infinite",
+                    display: "inline-block",
+                  }}
+                >
+                  ⏳
+                </span>
+              </Typography>
+              <pre>[{"".padStart(progress / 2, "=").padEnd(10, " ")}]</pre>
+              <Typography variant="body1">
+                Could take upto 2 minutes based on the query...{" "}
+              </Typography>
+            </Box>
+          )}
 
-          <Box sx={{ marginBottom: 2, marginTop: 4 }}>
-            <Typography variant="h6" component="h2" gutterBottom>
-              Generated Code
-            </Typography>
-            <pre>{generatedCode}</pre>
+          <Box
+            sx={{
+              marginBottom: 2,
+              marginTop: 4,
+              border: "1px solid black",
+              overflow: "auto",
+              maxHeight: "500px",
+              maxWidth: "100%",
+              backgroundColor: "black",
+            }}
+          >
+            <pre
+              style={{ backgroundColor: "black", color: "white", margin: 10 }}
+            >
+              {generatedCode}
+            </pre>
           </Box>
         </Paper>
       </Box>

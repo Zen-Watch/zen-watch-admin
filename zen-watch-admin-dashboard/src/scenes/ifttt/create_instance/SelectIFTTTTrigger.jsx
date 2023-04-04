@@ -12,16 +12,39 @@ import {
   Divider,
   Paper,
   useTheme,
+  Collapse,
 } from "@mui/material";
 import { FileCopy } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { make_api_request } from "../../../util/common_util.methods";
 import { STATUS_OK, UNAUTHORIZED_ACCESS } from "../../../util/constants";
-import {
-  filter_output_json,
-  cleanAndParseJSON,
-} from "../../../util/ifttt/ifttt_util.methods";
+import { cleanAndParseJSON } from "../../../util/ifttt/ifttt_util.methods";
+import ShowIFTTTTriggerDefinitionCode from "./ShowIFTTTTriggerDefinitionCode";
+
+function ShowCodeButton({ onClick, expanded }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  return (
+    <Button
+      variant="contained"
+      onClick={onClick}
+      sx={{
+        backgroundColor: expanded ? colors.grey[100] : "orange",
+        color: expanded ? colors.grey[900] : colors.grey[100],
+        fontWeight: "bold",
+        width: "100%",
+        marginBottom: 2,
+        "&:hover": {
+          bgcolor: expanded ? colors.grey[200] : "#1976d2",
+        },
+      }}
+    >
+      {expanded ? "Hide Code" : "Show Code"}
+    </Button>
+  );
+}
 
 export default function SelectIFTTTTrigger() {
   const location = useLocation();
@@ -35,11 +58,30 @@ export default function SelectIFTTTTrigger() {
   const [selectedTriggerDefinition, setSelectedTriggerDefinition] =
     useState(null);
   const [outputJson, setOutputJson] = useState({});
-  const [outputJsonFiltered, setOutputJsonFiltered] = useState({});
   const [rawTriggerInput, setRawTriggerInput] = useState({});
   const navigate = useNavigate();
 
   const [copySuccess, setCopySuccess] = useState("");
+
+  const [showCode, setShowCode] = useState(false);
+
+  const [initialOutputJson, setInitialOutputJson] = useState(location.state.outputJson);
+
+
+  // handle reset to defafult state function
+  const resetToDefault = () => {
+    setSelectedTargetResourceName("");
+    setSelectedTriggerDefinition(null);
+    const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
+    setOutputJson(_tempInitialOutputJson);
+    setRawTriggerInput("");
+    document.getElementById("trigger-input").value = ""; // clear trigger input
+    setShowCode(false);
+  };
+
+  const handleShowCodeClick = () => {
+    setShowCode(!showCode);
+  };
 
   function copyToClipboard(textToCopy) {
     navigator.clipboard.writeText(textToCopy);
@@ -65,7 +107,9 @@ export default function SelectIFTTTTrigger() {
 
   useEffect(() => {
     if (location?.state?.outputJson) {
-      setOutputJson(location.state.outputJson);
+      const _temp = JSON.parse(JSON.stringify(location.state.outputJson));
+      setInitialOutputJson(_temp);
+      setOutputJson(_temp);
     }
   }, [location]);
 
@@ -139,10 +183,12 @@ export default function SelectIFTTTTrigger() {
   }, [email, selectedTargetResourceName]);
 
   const handleResourceChange = (event) => {
+    resetToDefault();
     setSelectedTargetResourceName(event.target.value);
   };
 
   const handleTriggerChange = (event) => {
+
     const selectedTriggerDefinitionId = event.target.value;
     const selectedTriggerDefinition = triggers.find(
       (trigger) => trigger.id === selectedTriggerDefinitionId
@@ -150,8 +196,10 @@ export default function SelectIFTTTTrigger() {
     setSelectedTriggerDefinition(selectedTriggerDefinition);
     // If you change the trigger reset the json and raw input
 
+    const _tempInitialOutputJson = JSON.parse(JSON.stringify(initialOutputJson));
+
     const _trigger_output_json = {
-      ...outputJson,
+      ..._tempInitialOutputJson,
       is_trigger_trusted_source: selectedTriggerDefinition.is_trusted_source,
       is_trigger_compute_intensive:
         selectedTriggerDefinition.is_compute_intensive,
@@ -165,12 +213,8 @@ export default function SelectIFTTTTrigger() {
       actions_info: [],
     };
     setOutputJson(_trigger_output_json);
+    setShowCode(false);
   };
-
-  useEffect(() => {
-    const copy_json = filter_output_json(outputJson);
-    setOutputJsonFiltered(copy_json);
-  }, [outputJson]);
 
   const handleRawInputChange = (event) => {
     const rawInput = event.target.value;
@@ -184,6 +228,7 @@ export default function SelectIFTTTTrigger() {
       outputJsonCopy.trigger_info.params = parsedInput;
       setOutputJson(outputJsonCopy);
       setRawTriggerInput("");
+      document.getElementById("trigger-input").value = ""; // clear trigger input
     } catch (err) {
       console.log(err);
       alert("Invalid input, please check your input and try again!");
@@ -192,6 +237,9 @@ export default function SelectIFTTTTrigger() {
   };
 
   const handleNextClick = () => {
+    setShowCode(false);
+    setRawTriggerInput("");
+    document.getElementById("trigger-input").value = ""; // clear trigger input
     navigate("/create_ifttt_select_action", {
       state: {
         outputJson: outputJson,
@@ -360,7 +408,9 @@ export default function SelectIFTTTTrigger() {
                     <strong>Expected Input Description:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_expected_input_description}
+                    {
+                      selectedTriggerDefinition.trigger_expected_input_description
+                    }
                   </Typography>
                 </Box>
 
@@ -388,13 +438,31 @@ export default function SelectIFTTTTrigger() {
                     <strong>Expected Output Description:</strong>
                   </Typography>
                   <Typography variant="body1">
-                    {selectedTriggerDefinition.trigger_expected_output_description}
+                    {
+                      selectedTriggerDefinition.trigger_expected_output_description
+                    }
                   </Typography>
-                </Box>    
-
+                </Box>
               </Box>
             )}
           </Paper>
+
+          {selectedTriggerDefinition && (
+            <Box sx={{ marginTop: 4 }}>
+              <ShowCodeButton
+                onClick={handleShowCodeClick}
+                expanded={showCode}
+              />
+              <Collapse in={showCode}>
+                <Paper sx={{ padding: 2 }}>
+                  <ShowIFTTTTriggerDefinitionCode
+                    selectedTriggerDefinition={selectedTriggerDefinition}
+                    showCode={showCode}
+                  />
+                </Paper>
+              </Collapse>
+            </Box>
+          )}
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -411,6 +479,7 @@ export default function SelectIFTTTTrigger() {
                 b:2
               </Typography>
               <textarea
+                id="trigger-input"
                 rows={5}
                 cols={50}
                 onChange={handleRawInputChange}
@@ -438,7 +507,7 @@ export default function SelectIFTTTTrigger() {
                   fontWeight: "bold",
                   "&:hover": {
                     bgcolor: "#1976d2",
-                  },  
+                  },
                 }}
                 variant="contained"
                 onClick={handleNextClick}
@@ -465,7 +534,7 @@ export default function SelectIFTTTTrigger() {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {JSON.stringify(outputJsonFiltered, null, 2)}
+                {JSON.stringify(outputJson, null, 2)}
               </Box>
             </Box>
           )}
