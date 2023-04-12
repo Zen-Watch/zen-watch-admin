@@ -21,6 +21,7 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import DynamicFormIcon from '@mui/icons-material/DynamicForm';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';   
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -101,32 +102,11 @@ export default function Sidebar() {
               sx={{ m: "15px 0 5px 20px" }}
             >
               Community
-            </Typography> */}
-            {/* <Item
+            </Typography>
+            <Item
               title="Showcase"
               to="/showcase"
               icon={<StorefrontIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Dapp Manuals"
-              to="/dapp_manuals"
-              icon={<AppShortcutIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Protocol Manuals"
-              to="/protocol_manuals"
-              icon={<MenuBookIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
-            {/* <Item
-              title="Recipe Tutorials"
-              to="/recipe_tutorials"
-              icon={<SchoolIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -232,6 +212,21 @@ export default function Sidebar() {
               setSelected={setSelected}
             /> */}
             <Divider />
+            {/* <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Workflow
+            </Typography>
+            <Item
+              title="Web3 Builder"
+              to="/showcase"
+              icon={<AccountTreeIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Divider /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
