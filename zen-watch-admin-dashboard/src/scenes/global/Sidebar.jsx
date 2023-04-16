@@ -96,7 +96,7 @@ export default function Sidebar() {
           </MenuItem>
 
           <Box paddingLeft={isCollapsed ? "undefined" : "10%"}>
-            {/* <Typography
+            <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -110,7 +110,14 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Divider /> */}
+            <Item
+              title="Protocol Manuals"
+              to="/showcase"
+              icon={<MenuBookIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Divider />
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -168,27 +175,13 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="Deploy a Function"
-              to="/deploy_cloud_function"
-              icon={<PrecisionManufacturingIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Item
-              title="Your Functions"
-              to="/your_cloud_functions"
-              icon={<DynamicFormIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
-            {/* <Item
-              title="Create New Function"
+              title="Cloud Functions"
               to="/create_cloud_function"
               icon={<ExtensionIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             <Divider />
             <Typography
               variant="h6"
@@ -217,12 +210,26 @@ export default function Sidebar() {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Workflow
+              Cloud Functions
             </Typography>
             <Item
-              title="Web3 Builder"
-              to="/showcase"
-              icon={<AccountTreeIcon />}
+              title="Deploy a Function"
+              to="/deploy_cloud_function"
+              icon={<PrecisionManufacturingIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Your Functions"
+              to="/your_cloud_functions"
+              icon={<DynamicFormIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Create New Function"
+              to="/create_cloud_function"
+              icon={<ExtensionIcon />}
               selected={selected}
               setSelected={setSelected}
             />
