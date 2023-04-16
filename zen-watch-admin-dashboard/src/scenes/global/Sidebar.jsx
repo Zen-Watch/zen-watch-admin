@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import SchoolIcon from '@mui/icons-material/School';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AppShortcutIcon from '@mui/icons-material/AppShortcut';
@@ -103,6 +104,13 @@ export default function Sidebar() {
             >
               Community
             </Typography>
+            <Item
+              title="Proposals"
+              to="/showcase"
+              icon={<AssignmentIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title="Showcase"
               to="/showcase"
