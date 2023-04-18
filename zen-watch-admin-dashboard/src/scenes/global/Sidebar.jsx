@@ -183,10 +183,32 @@ export default function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+            <Divider />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Cloud Functions
+            </Typography>
+            {/* <Item
+              title="Your Functions"
+              to="/your_cloud_functions"
+              icon={<DynamicFormIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
             <Item
-              title="Cloud Functions"
+              title="Create New Function"
               to="/create_cloud_function"
               icon={<ExtensionIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Deploy a Function"
+              to="/deploy_cloud_function"
+              icon={<PrecisionManufacturingIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -213,35 +235,6 @@ export default function Sidebar() {
               setSelected={setSelected}
             /> */}
             <Divider />
-            {/* <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Cloud Functions
-            </Typography>
-            <Item
-              title="Deploy a Function"
-              to="/deploy_cloud_function"
-              icon={<PrecisionManufacturingIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Your Functions"
-              to="/your_cloud_functions"
-              icon={<DynamicFormIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Create New Function"
-              to="/create_cloud_function"
-              icon={<ExtensionIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Divider /> */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
